@@ -250,7 +250,7 @@ void ResetDevice(void)
     DeviceWrite(0x11);
     DisplayDisable();
 
-    //--------------VCOM           ---------
+    //--------------VCOM           ---------
     write_cmd(0xc5);    // vcom control
     DeviceWrite(0x35);  // 35
     DeviceWrite(0x3e);  // 3E
@@ -378,7 +378,7 @@ void ResetDevice(void)
 
 
 
-#ifdef USE_TRANSPARENT_COLOR
+#ifdef USE_TRANSPARENT_COLOR 
 /*********************************************************************
 * Function:  void TransparentColorEnable(GFX_COLOR color)
 *
