@@ -53,8 +53,8 @@ int32_t main(void)
     /* Initialize I/O and Peripherals for application */
     InitApp();
 
-    /*Configure Multivector Interrupt Mode.  Using Single Vector Mode
-    is expensive from a timing perspective, so most applications
+    /*Configure Multivector Interrupt Mode.  Using Single Vector Mode 
+    is expensive from a timing perspective, so most applications 
     should probably not use a Single Vector Mode*/
     INTConfigureSystem(INT_SYSTEM_CONFIG_MULT_VECTOR);
 
