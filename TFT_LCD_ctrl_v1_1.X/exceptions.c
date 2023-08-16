@@ -67,6 +67,7 @@ void _general_exception_handler(void)
 
     /* Mask off Mask of the ExcCode Field from the Cause Register
     Refer to the MIPs M4K Software User's manual */
+
     _excep_code=_CP0_GET_CAUSE() & 0x0000007C >> 2;
     _excep_addr=_CP0_GET_EPC();
 
@@ -86,6 +87,7 @@ void _general_exception_handler(void)
     /* wait at least 6 us for LVD start-up
     assume we're running at max frequency
     (80 MHz) so we're always safe */
+    
     {
         while (_CP0_GET_COUNT() - t0 < (80/2)*6);
     }
