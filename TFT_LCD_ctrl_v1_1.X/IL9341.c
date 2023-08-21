@@ -64,6 +64,7 @@
 SHORT       _clipRgn;
 
 // Clipping region borders
+
 SHORT       _clipLeft;
 SHORT       _clipTop;
 SHORT       _clipRight;
@@ -279,7 +280,7 @@ void ResetDevice(void)
     DeviceWrite(0x1B);  //70
     DisplayDisable();
 
-    //----------------Gamma---------------------------------
+    //----------------Gamma---------------------------------    
     write_cmd(0xf2);    // 3Gamma Function Disable
     DeviceWrite(0x08);
     DisplayDisable();
