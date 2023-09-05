@@ -169,23 +169,6 @@ GenerateClassCluster=0
 DocumentUniqueId=JPOSPWUW
 
 [Document8]
-DocumentPath=RTC.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=4
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=CFOIOHFL
-
-[Document9]
 DocumentPath=RTDIface.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -202,7 +185,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=TXDSBEBG
 
-[Document10]
+[Document9]
 DocumentPath=SoftPowerSwitch.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -219,7 +202,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=ZGYVWCWN
 
-[Document11]
+[Document10]
 DocumentPath=USBIface.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -236,7 +219,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=EXSQLIOZ
 
-[Document12]
+[Document11]
 DocumentPath=TopLevel.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -252,6 +235,23 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=KJTBPZZR
+
+[Document12]
+DocumentPath=RTC.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=4
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=CFOIOHFL
 
 [Document13]
 DocumentPath=Power.SchDoc
