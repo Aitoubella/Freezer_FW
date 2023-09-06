@@ -1,0 +1,6 @@
+DRC Rules Export File for PCB: E:\3. Workplace\Altium\08.09. Freezer\Freezer_FW\Hardware\Freezer_Controller\Freezer_Controller.PcbDoc
+RuleKind=Clearance|RuleName=CLR_BR|Scope=Board|Minimum=0.00
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=5.91
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=5.91
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
