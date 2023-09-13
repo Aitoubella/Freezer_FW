@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------
-Gerber File Extension Report For: Freezer_Controller.GBR   9/5/2023  9:53:27 PM
+Gerber File Extension Report For: Freezer_Controller.GBR   9/6/2023  10:37:57 PM
 ------------------------------------------------------------------------------------------
 
 
@@ -11,12 +11,15 @@ Layer Extension     Layer Description
 .GTS                Top Solder                              
 .GTL                Top Layer                               
 .G1                 Layer 1                                 
+.G2                 Layer 2                                 
 .GBL                Bottom Layer                            
 .GBS                Bottom Solder                           
 .GBP                Bottom Paste                            
 .GBO                Bottom Overlay                          
 .GM1                Board Shape                             
 .GM2                Route Tool Path                         
+.GM16               Board                                   
+.GM19               V Cut                                   
 .GKO                Keep-Out Layer                          
 .GPT                Top Pad Master                          
 .GPB                Bottom Pad Master                       
