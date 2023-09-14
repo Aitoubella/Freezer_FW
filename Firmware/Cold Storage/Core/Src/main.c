@@ -32,6 +32,21 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
+typedef struct {
+    uint8_t seconds;
+    uint8_t minutes;
+    uint8_t hours;
+    bool am;
+    uint8_t day_of_week;
+    uint8_t date;
+    uint8_t month;
+    uint8_t year;
+    bool clock_halt;
+    bool out;
+    bool sqwe;
+    bool rs1;
+    bool rs0;
+} time;
 
 /* USER CODE END PTD */
 
@@ -41,7 +56,10 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+uint32_t  acd_values[6];
 
+#define RTC_ADDRESS (0x68 << 1)
+uint8_t data[8];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -54,11 +72,83 @@
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 /* USER CODE BEGIN PFP */
+uint8_t* read_time(void)
+void set_time(uint8_t sec, uint8_t min, uint8_t hr, uint8_t dy, uint8_t dat, uint8_t mnth, uint8_t yr);
+void decodeTime(const uint8_t *data, time *s_time);
+uint8_t* encodeData(const time *s_time);
+void print_time(void);
+time getTime(void);
+
+
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t* read_time(void){
+
+    data[0] = 0x00;
+    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
+    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x00, &get_time_array[0], 1, 50);
+
+    data[0] = 0x01;
+    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
+    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[1], 1, 50);
+
+    data[0] = 0x02;
+    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
+    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[2], 1, 50);
+
+    data[0] = 0x03;
+    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
+    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[3], 1, 50);
+
+    data[0] = 0x04;
+    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
+    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[4], 1, 50);
+
+    data[0] = 0x05;
+    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
+    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[5], 1, 50);
+
+    data[0] = 0x06;
+    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
+    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[6], 1, 50);
+
+    data[0] = 0x07;
+    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
+    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[7], 1, 50);
+
+    return get_time_array;
+}
+
+
+void set_time(uint8_t sec, uint8_t min, uint8_t hr, uint8_t dy, uint8_t dat, uint8_t mnth, uint8_t yr){
+
+
+
+		time *s_time;
+		s_time->seconds=sec;
+		s_time->minutes=min;
+		s_time->hours=hr;
+		s_time->day_of_week=dy;
+		s_time->date=dat;
+		s_time->month=mnth;
+		s_time->year=yr;
+		s_time->out=false;
+		s_time->sqwe=false;
+		s_time->rs0=false;
+		s_time->rs1=false;
+
+		uint8_t* data_set =encodeData(s_time);
+
+  for(uint8_t i=0;i<8;i++){
+
+		HAL_I2C_Mem_Write(&hi2c1, RTC_ADDRESS,i,1, (uint8_t*)data_set , 1, 100);
+
+	}
+}
+
 
 /* USER CODE END 0 */
 
