@@ -27,7 +27,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "string.h"
+#include "stdbool.h"
+#include "stdlib.h"
+#include "math.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,7 +50,6 @@ typedef struct {
     bool rs1;
     bool rs0;
 } time;
-
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -56,10 +58,11 @@ typedef struct {
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-uint32_t  acd_values[6];
-
+#define TIME_STRUCT_SIZE 0x08
 #define RTC_ADDRESS (0x68 << 1)
 uint8_t data[8];
+uint8_t* get_time_array;
+char msgBuffer[19]; //2017-02-23 10:10:10
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -72,15 +75,10 @@ uint8_t data[8];
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 /* USER CODE BEGIN PFP */
-uint8_t* read_time(void)
+uint8_t* read_time(void);
 void set_time(uint8_t sec, uint8_t min, uint8_t hr, uint8_t dy, uint8_t dat, uint8_t mnth, uint8_t yr);
 void decodeTime(const uint8_t *data, time *s_time);
 uint8_t* encodeData(const time *s_time);
-void print_time(void);
-time getTime(void);
-
-
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -119,9 +117,10 @@ uint8_t* read_time(void){
     HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
     HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[7], 1, 50);
 
-    return get_time_array;
-}
 
+		return get_time_array;
+
+}
 
 void set_time(uint8_t sec, uint8_t min, uint8_t hr, uint8_t dy, uint8_t dat, uint8_t mnth, uint8_t yr){
 
@@ -147,8 +146,128 @@ void set_time(uint8_t sec, uint8_t min, uint8_t hr, uint8_t dy, uint8_t dat, uin
 		HAL_I2C_Mem_Write(&hi2c1, RTC_ADDRESS,i,1, (uint8_t*)data_set , 1, 100);
 
 	}
+
+
+
 }
 
+
+
+void decodeTime(const uint8_t *data, time *s_time) {
+
+uint8_t msd = 0, lsd = 0;
+    uint8_t /*am_pm = -1,*/_12h_mode = -1;
+
+    lsd = (data[0] & 0x0F);
+    msd = (data[0] & 0x70) >> 4;
+    s_time->seconds = lsd + 10 * msd;
+
+    lsd = (data[1] & 0x0F);
+    msd = (data[1] & 0x70) >> 4;
+    s_time->minutes = lsd + 10 * msd;
+
+    // If 1, then 12-hour mode is enabled, 0 - 24-hour mode
+    _12h_mode = (data[2] & 0x40) >> 6;
+
+    // When 12-hour mode enabled, PM = 1, AM = 0, otherwise first bit of
+    // hour_msd
+    if (_12h_mode) {
+        //am_pm = (data[2] & 0b00100000) >> 5;
+        msd = (data[2] & 0x10) >> 4;
+    } else {
+        msd = (data[2] & 0x30) >> 4;
+    }
+    lsd = (data[2] & 0x0F);
+    s_time->hours = lsd + 10 * msd;
+
+    s_time->day_of_week = (data[3] & 0x07);
+
+    lsd = (data[4] & 0x0F);
+    msd = (data[4] & 0x30) >> 4;
+    s_time->date = lsd + 10 * msd;
+
+    lsd = (data[5] & 0x0F);
+    msd = (data[5] & 0x10) >> 4;
+    s_time->month = lsd + 10 * msd;
+
+    lsd = (data[6] & 0x0F);
+    msd = (data[6] & 0xF0) >> 4;
+    s_time->year = lsd + 10 * msd;
+
+    s_time->clock_halt = (data[0] & 0x70) >> 7;
+    s_time->out = (data[7] & 0x70) >> 7;
+    s_time->sqwe = (data[7] & 0x10) >> 4;
+    s_time->rs1 = (data[7] & 0x02) >> 1;
+    s_time->rs0 = (data[7] & 0x01);
+
+}
+
+
+uint8_t* encodeData(const time *s_time) {
+    uint8_t *data = calloc(TIME_STRUCT_SIZE, sizeof(uint8_t));
+    uint8_t msd, lsd;
+
+    // 0x00 Clock halt and seconds
+    msd = s_time->seconds / 10;
+    lsd = s_time->seconds - msd * 10;
+    data[0] = (s_time->clock_halt << 7) | (msd << 4) | (lsd);
+
+    // 0x01 Minutes
+    msd = s_time->minutes / 10;
+    lsd = s_time->minutes - msd * 10;
+    data[1] = (msd << 4) | (lsd);
+
+    // 0x02 Hours
+    msd = s_time->hours / 10;
+    lsd = s_time->hours - msd * 10;
+    data[2] = (0 << 6 /*24h mode*/) | (msd << 4) | (lsd);
+
+    // 0x03 Day of week
+    data[3] = s_time->day_of_week;
+
+    // 0x04 Date (day of month)
+    msd = s_time->date / 10;
+    lsd = s_time->date - msd * 10;
+    data[4] = (msd << 4) | (lsd);
+
+    // 0x05 Month
+    msd = s_time->month / 10;
+    lsd = s_time->month - msd * 10;
+    data[5] = (msd << 4) | (lsd);
+
+    // 0x06 Year
+    msd = s_time->year / 10;
+    lsd = s_time->year - msd * 10;
+    data[6] = (msd << 4) | (lsd);
+
+    // 0x07 Control part:
+    // OUT, SQWE, RS1 and RS0
+    data[7] = (s_time->out << 7) | (s_time->sqwe << 4) | (s_time->rs1 << 1)
+            | (s_time->rs0);
+
+    return data;
+}
+
+
+time getTime(void) {
+    uint8_t* datam = read_time();
+    time s_time;
+    decodeTime(datam, &s_time);
+    free(data);
+    return s_time;
+}
+
+void print_time(){
+
+	time t1=getTime();
+	sprintf(msgBuffer, "%04d-%02d-%02d %02d:%02d:%02d",
+            t1.year,
+            t1.month,
+            t1.date,
+            t1.hours,
+            t1.minutes,
+            t1.seconds);
+}
 
 /* USER CODE END 0 */
 
