@@ -124,8 +124,6 @@ uint8_t* read_time(void){
 
 void set_time(uint8_t sec, uint8_t min, uint8_t hr, uint8_t dy, uint8_t dat, uint8_t mnth, uint8_t yr){
 
-
-
 		time *s_time;
 		s_time->seconds=sec;
 		s_time->minutes=min;
