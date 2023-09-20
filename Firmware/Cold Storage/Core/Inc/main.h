@@ -53,7 +53,12 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+#define BTN_1_Pin GPIO_PIN_9
+#define BTN_1_GPIO_Port GPIOE
+#define BTN_2_Pin GPIO_PIN_10
+#define BTN_2_GPIO_Port GPIOE
+#define BTN_3_Pin GPIO_PIN_11
+#define BTN_3_GPIO_Port GPIOE
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
