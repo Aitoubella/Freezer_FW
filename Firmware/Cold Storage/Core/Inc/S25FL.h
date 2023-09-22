@@ -44,5 +44,4 @@ void FlashWaitBusy(void);
 void Flash_Read_Array(uint32_t start_address,uint8_t buffer[],uint16_t length);
 void Flash_Write_Array(uint32_t start_address,uint8_t buffer[],uint16_t length);
 
-
 #endif
