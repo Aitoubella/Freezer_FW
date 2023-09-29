@@ -1,8 +1,7 @@
 /*
  * ili9341.c
  *
-
- */
+ * */
 
 #include "ili9341.h"
 
@@ -197,3 +196,145 @@ static void ConvHL(uint8_t *s, int32_t l)
 		l -= 2;
 	}
 }
+
+// Call this function after ILI9341_SetWindow
+// This function is non blocked
+// The variable for Callback is open. User should set by himself
+void ILI9341_DrawBitmap(uint16_t w, uint16_t h, uint8_t *s)
+{
+	// Enable to access GRAM
+	LCD_WR_REG(0x2c);
+
+	DC_H();
+#if 0
+	__HAL_SPI_DISABLE(&hspi3);
+	hspi3.Instance->CR2 |= SPI_DATASIZE_16BIT; // Set 16 bit mode
+	__HAL_SPI_ENABLE(&hspi3);
+#endif
+	ConvHL(s, (int32_t)w*h*2);
+	HAL_SPI_Transmit_DMA(&hspi3, (uint8_t*)s, w * h *2);
+#if 0
+	__HAL_SPI_DISABLE(&hspi3);
+	hspi3.Instance->CR2 &= ~(SPI_DATASIZE_16BIT); // Set 8 bit mode
+	__HAL_SPI_ENABLE(&hspi3);
+#endif
+}
+
+// User should call it at callback
+void ILI9341_EndOfDrawBitmap(void)
+{
+#if 0
+	__HAL_SPI_DISABLE(&hspi3);
+	hspi3.Instance->CR2 &= ~(SPI_DATASIZE_16BIT); // Set 8 bit mode
+	__HAL_SPI_ENABLE(&hspi3);
+#endif
+}
+
+void ILI9341_Reset(void)
+{
+	RESET_L();
+	HAL_Delay(100);
+	RESET_H();
+	HAL_Delay(100);
+	CS_L();
+	LED_H();
+}
+
+void ILI9341_SoftReset(void)
+{
+	uint8_t cmd;
+	cmd = 0x01; //Software reset
+	DC_L();
+	if (HAL_SPI_Transmit(&hspi3, &cmd, 1, 1000) != HAL_OK) {
+		Error_Handler();
+	}
+}
+
+
+void LCD_WR_REG(uint8_t data)
+{
+	DC_L();
+	if (HAL_SPI_Transmit(&hspi3, &data, 1, 1000) != HAL_OK) {
+		Error_Handler();
+	}
+}
+
+static void LCD_WR_DATA(uint8_t data)
+{
+	DC_H();
+	if (HAL_SPI_Transmit(&hspi3, &data, 1, 1000) != HAL_OK) {
+		Error_Handler();
+	}
+}
+
+void LCD_IO_WriteMultipleData(uint8_t *pData, uint32_t Size)
+{
+	/* Swap endianes */
+	ConvHL(pData, (int32_t)Size*2);
+
+	DC_H();
+//	HAL_SPI_Transmit(&hspi3, (uint8_t*)pData, Size * 2, HAL_MAX_DELAY);
+	spiDmaTransferComplete = 0;
+	HAL_SPI_Transmit_DMA(&hspi3, pData, Size*2 );
+	//HAL_SPI_Transmit_DMA(&hspi3, (uint8_t*)pData, Size );
+	while(spiDmaTransferComplete == 0);
+}
+/*
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
+{
+	spiDmaTransferComplete = 1;
+}
+*/
+
+static void LCD_direction(LCD_Horizontal_t direction)
+{
+	switch (direction) {
+	case ROTATE_0:
+		LCD_WR_REG(0x36);
+		LCD_WR_DATA(0x48);
+		break;
+	case ROTATE_90:
+		LCD_WR_REG(0x36);
+		LCD_WR_DATA(0x28);
+		break;
+	case ROTATE_180:
+		LCD_WR_REG(0x36);
+		LCD_WR_DATA(0x88);
+		break;
+	case ROTATE_270:
+		LCD_WR_REG(0x36);
+		LCD_WR_DATA(0xE8);
+		break;
+	}
+}
+
+static void RESET_L(void)
+{
+	HAL_GPIO_WritePin(RESET_GPIO_Port, RESET_Pin, GPIO_PIN_RESET);
+}
+
+static void RESET_H(void)
+{
+	HAL_GPIO_WritePin(RESET_GPIO_Port, RESET_Pin, GPIO_PIN_SET);
+}
+
+static void CS_L(void)
+{
+	HAL_GPIO_WritePin(SPI1_NSS_GPIO_Port, SPI1_NSS_Pin, GPIO_PIN_RESET);
+}
+
+static void DC_L(void)
+{
+	HAL_GPIO_WritePin(DC_GPIO_Port, DC_Pin, GPIO_PIN_RESET);
+}
+
+static void DC_H(void)
+{
+	HAL_GPIO_WritePin(DC_GPIO_Port, DC_Pin, GPIO_PIN_SET);
+}
+
+static void LED_H(void)
+{
+	//HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, GPIO_PIN_SET);
+}
+
