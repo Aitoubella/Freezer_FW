@@ -6,6 +6,9 @@
 #include <touchgfx/hal/Types.hpp>
 #include <touchgfx/Bitmap.hpp>
 
+const uint16_t BITMAP_BAT_ID = 0;
+const uint16_t BITMAP_CHARGING_ID = 1;
+const uint16_t BITMAP_MAIN_SPEAKER_ON_ID = 2;
 
 namespace BitmapDatabase
 {

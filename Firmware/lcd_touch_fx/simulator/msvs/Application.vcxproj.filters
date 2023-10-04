@@ -142,29 +142,17 @@
     <Filter Include="Source Files\gui\model">
       <UniqueIdentifier>8D374F1C-275B-30DF-6E32-FBF522A9CD3B</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\gui\screen1_screen">
-      <UniqueIdentifier>C12EA1F2-C152-24CC-AA7F-3D7F28963B12</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\generated\gui_generated">
       <UniqueIdentifier>AE4BB065-12E2-3A85-BD79-33DB50644BAE</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\gui\common">
       <UniqueIdentifier>9AF3CFFD-842F-3DC7-27DA-B7ABE11D3828</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\gui\screen1_screen">
-      <UniqueIdentifier>5C7D5212-58A5-CC13-5C59-01C3D3CE6607</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\generated\gui_generated">
       <UniqueIdentifier>1673793D-B5FC-A61D-5E51-6192F3CDE6A0</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\gui\common">
       <UniqueIdentifier>833680ED-6A82-495F-E36F-39AE7D0806D8</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\generated\gui_generated\screen1_screen">
-      <UniqueIdentifier>B56CB07F-79AD-A49E-627E-4E8D43A822B3</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\generated\gui_generated\screen1_screen">
-      <UniqueIdentifier>3BB4C418-D6EB-53AF-5A16-8C678007724A</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\generated\simulator\include">
       <UniqueIdentifier>4042C160-9F88-3C8D-2801-C604B236CFE5</UniqueIdentifier>
@@ -183,6 +171,78 @@
     </Filter>
     <Filter Include="Header Files\generated\simulator\include\simulator\video">
       <UniqueIdentifier>549B4CE7-1C20-81B2-C853-B4BC90A6E0EA</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\settings_date_time_screen">
+      <UniqueIdentifier>C56D4925-8B72-67C7-620D-3AC3E28BDE3A</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\settings_date_time_screen">
+      <UniqueIdentifier>BC0008DE-3A61-3362-0B6D-3289F473786C</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\main_screen">
+      <UniqueIdentifier>1D44FCA6-BEAB-23DC-C168-30BDCC00ADB1</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\main_screen">
+      <UniqueIdentifier>AF42031C-F540-1D45-42B2-5953DF1A5F56</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\settings_date_time_screen">
+      <UniqueIdentifier>09D91044-03E6-3250-5EE2-FD108BD07389</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\settings_date_time_screen">
+      <UniqueIdentifier>880972DA-3D51-2AE7-DAC9-4C0B9044FBD9</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\main_screen">
+      <UniqueIdentifier>5AB05E50-52F5-E258-C74C-93E97C77BFAB</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\main_screen">
+      <UniqueIdentifier>7C3FE748-133E-DACC-118D-F79080BBCAA1</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\settings_back_screen">
+      <UniqueIdentifier>7377D237-7E3C-8AA4-19E5-8FA84F073FFA</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\settings_data_logging_1_screen">
+      <UniqueIdentifier>4C2CFCDE-D3FC-8791-6B4E-44D87F27756E</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\settings_back_screen">
+      <UniqueIdentifier>C88CECDA-32AA-E4DE-A51C-326019AB75B3</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\settings_data_logging_1_screen">
+      <UniqueIdentifier>855897B3-5C99-6907-FBB2-EFADD2D663C8</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\settings_temperature_1_screen">
+      <UniqueIdentifier>A99972A2-344E-A1C2-5DCB-13ACA9C921B1</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\gui\settings_alarms_screen">
+      <UniqueIdentifier>5C306E0E-D8D2-FD17-CE08-60787712C791</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\settings_alarms_screen">
+      <UniqueIdentifier>49ACD710-0B3B-DC01-C17F-4EA630DB00BD</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui\settings_temperature_1_screen">
+      <UniqueIdentifier>24FFE5CA-3EAC-9BE2-0945-CF6831AE5B09</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\settings_data_logging_1_screen">
+      <UniqueIdentifier>BC6773CC-2526-8042-9BB7-0894F3F31673</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\settings_data_logging_1_screen">
+      <UniqueIdentifier>2570BD30-2554-D3B5-A8FA-6DEDD42CB420</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\settings_temperature_1_screen">
+      <UniqueIdentifier>12B94223-5D5F-DC60-422E-8D0204D2F314</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\settings_back_screen">
+      <UniqueIdentifier>319BB8C8-16E9-4CF5-053B-C771CEAF14C4</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\settings_back_screen">
+      <UniqueIdentifier>63C315B9-C344-2E7B-74FA-35A95E53836F</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\settings_alarms_screen">
+      <UniqueIdentifier>0C53C463-31C2-1967-D1EE-B62D6596D9BC</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\generated\gui_generated\settings_temperature_1_screen">
+      <UniqueIdentifier>43DEEAB9-21C6-F1C4-B014-5153AFE6E27D</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\generated\gui_generated\settings_alarms_screen">
+      <UniqueIdentifier>649589EC-6EB5-1972-39F4-8525BD9B534F</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -213,17 +273,62 @@
     <ClCompile Include="..\..\gui\src\model\Model.cpp">
       <Filter>Source Files\gui\model</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\gui\src\screen1_screen\Screen1Presenter.cpp">
-      <Filter>Source Files\gui\screen1_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\gui\src\screen1_screen\Screen1View.cpp">
-      <Filter>Source Files\gui\screen1_screen</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\generated\gui_generated\src\screen1_screen\Screen1ViewBase.cpp">
-      <Filter>Source Files\generated\gui_generated\screen1_screen</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\generated\simulator\src\video\SoftwareMJPEGDecoder.cpp">
       <Filter>Source Files\generated\simulator\video</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\main_screen\MainPresenter.cpp">
+      <Filter>Source Files\gui\main_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\main_screen\MainView.cpp">
+      <Filter>Source Files\gui\main_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\main_screen\MainViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\main_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_date_time_screen\Settings_date_timePresenter.cpp">
+      <Filter>Source Files\gui\settings_date_time_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_date_time_screen\Settings_date_timeView.cpp">
+      <Filter>Source Files\gui\settings_date_time_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_date_time_screen\Settings_date_timeViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\settings_date_time_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_alarms_screen\Settings_AlarmsPresenter.cpp">
+      <Filter>Source Files\gui\settings_alarms_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_alarms_screen\Settings_AlarmsView.cpp">
+      <Filter>Source Files\gui\settings_alarms_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_alarms_screen\Settings_AlarmsViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\settings_alarms_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_back_screen\Settings_BackPresenter.cpp">
+      <Filter>Source Files\gui\settings_back_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_back_screen\Settings_BackView.cpp">
+      <Filter>Source Files\gui\settings_back_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_back_screen\Settings_BackViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\settings_back_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_data_logging_1_screen\Settings_Data_Logging_1Presenter.cpp">
+      <Filter>Source Files\gui\settings_data_logging_1_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_data_logging_1_screen\Settings_Data_Logging_1View.cpp">
+      <Filter>Source Files\gui\settings_data_logging_1_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_data_logging_1_screen\Settings_Data_Logging_1ViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\settings_data_logging_1_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_temperature_1_screen\Settings_Temperature_1Presenter.cpp">
+      <Filter>Source Files\gui\settings_temperature_1_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\gui\src\settings_temperature_1_screen\Settings_Temperature_1View.cpp">
+      <Filter>Source Files\gui\settings_temperature_1_screen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_temperature_1_screen\Settings_Temperature_1ViewBase.cpp">
+      <Filter>Source Files\generated\gui_generated\settings_temperature_1_screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -661,20 +766,65 @@
     <ClInclude Include="..\..\gui\include\gui\model\ModelListener.hpp">
       <Filter>Header Files\gui\model</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\screen1_screen\Screen1Presenter.hpp">
-      <Filter>Header Files\gui\screen1_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\gui\include\gui\screen1_screen\Screen1View.hpp">
-      <Filter>Header Files\gui\screen1_screen</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\screen1_screen\Screen1ViewBase.hpp">
-      <Filter>Header Files\generated\gui_generated\screen1_screen</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\common\SimConstants.hpp">
       <Filter>Header Files\generated\gui_generated\common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\generated\simulator\include\simulator\video\SoftwareMJPEGDecoder.hpp">
       <Filter>Header Files\generated\simulator\include\simulator\video</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\main_screen\MainPresenter.hpp">
+      <Filter>Header Files\gui\main_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\main_screen\MainView.hpp">
+      <Filter>Header Files\gui\main_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\main_screen\MainViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\main_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_date_time_screen\Settings_date_timePresenter.hpp">
+      <Filter>Header Files\gui\settings_date_time_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_date_time_screen\Settings_date_timeView.hpp">
+      <Filter>Header Files\gui\settings_date_time_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_date_time_screen\Settings_date_timeViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\settings_date_time_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_alarms_screen\Settings_AlarmsPresenter.hpp">
+      <Filter>Header Files\gui\settings_alarms_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_alarms_screen\Settings_AlarmsView.hpp">
+      <Filter>Header Files\gui\settings_alarms_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_alarms_screen\Settings_AlarmsViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\settings_alarms_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_back_screen\Settings_BackPresenter.hpp">
+      <Filter>Header Files\gui\settings_back_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_back_screen\Settings_BackView.hpp">
+      <Filter>Header Files\gui\settings_back_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_back_screen\Settings_BackViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\settings_back_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_data_logging_1_screen\Settings_Data_Logging_1Presenter.hpp">
+      <Filter>Header Files\gui\settings_data_logging_1_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_data_logging_1_screen\Settings_Data_Logging_1View.hpp">
+      <Filter>Header Files\gui\settings_data_logging_1_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_data_logging_1_screen\Settings_Data_Logging_1ViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\settings_data_logging_1_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_temperature_1_screen\Settings_Temperature_1Presenter.hpp">
+      <Filter>Header Files\gui\settings_temperature_1_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\gui\include\gui\settings_temperature_1_screen\Settings_Temperature_1View.hpp">
+      <Filter>Header Files\gui\settings_temperature_1_screen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_temperature_1_screen\Settings_Temperature_1ViewBase.hpp">
+      <Filter>Header Files\generated\gui_generated\settings_temperature_1_screen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

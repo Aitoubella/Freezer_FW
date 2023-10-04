@@ -66,14 +66,30 @@ build/MINGW32_NT-6.2/generated/simulator/src/mainBase.o: \
  touchgfx/framework/include/mvp/MVPApplication.hpp \
  touchgfx/framework/include/mvp/Presenter.hpp \
  touchgfx/framework/include/touchgfx/Screen.hpp \
- gui/include/gui/model/Model.hpp \
- gui/include/gui/screen1_screen/Screen1View.hpp \
- generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp \
+ gui/include/gui/model/Model.hpp gui/include/gui/main_screen/MainView.hpp \
+ generated/gui_generated/include/gui_generated/main_screen/MainViewBase.hpp \
  touchgfx/framework/include/mvp/View.hpp \
- gui/include/gui/screen1_screen/Screen1Presenter.hpp \
+ gui/include/gui/main_screen/MainPresenter.hpp \
  gui/include/gui/model/ModelListener.hpp \
  touchgfx/framework/include/touchgfx/widgets/Box.hpp \
  touchgfx/framework/include/touchgfx/widgets/TextArea.hpp \
+ touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
+ touchgfx/framework/include/touchgfx/widgets/Image.hpp \
+ gui/include/gui/settings_date_time_screen/Settings_date_timeView.hpp \
+ generated/gui_generated/include/gui_generated/settings_date_time_screen/Settings_date_timeViewBase.hpp \
+ gui/include/gui/settings_date_time_screen/Settings_date_timePresenter.hpp \
+ gui/include/gui/settings_temperature_1_screen/Settings_Temperature_1View.hpp \
+ generated/gui_generated/include/gui_generated/settings_temperature_1_screen/Settings_Temperature_1ViewBase.hpp \
+ gui/include/gui/settings_temperature_1_screen/Settings_Temperature_1Presenter.hpp \
+ gui/include/gui/settings_alarms_screen/Settings_AlarmsView.hpp \
+ generated/gui_generated/include/gui_generated/settings_alarms_screen/Settings_AlarmsViewBase.hpp \
+ gui/include/gui/settings_alarms_screen/Settings_AlarmsPresenter.hpp \
+ gui/include/gui/settings_data_logging_1_screen/Settings_Data_Logging_1View.hpp \
+ generated/gui_generated/include/gui_generated/settings_data_logging_1_screen/Settings_Data_Logging_1ViewBase.hpp \
+ gui/include/gui/settings_data_logging_1_screen/Settings_Data_Logging_1Presenter.hpp \
+ gui/include/gui/settings_back_screen/Settings_BackView.hpp \
+ generated/gui_generated/include/gui_generated/settings_back_screen/Settings_BackViewBase.hpp \
+ gui/include/gui/settings_back_screen/Settings_BackPresenter.hpp \
  touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp \
  touchgfx/framework/include/touchgfx/lcd/LCD16DebugPrinter.hpp
 
@@ -211,19 +227,53 @@ touchgfx/framework/include/touchgfx/Screen.hpp:
 
 gui/include/gui/model/Model.hpp:
 
-gui/include/gui/screen1_screen/Screen1View.hpp:
+gui/include/gui/main_screen/MainView.hpp:
 
-generated/gui_generated/include/gui_generated/screen1_screen/Screen1ViewBase.hpp:
+generated/gui_generated/include/gui_generated/main_screen/MainViewBase.hpp:
 
 touchgfx/framework/include/mvp/View.hpp:
 
-gui/include/gui/screen1_screen/Screen1Presenter.hpp:
+gui/include/gui/main_screen/MainPresenter.hpp:
 
 gui/include/gui/model/ModelListener.hpp:
 
 touchgfx/framework/include/touchgfx/widgets/Box.hpp:
 
 touchgfx/framework/include/touchgfx/widgets/TextArea.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp:
+
+touchgfx/framework/include/touchgfx/widgets/Image.hpp:
+
+gui/include/gui/settings_date_time_screen/Settings_date_timeView.hpp:
+
+generated/gui_generated/include/gui_generated/settings_date_time_screen/Settings_date_timeViewBase.hpp:
+
+gui/include/gui/settings_date_time_screen/Settings_date_timePresenter.hpp:
+
+gui/include/gui/settings_temperature_1_screen/Settings_Temperature_1View.hpp:
+
+generated/gui_generated/include/gui_generated/settings_temperature_1_screen/Settings_Temperature_1ViewBase.hpp:
+
+gui/include/gui/settings_temperature_1_screen/Settings_Temperature_1Presenter.hpp:
+
+gui/include/gui/settings_alarms_screen/Settings_AlarmsView.hpp:
+
+generated/gui_generated/include/gui_generated/settings_alarms_screen/Settings_AlarmsViewBase.hpp:
+
+gui/include/gui/settings_alarms_screen/Settings_AlarmsPresenter.hpp:
+
+gui/include/gui/settings_data_logging_1_screen/Settings_Data_Logging_1View.hpp:
+
+generated/gui_generated/include/gui_generated/settings_data_logging_1_screen/Settings_Data_Logging_1ViewBase.hpp:
+
+gui/include/gui/settings_data_logging_1_screen/Settings_Data_Logging_1Presenter.hpp:
+
+gui/include/gui/settings_back_screen/Settings_BackView.hpp:
+
+generated/gui_generated/include/gui_generated/settings_back_screen/Settings_BackViewBase.hpp:
+
+gui/include/gui/settings_back_screen/Settings_BackPresenter.hpp:
 
 touchgfx/framework/include/platform/driver/lcd/LCD16bpp.hpp:
 

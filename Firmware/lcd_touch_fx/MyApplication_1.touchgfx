@@ -2,38 +2,454 @@
   "Application": {
     "Screens": [
       {
-        "Name": "Screen1",
+        "Name": "Main",
         "Components": [
           {
             "Type": "TextArea",
-            "Name": "textArea1",
-            "X": 71,
-            "Y": 33,
-            "Width": 178,
-            "Height": 61,
+            "Name": "temperature_1_text",
+            "X": 56,
+            "Y": 22,
+            "Width": 209,
+            "Height": 71,
             "TextId": "__SingleUse_QXFQ",
             "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
             "AutoSize": true
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2",
-            "X": 41,
-            "Y": 149,
-            "Width": 60,
-            "Height": 20,
+            "Name": "temperature_2_text",
+            "X": 11,
+            "Y": 136,
+            "Width": 89,
+            "Height": 30,
             "TextId": "__SingleUse_9MLG",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "Power_on_text",
+            "X": 11,
+            "Y": 186,
+            "Width": 42,
+            "Height": 30,
+            "TextId": "__SingleUse_CPUO",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "speaker_on_symbol",
+            "X": 57,
+            "Y": 186,
+            "Width": 43,
+            "Height": 36,
+            "Filename": "main_speaker_on.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "bat_symbol",
+            "X": 124,
+            "Y": 136,
+            "Width": 185,
+            "Height": 86,
+            "Filename": "bat.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          },
+          {
+            "Type": "TextArea",
+            "Name": "bat_text",
+            "X": 148,
+            "Y": 155,
+            "Width": 50,
+            "Height": 48,
+            "TextId": "__SingleUse_HWSX",
+            "TextRotation": "0",
+            "Color": {
+              "Red": 255,
+              "Green": 255,
+              "Blue": 255
+            },
+            "AutoSize": true
+          },
+          {
+            "Type": "ScalableImage",
+            "Name": "charge_symbol",
+            "X": 208,
+            "Y": 154,
+            "Width": 57,
+            "Height": 50,
+            "Filename": "charging.png",
+            "ScalingAlgorithm": "Nearest-neighbor"
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_date_time",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 96,
+            "Y": 59,
+            "Width": 160,
+            "Height": 30,
+            "TextId": "__SingleUse_HECW",
             "TextRotation": "0",
             "AutoSize": true
           },
           {
             "Type": "TextArea",
-            "Name": "textArea2_1",
-            "X": 11,
-            "Y": 186,
-            "Width": 28,
-            "Height": 20,
-            "TextId": "__SingleUse_CPUO",
+            "Name": "settings_text",
+            "X": 78,
+            "Width": 165,
+            "Height": 48,
+            "TextId": "__SingleUse_NHZI",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 70,
+            "Y": 120,
+            "Width": 212,
+            "Height": 48,
+            "TextId": "__SingleUse_W0J9",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 96,
+            "Y": 170,
+            "Width": 168,
+            "Height": 30,
+            "TextId": "__SingleUse_RE5Z",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 136,
+            "Y": 202,
+            "Width": 60,
+            "Height": 30,
+            "TextId": "__SingleUse_86X0",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 126,
+            "Y": 90,
+            "Width": 87,
+            "Height": 30,
+            "TextId": "__SingleUse_1AM3",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_Temperature_1",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 53,
+            "Y": 48,
+            "Width": 255,
+            "Height": 48,
+            "TextId": "__SingleUse_IQAH",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 78,
+            "Width": 165,
+            "Height": 48,
+            "TextId": "__SingleUse_E9EY",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 104,
+            "Y": 140,
+            "Width": 131,
+            "Height": 30,
+            "TextId": "__SingleUse_7W34",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 96,
+            "Y": 172,
+            "Width": 168,
+            "Height": 30,
+            "TextId": "__SingleUse_MVBJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 139,
+            "Y": 202,
+            "Width": 60,
+            "Height": 30,
+            "TextId": "__SingleUse_J4WP",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 126,
+            "Y": 105,
+            "Width": 87,
+            "Height": 30,
+            "TextId": "__SingleUse_HC2N",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_Alarms",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 80,
+            "Y": 55,
+            "Width": 160,
+            "Height": 30,
+            "TextId": "__SingleUse_VNGY",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 78,
+            "Width": 165,
+            "Height": 48,
+            "TextId": "__SingleUse_W26S",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 95,
+            "Y": 133,
+            "Width": 131,
+            "Height": 30,
+            "TextId": "__SingleUse_Z2NV",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 79,
+            "Y": 163,
+            "Width": 168,
+            "Height": 30,
+            "TextId": "__SingleUse_SAK3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 130,
+            "Y": 202,
+            "Width": 60,
+            "Height": 30,
+            "TextId": "__SingleUse_R8Z5",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 91,
+            "Y": 85,
+            "Width": 139,
+            "Height": 48,
+            "TextId": "__SingleUse_UY0L",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_Data_Logging_1",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 80,
+            "Y": 55,
+            "Width": 160,
+            "Height": 30,
+            "TextId": "__SingleUse_U8AF",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 78,
+            "Width": 165,
+            "Height": 48,
+            "TextId": "__SingleUse_L7L7",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 95,
+            "Y": 127,
+            "Width": 131,
+            "Height": 30,
+            "TextId": "__SingleUse_ZO4J",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 27,
+            "Y": 157,
+            "Width": 266,
+            "Height": 48,
+            "TextId": "__SingleUse_3EV8",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 130,
+            "Y": 202,
+            "Width": 60,
+            "Height": 30,
+            "TextId": "__SingleUse_JPSW",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 117,
+            "Y": 90,
+            "Width": 87,
+            "Height": 30,
+            "TextId": "__SingleUse_3OWI",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_Back",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 80,
+            "Y": 55,
+            "Width": 160,
+            "Height": 30,
+            "TextId": "__SingleUse_STID",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 78,
+            "Width": 165,
+            "Height": 48,
+            "TextId": "__SingleUse_65FK",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 95,
+            "Y": 127,
+            "Width": 131,
+            "Height": 30,
+            "TextId": "__SingleUse_QKFP",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 76,
+            "Y": 157,
+            "Width": 168,
+            "Height": 30,
+            "TextId": "__SingleUse_TIQQ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 112,
+            "Y": 192,
+            "Width": 96,
+            "Height": 48,
+            "TextId": "__SingleUse_A7R0",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 117,
+            "Y": 90,
+            "Width": 87,
+            "Height": 30,
+            "TextId": "__SingleUse_06TO",
             "TextRotation": "0",
             "AutoSize": true
           }
@@ -48,7 +464,7 @@
       "Height": 240
     },
     "SelectedColorDepth": 16,
-    "StartupScreenName": "Screen1",
+    "StartupScreenName": "Main",
     "SelectedStartupLanguage": "GB",
     "TouchGfxPath": "touchgfx",
     "UIPath": ".",

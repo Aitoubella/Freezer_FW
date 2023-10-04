@@ -12,8 +12,18 @@
 #include <gui/common/FrontendApplication.hpp>
 #include <gui/model/Model.hpp>
 
-#include <gui/screen1_screen/Screen1View.hpp>
-#include <gui/screen1_screen/Screen1Presenter.hpp>
+#include <gui/main_screen/MainView.hpp>
+#include <gui/main_screen/MainPresenter.hpp>
+#include <gui/settings_date_time_screen/Settings_date_timeView.hpp>
+#include <gui/settings_date_time_screen/Settings_date_timePresenter.hpp>
+#include <gui/settings_temperature_1_screen/Settings_Temperature_1View.hpp>
+#include <gui/settings_temperature_1_screen/Settings_Temperature_1Presenter.hpp>
+#include <gui/settings_alarms_screen/Settings_AlarmsView.hpp>
+#include <gui/settings_alarms_screen/Settings_AlarmsPresenter.hpp>
+#include <gui/settings_data_logging_1_screen/Settings_Data_Logging_1View.hpp>
+#include <gui/settings_data_logging_1_screen/Settings_Data_Logging_1Presenter.hpp>
+#include <gui/settings_back_screen/Settings_BackView.hpp>
+#include <gui/settings_back_screen/Settings_BackPresenter.hpp>
 
 
 /**
@@ -36,8 +46,13 @@ public:
      * A list of all view types. Must end with meta::Nil.
      * @note All view types used in the application MUST be added to this list!
      */
-    typedef touchgfx::meta::TypeList< Screen1View,
-            touchgfx::meta::Nil
+    typedef touchgfx::meta::TypeList< MainView,
+            touchgfx::meta::TypeList< Settings_date_timeView,
+            touchgfx::meta::TypeList< Settings_Temperature_1View,
+            touchgfx::meta::TypeList< Settings_AlarmsView,
+            touchgfx::meta::TypeList< Settings_Data_Logging_1View,
+            touchgfx::meta::TypeList< Settings_BackView,
+            touchgfx::meta::Nil > > > > >
             > GeneratedViewTypes;
 
     /**
@@ -49,8 +64,13 @@ public:
      * A list of all presenter types. Must end with meta::Nil.
      * @note All presenter types used in the application MUST be added to this list!
      */
-    typedef touchgfx::meta::TypeList< Screen1Presenter,
-            touchgfx::meta::Nil
+    typedef touchgfx::meta::TypeList< MainPresenter,
+            touchgfx::meta::TypeList< Settings_date_timePresenter,
+            touchgfx::meta::TypeList< Settings_Temperature_1Presenter,
+            touchgfx::meta::TypeList< Settings_AlarmsPresenter,
+            touchgfx::meta::TypeList< Settings_Data_Logging_1Presenter,
+            touchgfx::meta::TypeList< Settings_BackPresenter,
+            touchgfx::meta::Nil > > > > >
             > GeneratedPresenterTypes;
 
     /**
@@ -73,7 +93,7 @@ public:
 
     virtual void gotoStartScreen(FrontendApplication& app)
     {
-        app.gotoScreen1ScreenNoTransition();
+        app.gotoMainScreenNoTransition();
     }
 protected:
     FrontendHeapBase(touchgfx::AbstractPartition& presenters, touchgfx::AbstractPartition& views, touchgfx::AbstractPartition& transitions, FrontendApplication& app)

@@ -6,10 +6,103 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_CPUO" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_3OWI" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Alarms</Translation>
+      </Text>
+      <Text Id="__SingleUse_JPSW" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_3EV8" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Data Logging</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZO4J" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Date/Time</Translation>
+      </Text>
+      <Text Id="__SingleUse_L7L7" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Settings</Translation>
+      </Text>
+      <Text Id="__SingleUse_U8AF" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_06TO" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Alarms</Translation>
+      </Text>
+      <Text Id="__SingleUse_A7R0" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_TIQQ" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Data Logging</Translation>
+      </Text>
+      <Text Id="__SingleUse_QKFP" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Date/Time</Translation>
+      </Text>
+      <Text Id="__SingleUse_65FK" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Settings</Translation>
+      </Text>
+      <Text Id="__SingleUse_STID" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_HC2N" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Alarms</Translation>
+      </Text>
+      <Text Id="__SingleUse_J4WP" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_MVBJ" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Data Logging</Translation>
+      </Text>
+      <Text Id="__SingleUse_7W34" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Date/Time</Translation>
+      </Text>
+      <Text Id="__SingleUse_E9EY" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Settings</Translation>
+      </Text>
+      <Text Id="__SingleUse_IQAH" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_UY0L" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Alarms</Translation>
+      </Text>
+      <Text Id="__SingleUse_R8Z5" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_SAK3" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Data Logging</Translation>
+      </Text>
+      <Text Id="__SingleUse_Z2NV" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Date/Time</Translation>
+      </Text>
+      <Text Id="__SingleUse_W26S" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Settings</Translation>
+      </Text>
+      <Text Id="__SingleUse_VNGY" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_86X0" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_HECW" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_1AM3" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Alarms</Translation>
+      </Text>
+      <Text Id="__SingleUse_RE5Z" Alignment="Left" TypographyId="custom_25">
+        <Translation Language="GB">Data Logging</Translation>
+      </Text>
+      <Text Id="__SingleUse_W0J9" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Date/Time</Translation>
+      </Text>
+      <Text Id="__SingleUse_NHZI" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Settings</Translation>
+      </Text>
+      <Text Id="__SingleUse_HWSX" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">76</Translation>
+      </Text>
+      <Text Id="__SingleUse_CPUO" Alignment="Left" TypographyId="custom_30">
         <Translation Language="GB">AC</Translation>
       </Text>
-      <Text Id="__SingleUse_9MLG" Alignment="Left" TypographyId="Default">
+      <Text Id="__SingleUse_9MLG" Alignment="Left" TypographyId="custom_30">
         <Translation Language="GB">-20°C</Translation>
       </Text>
       <Text Id="__SingleUse_QXFQ" Alignment="Left" TypographyId="larg_1">
@@ -21,7 +114,8 @@
     <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="larg_1" Font="verdana.ttf" Size="60" Bpp="4" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Typography_01" Font="verdana.ttf" Size="30" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="larg_1" Font="verdana.ttf" Size="70" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="custom_30" Font="verdana.ttf" Size="30" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="custom_25" Font="verdana.ttf" Size="25" Bpp="4" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
 </TextDatabase>
