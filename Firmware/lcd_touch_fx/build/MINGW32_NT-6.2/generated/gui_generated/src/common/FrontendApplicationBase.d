@@ -52,18 +52,18 @@ build/MINGW32_NT-6.2/generated/gui_generated/src/common/FrontendApplicationBase.
  touchgfx/framework/include/touchgfx/Texts.hpp \
  touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp \
  touchgfx/framework/include/touchgfx/widgets/Image.hpp \
- gui/include/gui/settings_date_time_screen/Settings_date_timeView.hpp \
- generated/gui_generated/include/gui_generated/settings_date_time_screen/Settings_date_timeViewBase.hpp \
- gui/include/gui/settings_date_time_screen/Settings_date_timePresenter.hpp \
- gui/include/gui/settings_temperature_1_screen/Settings_Temperature_1View.hpp \
- generated/gui_generated/include/gui_generated/settings_temperature_1_screen/Settings_Temperature_1ViewBase.hpp \
- gui/include/gui/settings_temperature_1_screen/Settings_Temperature_1Presenter.hpp \
- gui/include/gui/settings_alarms_screen/Settings_AlarmsView.hpp \
- generated/gui_generated/include/gui_generated/settings_alarms_screen/Settings_AlarmsViewBase.hpp \
- gui/include/gui/settings_alarms_screen/Settings_AlarmsPresenter.hpp \
- gui/include/gui/settings_data_logging_1_screen/Settings_Data_Logging_1View.hpp \
- generated/gui_generated/include/gui_generated/settings_data_logging_1_screen/Settings_Data_Logging_1ViewBase.hpp \
- gui/include/gui/settings_data_logging_1_screen/Settings_Data_Logging_1Presenter.hpp \
+ gui/include/gui/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1View.hpp \
+ generated/gui_generated/include/gui_generated/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1ViewBase.hpp \
+ gui/include/gui/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1Presenter.hpp \
+ gui/include/gui/settings_temperature_screen/Settings_temperatureView.hpp \
+ generated/gui_generated/include/gui_generated/settings_temperature_screen/Settings_temperatureViewBase.hpp \
+ gui/include/gui/settings_temperature_screen/Settings_temperaturePresenter.hpp \
+ gui/include/gui/settings_alarm_screen/Settings_AlarmView.hpp \
+ generated/gui_generated/include/gui_generated/settings_alarm_screen/Settings_AlarmViewBase.hpp \
+ gui/include/gui/settings_alarm_screen/Settings_AlarmPresenter.hpp \
+ gui/include/gui/settings_data_logging_screen/Settings_data_loggingView.hpp \
+ generated/gui_generated/include/gui_generated/settings_data_logging_screen/Settings_data_loggingViewBase.hpp \
+ gui/include/gui/settings_data_logging_screen/Settings_data_loggingPresenter.hpp \
  gui/include/gui/settings_back_screen/Settings_BackView.hpp \
  generated/gui_generated/include/gui_generated/settings_back_screen/Settings_BackViewBase.hpp \
  gui/include/gui/settings_back_screen/Settings_BackPresenter.hpp \
@@ -177,29 +177,29 @@ touchgfx/framework/include/touchgfx/widgets/ScalableImage.hpp:
 
 touchgfx/framework/include/touchgfx/widgets/Image.hpp:
 
-gui/include/gui/settings_date_time_screen/Settings_date_timeView.hpp:
+gui/include/gui/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1View.hpp:
 
-generated/gui_generated/include/gui_generated/settings_date_time_screen/Settings_date_timeViewBase.hpp:
+generated/gui_generated/include/gui_generated/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1ViewBase.hpp:
 
-gui/include/gui/settings_date_time_screen/Settings_date_timePresenter.hpp:
+gui/include/gui/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1Presenter.hpp:
 
-gui/include/gui/settings_temperature_1_screen/Settings_Temperature_1View.hpp:
+gui/include/gui/settings_temperature_screen/Settings_temperatureView.hpp:
 
-generated/gui_generated/include/gui_generated/settings_temperature_1_screen/Settings_Temperature_1ViewBase.hpp:
+generated/gui_generated/include/gui_generated/settings_temperature_screen/Settings_temperatureViewBase.hpp:
 
-gui/include/gui/settings_temperature_1_screen/Settings_Temperature_1Presenter.hpp:
+gui/include/gui/settings_temperature_screen/Settings_temperaturePresenter.hpp:
 
-gui/include/gui/settings_alarms_screen/Settings_AlarmsView.hpp:
+gui/include/gui/settings_alarm_screen/Settings_AlarmView.hpp:
 
-generated/gui_generated/include/gui_generated/settings_alarms_screen/Settings_AlarmsViewBase.hpp:
+generated/gui_generated/include/gui_generated/settings_alarm_screen/Settings_AlarmViewBase.hpp:
 
-gui/include/gui/settings_alarms_screen/Settings_AlarmsPresenter.hpp:
+gui/include/gui/settings_alarm_screen/Settings_AlarmPresenter.hpp:
 
-gui/include/gui/settings_data_logging_1_screen/Settings_Data_Logging_1View.hpp:
+gui/include/gui/settings_data_logging_screen/Settings_data_loggingView.hpp:
 
-generated/gui_generated/include/gui_generated/settings_data_logging_1_screen/Settings_Data_Logging_1ViewBase.hpp:
+generated/gui_generated/include/gui_generated/settings_data_logging_screen/Settings_data_loggingViewBase.hpp:
 
-gui/include/gui/settings_data_logging_1_screen/Settings_Data_Logging_1Presenter.hpp:
+gui/include/gui/settings_data_logging_screen/Settings_data_loggingPresenter.hpp:
 
 gui/include/gui/settings_back_screen/Settings_BackView.hpp:
 

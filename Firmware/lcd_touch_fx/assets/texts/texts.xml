@@ -6,116 +6,131 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
-      <Text Id="__SingleUse_3OWI" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_U48V" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Chill 4°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_0YWV" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Set Point</Translation>
+      </Text>
+      <Text Id="__SingleUse_OQWD" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Alarms</Translation>
       </Text>
-      <Text Id="__SingleUse_JPSW" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_TBEI" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Back</Translation>
       </Text>
-      <Text Id="__SingleUse_3EV8" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_M09W" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Data Logging</Translation>
       </Text>
-      <Text Id="__SingleUse_ZO4J" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_F7K2" Alignment="Left" TypographyId="custome_40">
         <Translation Language="GB">Date/Time</Translation>
       </Text>
-      <Text Id="__SingleUse_L7L7" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_P1ZO" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">Settings</Translation>
       </Text>
-      <Text Id="__SingleUse_U8AF" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_T5TB" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Temperature</Translation>
       </Text>
-      <Text Id="__SingleUse_06TO" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_RN4M" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_71P8" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_K1BR" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Alarms</Translation>
       </Text>
-      <Text Id="__SingleUse_A7R0" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_7PGL" Alignment="Left" TypographyId="custome_40">
         <Translation Language="GB">Back</Translation>
       </Text>
-      <Text Id="__SingleUse_TIQQ" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_3EJW" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Data Logging</Translation>
       </Text>
-      <Text Id="__SingleUse_QKFP" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_G5IW" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Date/Time</Translation>
       </Text>
-      <Text Id="__SingleUse_65FK" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_KDUI" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">Settings</Translation>
       </Text>
-      <Text Id="__SingleUse_STID" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_8D3J" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Temperature</Translation>
       </Text>
-      <Text Id="__SingleUse_HC2N" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_IBV4" Alignment="Left" TypographyId="custome_40">
         <Translation Language="GB">Alarms</Translation>
       </Text>
-      <Text Id="__SingleUse_J4WP" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_K3ND" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Back</Translation>
       </Text>
-      <Text Id="__SingleUse_MVBJ" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_NLEY" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Data Logging</Translation>
       </Text>
-      <Text Id="__SingleUse_7W34" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_URYH" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Date/Time</Translation>
       </Text>
-      <Text Id="__SingleUse_E9EY" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_4U5F" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">Settings</Translation>
       </Text>
-      <Text Id="__SingleUse_IQAH" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_JTXS" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Temperature</Translation>
       </Text>
-      <Text Id="__SingleUse_UY0L" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_1EBQ" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Alarms</Translation>
       </Text>
-      <Text Id="__SingleUse_R8Z5" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_2CNA" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Back</Translation>
       </Text>
-      <Text Id="__SingleUse_SAK3" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_M3HO" Alignment="Left" TypographyId="custome_40">
         <Translation Language="GB">Data Logging</Translation>
       </Text>
-      <Text Id="__SingleUse_Z2NV" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_72FR" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Date/Time</Translation>
       </Text>
-      <Text Id="__SingleUse_W26S" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_1UQU" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">Settings</Translation>
       </Text>
-      <Text Id="__SingleUse_VNGY" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_ULLA" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Temperature</Translation>
       </Text>
-      <Text Id="__SingleUse_86X0" Alignment="Left" TypographyId="custom_25">
-        <Translation Language="GB">Back</Translation>
-      </Text>
-      <Text Id="__SingleUse_HECW" Alignment="Left" TypographyId="custom_25">
-        <Translation Language="GB">Temperature</Translation>
-      </Text>
-      <Text Id="__SingleUse_1AM3" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_8NEU" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Alarms</Translation>
       </Text>
-      <Text Id="__SingleUse_RE5Z" Alignment="Left" TypographyId="custom_25">
+      <Text Id="__SingleUse_BWNK" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_30FX" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Data Logging</Translation>
       </Text>
-      <Text Id="__SingleUse_W0J9" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_GAJU" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Date/Time</Translation>
       </Text>
-      <Text Id="__SingleUse_NHZI" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_9PBP" Alignment="Left" TypographyId="Large">
         <Translation Language="GB">Settings</Translation>
       </Text>
-      <Text Id="__SingleUse_HWSX" Alignment="Left" TypographyId="Large">
+      <Text Id="__SingleUse_TAV4" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_HWSX" Alignment="Left" TypographyId="custome_45">
         <Translation Language="GB">76</Translation>
       </Text>
-      <Text Id="__SingleUse_CPUO" Alignment="Left" TypographyId="custom_30">
+      <Text Id="__SingleUse_CPUO" Alignment="Left" TypographyId="custom_40">
         <Translation Language="GB">AC</Translation>
       </Text>
-      <Text Id="__SingleUse_9MLG" Alignment="Left" TypographyId="custom_30">
+      <Text Id="__SingleUse_9MLG" Alignment="Left" TypographyId="custom_45">
         <Translation Language="GB">-20°C</Translation>
       </Text>
-      <Text Id="__SingleUse_QXFQ" Alignment="Left" TypographyId="larg_1">
-        <Translation Language="GB">-19°C</Translation>
+      <Text Id="__SingleUse_QXFQ" Alignment="Left" TypographyId="large_110">
+        <Translation Language="GB">-19°c</Translation>
       </Text>
     </TextGroup>
   </Texts>
   <Typographies>
     <Typography Id="Default" Font="verdana.ttf" Size="20" Bpp="4" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="Large" Font="verdana.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Large" Font="verdanai.ttf" Size="35" Bpp="4" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="Small" Font="verdana.ttf" Size="10" Bpp="4" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="larg_1" Font="verdana.ttf" Size="70" Bpp="4" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="custom_30" Font="verdana.ttf" Size="30" Bpp="4" Direction="LTR" FallbackCharacter="?" />
-    <Typography Id="custom_25" Font="verdana.ttf" Size="25" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="large_110" Font="verdanai.ttf" Size="110" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="custom_45" Font="verdanai.ttf" Size="45" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="custom_23" Font="verdanai.ttf" Size="23" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="custome_40" Font="verdanai.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="custom_40" Font="verdanai.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="custome_45" Font="verdanai.ttf" Size="45" Bpp="4" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
 </TextDatabase>

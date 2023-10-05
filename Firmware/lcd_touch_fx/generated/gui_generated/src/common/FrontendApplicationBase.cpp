@@ -11,14 +11,14 @@
 #include <platform/driver/lcd/LCD16bpp.hpp>
 #include <gui/main_screen/MainView.hpp>
 #include <gui/main_screen/MainPresenter.hpp>
-#include <gui/settings_date_time_screen/Settings_date_timeView.hpp>
-#include <gui/settings_date_time_screen/Settings_date_timePresenter.hpp>
-#include <gui/settings_temperature_1_screen/Settings_Temperature_1View.hpp>
-#include <gui/settings_temperature_1_screen/Settings_Temperature_1Presenter.hpp>
-#include <gui/settings_alarms_screen/Settings_AlarmsView.hpp>
-#include <gui/settings_alarms_screen/Settings_AlarmsPresenter.hpp>
-#include <gui/settings_data_logging_1_screen/Settings_Data_Logging_1View.hpp>
-#include <gui/settings_data_logging_1_screen/Settings_Data_Logging_1Presenter.hpp>
+#include <gui/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1View.hpp>
+#include <gui/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1Presenter.hpp>
+#include <gui/settings_temperature_screen/Settings_temperatureView.hpp>
+#include <gui/settings_temperature_screen/Settings_temperaturePresenter.hpp>
+#include <gui/settings_alarm_screen/Settings_AlarmView.hpp>
+#include <gui/settings_alarm_screen/Settings_AlarmPresenter.hpp>
+#include <gui/settings_data_logging_screen/Settings_data_loggingView.hpp>
+#include <gui/settings_data_logging_screen/Settings_data_loggingPresenter.hpp>
 #include <gui/settings_back_screen/Settings_BackView.hpp>
 #include <gui/settings_back_screen/Settings_BackPresenter.hpp>
 

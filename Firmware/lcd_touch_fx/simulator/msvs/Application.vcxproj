@@ -24,21 +24,21 @@
     <ClCompile Include="..\..\gui\src\main_screen\MainPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\main_screen\MainView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\main_screen\MainViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\settings_date_time_screen\Settings_date_timePresenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\settings_date_time_screen\Settings_date_timeView.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\settings_date_time_screen\Settings_date_timeViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\settings_alarms_screen\Settings_AlarmsPresenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\settings_alarms_screen\Settings_AlarmsView.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\settings_alarms_screen\Settings_AlarmsViewBase.cpp"/>
     <ClCompile Include="..\..\gui\src\settings_back_screen\Settings_BackPresenter.cpp"/>
     <ClCompile Include="..\..\gui\src\settings_back_screen\Settings_BackView.cpp"/>
     <ClCompile Include="..\..\generated\gui_generated\src\settings_back_screen\Settings_BackViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\settings_data_logging_1_screen\Settings_Data_Logging_1Presenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\settings_data_logging_1_screen\Settings_Data_Logging_1View.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\settings_data_logging_1_screen\Settings_Data_Logging_1ViewBase.cpp"/>
-    <ClCompile Include="..\..\gui\src\settings_temperature_1_screen\Settings_Temperature_1Presenter.cpp"/>
-    <ClCompile Include="..\..\gui\src\settings_temperature_1_screen\Settings_Temperature_1View.cpp"/>
-    <ClCompile Include="..\..\generated\gui_generated\src\settings_temperature_1_screen\Settings_Temperature_1ViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_alarm_screen\Settings_AlarmPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_alarm_screen\Settings_AlarmView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_alarm_screen\Settings_AlarmViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_data_logging_screen\Settings_data_loggingPresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_data_logging_screen\Settings_data_loggingView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_data_logging_screen\Settings_data_loggingViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_date_time_1_1_1_1_1_screen\Settings_date_time_1_1_1_1_1Presenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_date_time_1_1_1_1_1_screen\Settings_date_time_1_1_1_1_1View.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_date_time_1_1_1_1_1_screen\Settings_date_time_1_1_1_1_1ViewBase.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_temperature_screen\Settings_temperaturePresenter.cpp"/>
+    <ClCompile Include="..\..\gui\src\settings_temperature_screen\Settings_temperatureView.cpp"/>
+    <ClCompile Include="..\..\generated\gui_generated\src\settings_temperature_screen\Settings_temperatureViewBase.cpp"/>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(ApplicationRoot)\assets\texts\texts.xml"/>
@@ -192,21 +192,21 @@
     <ClInclude Include="..\..\gui\include\gui\main_screen\MainPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\main_screen\MainView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\main_screen\MainViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\settings_date_time_screen\Settings_date_timePresenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\settings_date_time_screen\Settings_date_timeView.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_date_time_screen\Settings_date_timeViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\settings_alarms_screen\Settings_AlarmsPresenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\settings_alarms_screen\Settings_AlarmsView.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_alarms_screen\Settings_AlarmsViewBase.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\settings_back_screen\Settings_BackPresenter.hpp"/>
     <ClInclude Include="..\..\gui\include\gui\settings_back_screen\Settings_BackView.hpp"/>
     <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_back_screen\Settings_BackViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\settings_data_logging_1_screen\Settings_Data_Logging_1Presenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\settings_data_logging_1_screen\Settings_Data_Logging_1View.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_data_logging_1_screen\Settings_Data_Logging_1ViewBase.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\settings_temperature_1_screen\Settings_Temperature_1Presenter.hpp"/>
-    <ClInclude Include="..\..\gui\include\gui\settings_temperature_1_screen\Settings_Temperature_1View.hpp"/>
-    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_temperature_1_screen\Settings_Temperature_1ViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_alarm_screen\Settings_AlarmPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_alarm_screen\Settings_AlarmView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_alarm_screen\Settings_AlarmViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_data_logging_screen\Settings_data_loggingPresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_data_logging_screen\Settings_data_loggingView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_data_logging_screen\Settings_data_loggingViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_date_time_1_1_1_1_1_screen\Settings_date_time_1_1_1_1_1Presenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_date_time_1_1_1_1_1_screen\Settings_date_time_1_1_1_1_1View.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_date_time_1_1_1_1_1_screen\Settings_date_time_1_1_1_1_1ViewBase.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_temperature_screen\Settings_temperaturePresenter.hpp"/>
+    <ClInclude Include="..\..\gui\include\gui\settings_temperature_screen\Settings_temperatureView.hpp"/>
+    <ClInclude Include="..\..\generated\gui_generated\include\gui_generated\settings_temperature_screen\Settings_temperatureViewBase.hpp"/>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="$(ApplicationRoot)\generated\simulator\touchgfx.rc"/>

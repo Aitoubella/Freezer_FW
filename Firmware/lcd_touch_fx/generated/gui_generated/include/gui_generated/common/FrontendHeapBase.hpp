@@ -14,14 +14,14 @@
 
 #include <gui/main_screen/MainView.hpp>
 #include <gui/main_screen/MainPresenter.hpp>
-#include <gui/settings_date_time_screen/Settings_date_timeView.hpp>
-#include <gui/settings_date_time_screen/Settings_date_timePresenter.hpp>
-#include <gui/settings_temperature_1_screen/Settings_Temperature_1View.hpp>
-#include <gui/settings_temperature_1_screen/Settings_Temperature_1Presenter.hpp>
-#include <gui/settings_alarms_screen/Settings_AlarmsView.hpp>
-#include <gui/settings_alarms_screen/Settings_AlarmsPresenter.hpp>
-#include <gui/settings_data_logging_1_screen/Settings_Data_Logging_1View.hpp>
-#include <gui/settings_data_logging_1_screen/Settings_Data_Logging_1Presenter.hpp>
+#include <gui/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1View.hpp>
+#include <gui/settings_date_time_1_1_1_1_1_screen/Settings_date_time_1_1_1_1_1Presenter.hpp>
+#include <gui/settings_temperature_screen/Settings_temperatureView.hpp>
+#include <gui/settings_temperature_screen/Settings_temperaturePresenter.hpp>
+#include <gui/settings_alarm_screen/Settings_AlarmView.hpp>
+#include <gui/settings_alarm_screen/Settings_AlarmPresenter.hpp>
+#include <gui/settings_data_logging_screen/Settings_data_loggingView.hpp>
+#include <gui/settings_data_logging_screen/Settings_data_loggingPresenter.hpp>
 #include <gui/settings_back_screen/Settings_BackView.hpp>
 #include <gui/settings_back_screen/Settings_BackPresenter.hpp>
 
@@ -47,10 +47,10 @@ public:
      * @note All view types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< MainView,
-            touchgfx::meta::TypeList< Settings_date_timeView,
-            touchgfx::meta::TypeList< Settings_Temperature_1View,
-            touchgfx::meta::TypeList< Settings_AlarmsView,
-            touchgfx::meta::TypeList< Settings_Data_Logging_1View,
+            touchgfx::meta::TypeList< Settings_date_time_1_1_1_1_1View,
+            touchgfx::meta::TypeList< Settings_temperatureView,
+            touchgfx::meta::TypeList< Settings_AlarmView,
+            touchgfx::meta::TypeList< Settings_data_loggingView,
             touchgfx::meta::TypeList< Settings_BackView,
             touchgfx::meta::Nil > > > > >
             > GeneratedViewTypes;
@@ -65,10 +65,10 @@ public:
      * @note All presenter types used in the application MUST be added to this list!
      */
     typedef touchgfx::meta::TypeList< MainPresenter,
-            touchgfx::meta::TypeList< Settings_date_timePresenter,
-            touchgfx::meta::TypeList< Settings_Temperature_1Presenter,
-            touchgfx::meta::TypeList< Settings_AlarmsPresenter,
-            touchgfx::meta::TypeList< Settings_Data_Logging_1Presenter,
+            touchgfx::meta::TypeList< Settings_date_time_1_1_1_1_1Presenter,
+            touchgfx::meta::TypeList< Settings_temperaturePresenter,
+            touchgfx::meta::TypeList< Settings_AlarmPresenter,
+            touchgfx::meta::TypeList< Settings_data_loggingPresenter,
             touchgfx::meta::TypeList< Settings_BackPresenter,
             touchgfx::meta::Nil > > > > >
             > GeneratedPresenterTypes;
