@@ -1,16 +1,16 @@
-#include <gui/settings_back_screen/Settings_BackView.hpp>
+#include <gui/settings_back_screen/Settings_backView.hpp>
 
-Settings_BackView::Settings_BackView()
+Settings_backView::Settings_backView()
 {
 
 }
 
-void Settings_BackView::setupScreen()
+void Settings_backView::setupScreen()
 {
-    Settings_BackViewBase::setupScreen();
+    Settings_backViewBase::setupScreen();
 }
 
-void Settings_BackView::tearDownScreen()
+void Settings_backView::tearDownScreen()
 {
-    Settings_BackViewBase::tearDownScreen();
+    Settings_backViewBase::tearDownScreen();
 }

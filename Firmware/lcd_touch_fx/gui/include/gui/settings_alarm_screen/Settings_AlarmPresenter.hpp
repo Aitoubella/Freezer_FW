@@ -6,12 +6,12 @@
 
 using namespace touchgfx;
 
-class Settings_AlarmView;
+class Settings_alarmView;
 
-class Settings_AlarmPresenter : public touchgfx::Presenter, public ModelListener
+class Settings_alarmPresenter : public touchgfx::Presenter, public ModelListener
 {
 public:
-    Settings_AlarmPresenter(Settings_AlarmView& v);
+    Settings_alarmPresenter(Settings_alarmView& v);
 
     /**
      * The activate function is called automatically when this screen is "switched in"
@@ -25,12 +25,12 @@ public:
      */
     virtual void deactivate();
 
-    virtual ~Settings_AlarmPresenter() {}
+    virtual ~Settings_alarmPresenter() {}
 
 private:
-    Settings_AlarmPresenter();
+    Settings_alarmPresenter();
 
-    Settings_AlarmView& view;
+    Settings_alarmView& view;
 };
 
 #endif // SETTINGS_ALARMPRESENTER_HPP

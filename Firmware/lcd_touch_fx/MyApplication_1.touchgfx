@@ -10,7 +10,7 @@
             "X": 7,
             "Y": -7,
             "Width": 307,
-            "Height": 112,
+            "Height": 134,
             "TextId": "__SingleUse_QXFQ",
             "TextRotation": "0",
             "Color": {
@@ -26,7 +26,7 @@
             "X": 7,
             "Y": 118,
             "Width": 133,
-            "Height": 46,
+            "Height": 55,
             "TextId": "__SingleUse_9MLG",
             "TextRotation": "0",
             "Color": {
@@ -42,7 +42,7 @@
             "X": 11,
             "Y": 177,
             "Width": 55,
-            "Height": 48,
+            "Height": 49,
             "TextId": "__SingleUse_CPUO",
             "TextRotation": "0",
             "Color": {
@@ -78,7 +78,7 @@
             "X": 173,
             "Y": 137,
             "Width": 58,
-            "Height": 46,
+            "Height": 55,
             "TextId": "__SingleUse_HWSX",
             "TextRotation": "0",
             "Color": {
@@ -97,78 +97,6 @@
             "Height": 50,
             "Filename": "charging.png",
             "ScalingAlgorithm": "Nearest-neighbor"
-          }
-        ],
-        "Interactions": []
-      },
-      {
-        "Name": "Settings_date_time_1_1_1_1_1_1",
-        "Components": [
-          {
-            "Type": "TextArea",
-            "Name": "back_text",
-            "X": 136,
-            "Y": 195,
-            "Width": 56,
-            "Height": 28,
-            "TextId": "__SingleUse_TBEI",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "data_logging_text",
-            "X": 84,
-            "Y": 167,
-            "Width": 153,
-            "Height": 28,
-            "TextId": "__SingleUse_M09W",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "date_time_text",
-            "X": 70,
-            "Y": 113,
-            "Width": 212,
-            "Height": 48,
-            "TextId": "__SingleUse_F7K2",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "alarms_text",
-            "X": 120,
-            "Y": 84,
-            "Width": 80,
-            "Height": 28,
-            "TextId": "__SingleUse_OQWD",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "temperature_text",
-            "X": 85,
-            "Y": 56,
-            "Width": 150,
-            "Height": 28,
-            "TextId": "__SingleUse_T5TB",
-            "TextRotation": "0",
-            "AutoSize": true
-          },
-          {
-            "Type": "TextArea",
-            "Name": "settings_text",
-            "X": 88,
-            "Y": 7,
-            "Width": 145,
-            "Height": 42,
-            "TextId": "__SingleUse_P1ZO",
-            "TextRotation": "0",
-            "AutoSize": true
           }
         ],
         "Interactions": []
@@ -318,6 +246,78 @@
         "Interactions": []
       },
       {
+        "Name": "Settings_date_time",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 136,
+            "Y": 195,
+            "Width": 56,
+            "Height": 28,
+            "TextId": "__SingleUse_TBEI",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 84,
+            "Y": 167,
+            "Width": 153,
+            "Height": 28,
+            "TextId": "__SingleUse_M09W",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 70,
+            "Y": 113,
+            "Width": 212,
+            "Height": 48,
+            "TextId": "__SingleUse_F7K2",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 120,
+            "Y": 84,
+            "Width": 80,
+            "Height": 28,
+            "TextId": "__SingleUse_OQWD",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 85,
+            "Y": 56,
+            "Width": 150,
+            "Height": 28,
+            "TextId": "__SingleUse_T5TB",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 88,
+            "Y": 7,
+            "Width": 145,
+            "Height": 42,
+            "TextId": "__SingleUse_P1ZO",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
         "Name": "Settings_data_logging",
         "Components": [
           {
@@ -396,7 +396,7 @@
             "Type": "TextArea",
             "Name": "back_text",
             "X": 113,
-            "Y": 169,
+            "Y": 168,
             "Width": 95,
             "Height": 48,
             "TextId": "__SingleUse_7PGL",
@@ -462,7 +462,7 @@
         "Interactions": []
       },
       {
-        "Name": "Settings_temperature_set_point",
+        "Name": "Settings_temperature_set_point_chill",
         "Components": [
           {
             "Type": "TextArea",
@@ -489,7 +489,7 @@
           {
             "Type": "TextArea",
             "Name": "settings_text_1",
-            "X": 88,
+            "X": 81,
             "Y": 49,
             "Width": 159,
             "Height": 42,
@@ -505,6 +505,710 @@
             "Width": 228,
             "Height": 42,
             "TextId": "__SingleUse_71P8",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_temperature_set_point_chill_enter",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "chill_text",
+            "X": 126,
+            "Y": 141,
+            "Width": 68,
+            "Height": 48,
+            "TextId": "__SingleUse_Q6FV",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1",
+            "X": 141,
+            "Y": 195,
+            "Width": 39,
+            "Height": 28,
+            "TextId": "__SingleUse_JVFK",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 141,
+            "Y": 112,
+            "Width": 39,
+            "Height": 28,
+            "TextId": "__SingleUse_99Q1",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text_1",
+            "X": 81,
+            "Y": 49,
+            "Width": 159,
+            "Height": 42,
+            "TextId": "__SingleUse_4LTD",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 46,
+            "Y": 7,
+            "Width": 228,
+            "Height": 42,
+            "TextId": "__SingleUse_K6SJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_temperature_set_point_chil_back",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 113,
+            "Y": 168,
+            "Width": 95,
+            "Height": 48,
+            "TextId": "__SingleUse_UZ17",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "chill_text",
+            "X": 112,
+            "Y": 140,
+            "Width": 96,
+            "Height": 28,
+            "TextId": "__SingleUse_YUPS",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text_1",
+            "X": 81,
+            "Y": 49,
+            "Width": 159,
+            "Height": 42,
+            "TextId": "__SingleUse_DGNG",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 46,
+            "Y": 7,
+            "Width": 228,
+            "Height": 42,
+            "TextId": "__SingleUse_QMQC",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_temperature_set_point_freeze",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 132,
+            "Y": 168,
+            "Width": 56,
+            "Height": 28,
+            "TextId": "__SingleUse_E27V",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "chill_text",
+            "X": 31,
+            "Y": 120,
+            "Width": 258,
+            "Height": 48,
+            "TextId": "__SingleUse_ZE6J",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text_1",
+            "X": 81,
+            "Y": 49,
+            "Width": 159,
+            "Height": 42,
+            "TextId": "__SingleUse_MA3X",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 46,
+            "Y": 7,
+            "Width": 228,
+            "Height": 42,
+            "TextId": "__SingleUse_LC9U",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_temperature_set_point_freeze_enter",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "chill_text",
+            "X": 105,
+            "Y": 141,
+            "Width": 111,
+            "Height": 48,
+            "TextId": "__SingleUse_JQUJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1_1",
+            "X": 128,
+            "Y": 195,
+            "Width": 64,
+            "Height": 28,
+            "TextId": "__SingleUse_JR9D",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "textArea1",
+            "X": 128,
+            "Y": 112,
+            "Width": 64,
+            "Height": 28,
+            "TextId": "__SingleUse_MVAA",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text_1",
+            "X": 81,
+            "Y": 49,
+            "Width": 159,
+            "Height": 42,
+            "TextId": "__SingleUse_6TY1",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 46,
+            "Y": 7,
+            "Width": 228,
+            "Height": 42,
+            "TextId": "__SingleUse_R1M0",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_temperature_set_point_freeze_back",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 113,
+            "Y": 168,
+            "Width": 95,
+            "Height": 48,
+            "TextId": "__SingleUse_CADZ",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "chill_text",
+            "X": 86,
+            "Y": 140,
+            "Width": 149,
+            "Height": 28,
+            "TextId": "__SingleUse_707V",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text_1",
+            "X": 81,
+            "Y": 49,
+            "Width": 159,
+            "Height": 42,
+            "TextId": "__SingleUse_P9JS",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 46,
+            "Y": 7,
+            "Width": 228,
+            "Height": 42,
+            "TextId": "__SingleUse_K7AJ",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_date_time_year",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 136,
+            "Y": 195,
+            "Width": 56,
+            "Height": 28,
+            "TextId": "__SingleUse_T4TW",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 74,
+            "Y": 158,
+            "Width": 173,
+            "Height": 28,
+            "TextId": "__SingleUse_SLAD",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 78,
+            "Y": 128,
+            "Width": 164,
+            "Height": 30,
+            "TextId": "__SingleUse_TLFY",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 84,
+            "Y": 98,
+            "Width": 152,
+            "Height": 30,
+            "TextId": "__SingleUse_B436",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 70,
+            "Y": 68,
+            "Width": 181,
+            "Height": 30,
+            "TextId": "__SingleUse_HIS8",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "set_year",
+            "X": 9,
+            "Y": 17,
+            "Width": 303,
+            "Height": 48,
+            "TextId": "__SingleUse_5BGM",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_date_time_month",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 136,
+            "Y": 195,
+            "Width": 56,
+            "Height": 28,
+            "TextId": "__SingleUse_6E0K",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 74,
+            "Y": 158,
+            "Width": 173,
+            "Height": 28,
+            "TextId": "__SingleUse_OVKO",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 78,
+            "Y": 128,
+            "Width": 164,
+            "Height": 30,
+            "TextId": "__SingleUse_GZQ2",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 84,
+            "Y": 98,
+            "Width": 152,
+            "Height": 30,
+            "TextId": "__SingleUse_8Y3C",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 17,
+            "Y": 50,
+            "Width": 287,
+            "Height": 48,
+            "TextId": "__SingleUse_Q7E0",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "set_year",
+            "X": 56,
+            "Y": 20,
+            "Width": 191,
+            "Height": 30,
+            "TextId": "__SingleUse_XE8C",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_date_time_day",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 136,
+            "Y": 195,
+            "Width": 56,
+            "Height": 28,
+            "TextId": "__SingleUse_FGMX",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 74,
+            "Y": 158,
+            "Width": 173,
+            "Height": 28,
+            "TextId": "__SingleUse_FIYL",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 78,
+            "Y": 128,
+            "Width": 164,
+            "Height": 30,
+            "TextId": "__SingleUse_BS8W",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 39,
+            "Y": 80,
+            "Width": 242,
+            "Height": 48,
+            "TextId": "__SingleUse_JBG6",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 70,
+            "Y": 50,
+            "Width": 181,
+            "Height": 30,
+            "TextId": "__SingleUse_RRBW",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "set_year",
+            "X": 65,
+            "Y": 20,
+            "Width": 191,
+            "Height": 30,
+            "TextId": "__SingleUse_RCTV",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_date_time_hour",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 136,
+            "Y": 195,
+            "Width": 56,
+            "Height": 28,
+            "TextId": "__SingleUse_2JOU",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 74,
+            "Y": 158,
+            "Width": 173,
+            "Height": 28,
+            "TextId": "__SingleUse_SFRA",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 31,
+            "Y": 110,
+            "Width": 259,
+            "Height": 48,
+            "TextId": "__SingleUse_86VD",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 84,
+            "Y": 80,
+            "Width": 152,
+            "Height": 30,
+            "TextId": "__SingleUse_C7QO",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 70,
+            "Y": 50,
+            "Width": 181,
+            "Height": 30,
+            "TextId": "__SingleUse_7EY3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "set_year",
+            "X": 65,
+            "Y": 20,
+            "Width": 191,
+            "Height": 30,
+            "TextId": "__SingleUse_UFXG",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_date_time_minute",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 136,
+            "Y": 195,
+            "Width": 56,
+            "Height": 28,
+            "TextId": "__SingleUse_DE41",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 11,
+            "Y": 140,
+            "Width": 298,
+            "Height": 48,
+            "TextId": "__SingleUse_EIIR",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 78,
+            "Y": 110,
+            "Width": 164,
+            "Height": 30,
+            "TextId": "__SingleUse_KH7O",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 84,
+            "Y": 80,
+            "Width": 152,
+            "Height": 30,
+            "TextId": "__SingleUse_Y812",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 70,
+            "Y": 50,
+            "Width": 181,
+            "Height": 30,
+            "TextId": "__SingleUse_LAXR",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "set_year",
+            "X": 65,
+            "Y": 20,
+            "Width": 191,
+            "Height": 30,
+            "TextId": "__SingleUse_ZDN0",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_date_time_back",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 113,
+            "Y": 168,
+            "Width": 95,
+            "Height": 48,
+            "TextId": "__SingleUse_SR31",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "data_logging_text",
+            "X": 66,
+            "Y": 140,
+            "Width": 188,
+            "Height": 30,
+            "TextId": "__SingleUse_80TD",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "date_time_text",
+            "X": 78,
+            "Y": 110,
+            "Width": 164,
+            "Height": 30,
+            "TextId": "__SingleUse_DGI1",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarms_text",
+            "X": 84,
+            "Y": 80,
+            "Width": 152,
+            "Height": 30,
+            "TextId": "__SingleUse_T6Y7",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 70,
+            "Y": 50,
+            "Width": 181,
+            "Height": 30,
+            "TextId": "__SingleUse_S8R4",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "set_year",
+            "X": 65,
+            "Y": 20,
+            "Width": 191,
+            "Height": 30,
+            "TextId": "__SingleUse_95L7",
             "TextRotation": "0",
             "AutoSize": true
           }

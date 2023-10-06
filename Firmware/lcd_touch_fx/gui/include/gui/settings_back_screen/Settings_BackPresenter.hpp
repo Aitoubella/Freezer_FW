@@ -6,12 +6,12 @@
 
 using namespace touchgfx;
 
-class Settings_BackView;
+class Settings_backView;
 
-class Settings_BackPresenter : public touchgfx::Presenter, public ModelListener
+class Settings_backPresenter : public touchgfx::Presenter, public ModelListener
 {
 public:
-    Settings_BackPresenter(Settings_BackView& v);
+    Settings_backPresenter(Settings_backView& v);
 
     /**
      * The activate function is called automatically when this screen is "switched in"
@@ -25,12 +25,12 @@ public:
      */
     virtual void deactivate();
 
-    virtual ~Settings_BackPresenter() {}
+    virtual ~Settings_backPresenter() {}
 
 private:
-    Settings_BackPresenter();
+    Settings_backPresenter();
 
-    Settings_BackView& view;
+    Settings_backView& view;
 };
 
 #endif // SETTINGS_BACKPRESENTER_HPP

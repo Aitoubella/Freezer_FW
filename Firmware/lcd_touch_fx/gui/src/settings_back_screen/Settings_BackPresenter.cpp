@@ -1,18 +1,18 @@
-#include <gui/settings_back_screen/Settings_BackView.hpp>
-#include <gui/settings_back_screen/Settings_BackPresenter.hpp>
+#include <gui/settings_back_screen/Settings_backView.hpp>
+#include <gui/settings_back_screen/Settings_backPresenter.hpp>
 
-Settings_BackPresenter::Settings_BackPresenter(Settings_BackView& v)
+Settings_backPresenter::Settings_backPresenter(Settings_backView& v)
     : view(v)
 {
 
 }
 
-void Settings_BackPresenter::activate()
+void Settings_backPresenter::activate()
 {
 
 }
 
-void Settings_BackPresenter::deactivate()
+void Settings_backPresenter::deactivate()
 {
 
 }

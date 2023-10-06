@@ -1,18 +1,18 @@
-#include <gui/settings_alarm_screen/Settings_AlarmView.hpp>
-#include <gui/settings_alarm_screen/Settings_AlarmPresenter.hpp>
+#include <gui/settings_alarm_screen/Settings_alarmView.hpp>
+#include <gui/settings_alarm_screen/Settings_alarmPresenter.hpp>
 
-Settings_AlarmPresenter::Settings_AlarmPresenter(Settings_AlarmView& v)
+Settings_alarmPresenter::Settings_alarmPresenter(Settings_alarmView& v)
     : view(v)
 {
 
 }
 
-void Settings_AlarmPresenter::activate()
+void Settings_alarmPresenter::activate()
 {
 
 }
 
-void Settings_AlarmPresenter::deactivate()
+void Settings_alarmPresenter::deactivate()
 {
 
 }

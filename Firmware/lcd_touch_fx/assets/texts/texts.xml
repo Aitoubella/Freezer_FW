@@ -6,6 +6,180 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_95L7" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Year: 2023</Translation>
+      </Text>
+      <Text Id="__SingleUse_S8R4" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Month: 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_T6Y7" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Day: 03</Translation>
+      </Text>
+      <Text Id="__SingleUse_DGI1" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Hour: 19</Translation>
+      </Text>
+      <Text Id="__SingleUse_80TD" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Minute: 30</Translation>
+      </Text>
+      <Text Id="__SingleUse_SR31" Alignment="Left" TypographyId="custom_40">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZDN0" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Year: 2023</Translation>
+      </Text>
+      <Text Id="__SingleUse_LAXR" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Month: 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_Y812" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Day: 03</Translation>
+      </Text>
+      <Text Id="__SingleUse_KH7O" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Hour: 19</Translation>
+      </Text>
+      <Text Id="__SingleUse_EIIR" Alignment="Left" TypographyId="custom_40">
+        <Translation Language="GB">Set Minute: 30</Translation>
+      </Text>
+      <Text Id="__SingleUse_DE41" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_UFXG" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Year: 2023</Translation>
+      </Text>
+      <Text Id="__SingleUse_7EY3" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Month: 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_C7QO" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Day: 03</Translation>
+      </Text>
+      <Text Id="__SingleUse_86VD" Alignment="Left" TypographyId="custom_40">
+        <Translation Language="GB">Set Hour: 19</Translation>
+      </Text>
+      <Text Id="__SingleUse_SFRA" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Set Minute: 30</Translation>
+      </Text>
+      <Text Id="__SingleUse_2JOU" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_RCTV" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Year: 2023</Translation>
+      </Text>
+      <Text Id="__SingleUse_RRBW" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Month: 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_JBG6" Alignment="Left" TypographyId="custom_40">
+        <Translation Language="GB">Set Day: 03</Translation>
+      </Text>
+      <Text Id="__SingleUse_BS8W" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Hour: 19</Translation>
+      </Text>
+      <Text Id="__SingleUse_FIYL" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Set Minute: 30</Translation>
+      </Text>
+      <Text Id="__SingleUse_FGMX" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_XE8C" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Year: 2023</Translation>
+      </Text>
+      <Text Id="__SingleUse_Q7E0" Alignment="Left" TypographyId="custom_40">
+        <Translation Language="GB">Set Month: 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_8Y3C" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Day: 03</Translation>
+      </Text>
+      <Text Id="__SingleUse_GZQ2" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Hour: 19</Translation>
+      </Text>
+      <Text Id="__SingleUse_OVKO" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Set Minute: 30</Translation>
+      </Text>
+      <Text Id="__SingleUse_6E0K" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_5BGM" Alignment="Left" TypographyId="custom_40">
+        <Translation Language="GB">Set Year: 2023</Translation>
+      </Text>
+      <Text Id="__SingleUse_HIS8" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Month: 10</Translation>
+      </Text>
+      <Text Id="__SingleUse_B436" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Day: 03</Translation>
+      </Text>
+      <Text Id="__SingleUse_TLFY" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Set Hour: 19</Translation>
+      </Text>
+      <Text Id="__SingleUse_SLAD" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Set Minute: 30</Translation>
+      </Text>
+      <Text Id="__SingleUse_T4TW" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_K7AJ" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_P9JS" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Set Point</Translation>
+      </Text>
+      <Text Id="__SingleUse_707V" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Freeze -20°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_CADZ" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_R1M0" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_6TY1" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Set Point</Translation>
+      </Text>
+      <Text Id="__SingleUse_MVAA" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">-20°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_JR9D" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">-22°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_JQUJ" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">-21°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_LC9U" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_MA3X" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Set Point</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZE6J" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Freeze -20°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_E27V" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_QMQC" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_DGNG" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Set Point</Translation>
+      </Text>
+      <Text Id="__SingleUse_YUPS" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Chill 4°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_UZ17" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_JVFK" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">2°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_99Q1" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">4°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_K6SJ" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_4LTD" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Set Point</Translation>
+      </Text>
+      <Text Id="__SingleUse_Q6FV" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">3°c</Translation>
+      </Text>
       <Text Id="__SingleUse_U48V" Alignment="Left" TypographyId="custome_40">
         <Translation Language="GB">Chill 4°c</Translation>
       </Text>
@@ -132,5 +306,6 @@
     <Typography Id="custome_40" Font="verdanai.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="custom_40" Font="verdanai.ttf" Size="40" Bpp="4" Direction="LTR" FallbackCharacter="?" />
     <Typography Id="custome_45" Font="verdanai.ttf" Size="45" Bpp="4" Direction="LTR" FallbackCharacter="?" />
+    <Typography Id="Custom_25" Font="verdanai.ttf" Size="25" Bpp="4" Direction="LTR" FallbackCharacter="?" />
   </Typographies>
 </TextDatabase>
