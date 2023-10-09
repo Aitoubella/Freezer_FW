@@ -6,6 +6,87 @@
   <Texts>
     <TextGroup Id="Group1" />
     <TextGroup Id="Unsorted">
+      <Text Id="__SingleUse_WU9C" Alignment="Left" TypographyId="custom_40">
+        <Translation Language="GB">Max Temp</Translation>
+      </Text>
+      <Text Id="__SingleUse_VGIG" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">7°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_CUMO" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">5°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZPFU" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">6°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_NC7A" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Min Temp 2°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_93O9" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Max Temp 7°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_FDA3" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Alarm Delay</Translation>
+      </Text>
+      <Text Id="__SingleUse_NCEN" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_LLFD" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Min Temp 2°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_1XJE" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Max Temp 7°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_TWNA" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Alarm Delay</Translation>
+      </Text>
+      <Text Id="__SingleUse_CP79" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_R6M6" Alignment="Left" TypographyId="custom_40">
+        <Translation Language="GB">Min Temp</Translation>
+      </Text>
+      <Text Id="__SingleUse_U1DV" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">4°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_FJPU" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">2°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_00FN" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">3°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_ZU9Q" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Min Temp 2°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_4LUD" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Max Temp 7°c</Translation>
+      </Text>
+      <Text Id="__SingleUse_HYEY" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Alarm Delay</Translation>
+      </Text>
+      <Text Id="__SingleUse_MKII" Alignment="Left" TypographyId="Custom_25">
+        <Translation Language="GB">Back</Translation>
+      </Text>
+      <Text Id="__SingleUse_OVKO" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Set Minute: 30</Translation>
+      </Text>
+      <Text Id="__SingleUse_MLAW" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Mute Alarm</Translation>
+      </Text>
+      <Text Id="__SingleUse_OG2M" Alignment="Left" TypographyId="Large">
+        <Translation Language="GB">Alarm</Translation>
+      </Text>
+      <Text Id="__SingleUse_7SYH" Alignment="Left" TypographyId="custome_40">
+        <Translation Language="GB">Temperature</Translation>
+      </Text>
+      <Text Id="__SingleUse_YF1N" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Battery</Translation>
+      </Text>
+      <Text Id="__SingleUse_GHJ7" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Lid</Translation>
+      </Text>
+      <Text Id="__SingleUse_JX9T" Alignment="Left" TypographyId="custom_23">
+        <Translation Language="GB">Back</Translation>
+      </Text>
       <Text Id="__SingleUse_95L7" Alignment="Left" TypographyId="Custom_25">
         <Translation Language="GB">Set Year: 2023</Translation>
       </Text>
@@ -89,9 +170,6 @@
       </Text>
       <Text Id="__SingleUse_GZQ2" Alignment="Left" TypographyId="Custom_25">
         <Translation Language="GB">Set Hour: 19</Translation>
-      </Text>
-      <Text Id="__SingleUse_OVKO" Alignment="Left" TypographyId="custom_23">
-        <Translation Language="GB">Set Minute: 30</Translation>
       </Text>
       <Text Id="__SingleUse_6E0K" Alignment="Left" TypographyId="custom_23">
         <Translation Language="GB">Back</Translation>

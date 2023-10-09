@@ -154,7 +154,7 @@
             "X": 34,
             "Y": 57,
             "Width": 260,
-            "Height": 48,
+            "Height": 49,
             "TextId": "__SingleUse_TAV4",
             "TextRotation": "0",
             "AutoSize": true
@@ -165,7 +165,7 @@
             "X": 88,
             "Y": 7,
             "Width": 145,
-            "Height": 42,
+            "Height": 43,
             "TextId": "__SingleUse_9PBP",
             "TextRotation": "0",
             "AutoSize": true
@@ -215,7 +215,7 @@
             "X": 92,
             "Y": 85,
             "Width": 139,
-            "Height": 48,
+            "Height": 49,
             "TextId": "__SingleUse_IBV4",
             "TextRotation": "0",
             "AutoSize": true
@@ -237,7 +237,7 @@
             "X": 88,
             "Y": 7,
             "Width": 145,
-            "Height": 42,
+            "Height": 43,
             "TextId": "__SingleUse_4U5F",
             "TextRotation": "0",
             "AutoSize": true
@@ -276,7 +276,7 @@
             "X": 70,
             "Y": 113,
             "Width": 212,
-            "Height": 48,
+            "Height": 49,
             "TextId": "__SingleUse_F7K2",
             "TextRotation": "0",
             "AutoSize": true
@@ -309,7 +309,7 @@
             "X": 88,
             "Y": 7,
             "Width": 145,
-            "Height": 42,
+            "Height": 43,
             "TextId": "__SingleUse_P1ZO",
             "TextRotation": "0",
             "AutoSize": true
@@ -477,7 +477,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "chill_text",
+            "Name": "chill_value_text",
             "X": 76,
             "Y": 120,
             "Width": 168,
@@ -488,7 +488,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text_1",
+            "Name": "set_pint_text",
             "X": 81,
             "Y": 49,
             "Width": 159,
@@ -499,7 +499,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text",
+            "Name": "temperature_text",
             "X": 46,
             "Y": 7,
             "Width": 228,
@@ -516,7 +516,7 @@
         "Components": [
           {
             "Type": "TextArea",
-            "Name": "chill_text",
+            "Name": "temperature_value_3_text",
             "X": 126,
             "Y": 141,
             "Width": 68,
@@ -527,7 +527,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1_1",
+            "Name": "temperature_value_2_text",
             "X": 141,
             "Y": 195,
             "Width": 39,
@@ -538,7 +538,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "temperature_value_1_text",
             "X": 141,
             "Y": 112,
             "Width": 39,
@@ -549,7 +549,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text_1",
+            "Name": "set_point_text",
             "X": 81,
             "Y": 49,
             "Width": 159,
@@ -560,7 +560,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text",
+            "Name": "temperature_text",
             "X": 46,
             "Y": 7,
             "Width": 228,
@@ -599,7 +599,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text_1",
+            "Name": "set_point_text",
             "X": 81,
             "Y": 49,
             "Width": 159,
@@ -610,7 +610,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text",
+            "Name": "temperature_text",
             "X": 46,
             "Y": 7,
             "Width": 228,
@@ -638,7 +638,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "chill_text",
+            "Name": "freeze_text",
             "X": 31,
             "Y": 120,
             "Width": 258,
@@ -649,7 +649,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text_1",
+            "Name": "setpoint_text",
             "X": 81,
             "Y": 49,
             "Width": 159,
@@ -660,7 +660,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text",
+            "Name": "temperature_text",
             "X": 46,
             "Y": 7,
             "Width": 228,
@@ -677,7 +677,7 @@
         "Components": [
           {
             "Type": "TextArea",
-            "Name": "chill_text",
+            "Name": "temperature_value_3_text",
             "X": 105,
             "Y": 141,
             "Width": 111,
@@ -688,7 +688,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1_1",
+            "Name": "temperature_value_2_text",
             "X": 128,
             "Y": 195,
             "Width": 64,
@@ -699,7 +699,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "textArea1",
+            "Name": "temperature_value_1_text",
             "X": 128,
             "Y": 112,
             "Width": 64,
@@ -749,7 +749,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "chill_text",
+            "Name": "freeze_value_text",
             "X": 86,
             "Y": 140,
             "Width": 149,
@@ -760,7 +760,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text_1",
+            "Name": "set_point_text",
             "X": 81,
             "Y": 49,
             "Width": 159,
@@ -771,7 +771,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "settings_text",
+            "Name": "temperature_text",
             "X": 46,
             "Y": 7,
             "Width": 228,
@@ -799,7 +799,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "data_logging_text",
+            "Name": "set_minute_text",
             "X": 74,
             "Y": 158,
             "Width": 173,
@@ -810,7 +810,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "date_time_text",
+            "Name": "set_hour_text",
             "X": 78,
             "Y": 128,
             "Width": 164,
@@ -821,7 +821,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "alarms_text",
+            "Name": "set_day_text",
             "X": 84,
             "Y": 98,
             "Width": 152,
@@ -832,7 +832,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "temperature_text",
+            "Name": "set_month_text",
             "X": 70,
             "Y": 68,
             "Width": 181,
@@ -843,7 +843,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "set_year",
+            "Name": "set_year_text",
             "X": 9,
             "Y": 17,
             "Width": 303,
@@ -871,7 +871,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "data_logging_text",
+            "Name": "set_minute_text",
             "X": 74,
             "Y": 158,
             "Width": 173,
@@ -882,7 +882,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "date_time_text",
+            "Name": "set_hour_text",
             "X": 78,
             "Y": 128,
             "Width": 164,
@@ -893,7 +893,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "alarms_text",
+            "Name": "set_day_text",
             "X": 84,
             "Y": 98,
             "Width": 152,
@@ -904,7 +904,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "temperature_text",
+            "Name": "set_month_text",
             "X": 17,
             "Y": 50,
             "Width": 287,
@@ -915,7 +915,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "set_year",
+            "Name": "set_year_text",
             "X": 56,
             "Y": 20,
             "Width": 191,
@@ -943,7 +943,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "data_logging_text",
+            "Name": "set_minute_text",
             "X": 74,
             "Y": 158,
             "Width": 173,
@@ -954,7 +954,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "date_time_text",
+            "Name": "set_hour_text",
             "X": 78,
             "Y": 128,
             "Width": 164,
@@ -965,7 +965,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "alarms_text",
+            "Name": "set_day_text",
             "X": 39,
             "Y": 80,
             "Width": 242,
@@ -976,7 +976,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "temperature_text",
+            "Name": "set_month_text",
             "X": 70,
             "Y": 50,
             "Width": 181,
@@ -987,7 +987,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "set_year",
+            "Name": "set_year_text",
             "X": 65,
             "Y": 20,
             "Width": 191,
@@ -1015,7 +1015,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "data_logging_text",
+            "Name": "set_minute_text",
             "X": 74,
             "Y": 158,
             "Width": 173,
@@ -1026,7 +1026,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "date_time_text",
+            "Name": "set_hour_text",
             "X": 31,
             "Y": 110,
             "Width": 259,
@@ -1037,7 +1037,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "alarms_text",
+            "Name": "set_day_text",
             "X": 84,
             "Y": 80,
             "Width": 152,
@@ -1048,7 +1048,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "temperature_text",
+            "Name": "set_month_text",
             "X": 70,
             "Y": 50,
             "Width": 181,
@@ -1059,7 +1059,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "set_year",
+            "Name": "set_year_text",
             "X": 65,
             "Y": 20,
             "Width": 191,
@@ -1087,7 +1087,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "data_logging_text",
+            "Name": "set_minute_text",
             "X": 11,
             "Y": 140,
             "Width": 298,
@@ -1098,7 +1098,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "date_time_text",
+            "Name": "set_hour_text",
             "X": 78,
             "Y": 110,
             "Width": 164,
@@ -1109,7 +1109,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "alarms_text",
+            "Name": "set_day_text",
             "X": 84,
             "Y": 80,
             "Width": 152,
@@ -1120,7 +1120,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "temperature_text",
+            "Name": "set_month_text",
             "X": 70,
             "Y": 50,
             "Width": 181,
@@ -1131,7 +1131,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "set_year",
+            "Name": "set_year_text",
             "X": 65,
             "Y": 20,
             "Width": 191,
@@ -1159,7 +1159,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "data_logging_text",
+            "Name": "set_minute_text",
             "X": 66,
             "Y": 140,
             "Width": 188,
@@ -1170,7 +1170,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "date_time_text",
+            "Name": "set_hour_text",
             "X": 78,
             "Y": 110,
             "Width": 164,
@@ -1181,7 +1181,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "alarms_text",
+            "Name": "set_day_text",
             "X": 84,
             "Y": 80,
             "Width": 152,
@@ -1192,7 +1192,7 @@
           },
           {
             "Type": "TextArea",
-            "Name": "temperature_text",
+            "Name": "set_month_text",
             "X": 70,
             "Y": 50,
             "Width": 181,
@@ -1203,12 +1203,284 @@
           },
           {
             "Type": "TextArea",
-            "Name": "set_year",
+            "Name": "set_year_text",
             "X": 65,
             "Y": 20,
             "Width": 191,
             "Height": 30,
             "TextId": "__SingleUse_95L7",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_alarm_temperature",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 136,
+            "Y": 195,
+            "Width": 56,
+            "Height": 28,
+            "TextId": "__SingleUse_JX9T",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "mute_alarm_text",
+            "X": 94,
+            "Y": 167,
+            "Width": 133,
+            "Height": 28,
+            "TextId": "__SingleUse_MLAW",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "lid_text",
+            "X": 144,
+            "Y": 139,
+            "Width": 33,
+            "Height": 28,
+            "TextId": "__SingleUse_GHJ7",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "battery_text",
+            "X": 117,
+            "Y": 111,
+            "Width": 86,
+            "Height": 28,
+            "TextId": "__SingleUse_YF1N",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_text",
+            "X": 30,
+            "Y": 57,
+            "Width": 260,
+            "Height": 48,
+            "TextId": "__SingleUse_7SYH",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarm_text",
+            "X": 108,
+            "Y": 7,
+            "Width": 104,
+            "Height": 42,
+            "TextId": "__SingleUse_OG2M",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_alarm_temperature_min_temp",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 130,
+            "Y": 145,
+            "Width": 60,
+            "Height": 30,
+            "TextId": "__SingleUse_MKII",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarm_delay_text",
+            "X": 88,
+            "Y": 115,
+            "Width": 154,
+            "Height": 30,
+            "TextId": "__SingleUse_HYEY",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "max_temp_text",
+            "X": 95,
+            "Y": 85,
+            "Width": 182,
+            "Height": 30,
+            "TextId": "__SingleUse_4LUD",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "min_temp_text",
+            "X": 21,
+            "Y": 37,
+            "Width": 279,
+            "Height": 48,
+            "TextId": "__SingleUse_ZU9Q",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_alarm_temperature_min_temp_enter",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "temperature_value_3_text",
+            "X": 126,
+            "Y": 120,
+            "Width": 68,
+            "Height": 48,
+            "TextId": "__SingleUse_00FN",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_value_2_text",
+            "X": 141,
+            "Y": 168,
+            "Width": 39,
+            "Height": 28,
+            "TextId": "__SingleUse_FJPU",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_value_1_text",
+            "X": 141,
+            "Y": 95,
+            "Width": 39,
+            "Height": 28,
+            "TextId": "__SingleUse_U1DV",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 62,
+            "Y": 23,
+            "Width": 197,
+            "Height": 48,
+            "TextId": "__SingleUse_R6M6",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_alarm_temperature_max_temp",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "back_text",
+            "X": 130,
+            "Y": 145,
+            "Width": 60,
+            "Height": 30,
+            "TextId": "__SingleUse_NCEN",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "alarm_delay_text",
+            "X": 88,
+            "Y": 115,
+            "Width": 154,
+            "Height": 30,
+            "TextId": "__SingleUse_FDA3",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "max_temp_text",
+            "X": 15,
+            "Y": 67,
+            "Width": 291,
+            "Height": 48,
+            "TextId": "__SingleUse_93O9",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "min_temp_text",
+            "X": 73,
+            "Y": 37,
+            "Width": 175,
+            "Height": 30,
+            "TextId": "__SingleUse_NC7A",
+            "TextRotation": "0",
+            "AutoSize": true
+          }
+        ],
+        "Interactions": []
+      },
+      {
+        "Name": "Settings_alarm_temperature_max_temp_enter",
+        "Components": [
+          {
+            "Type": "TextArea",
+            "Name": "temperature_value_3_text",
+            "X": 126,
+            "Y": 120,
+            "Width": 68,
+            "Height": 48,
+            "TextId": "__SingleUse_ZPFU",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_value_2_text",
+            "X": 141,
+            "Y": 168,
+            "Width": 39,
+            "Height": 28,
+            "TextId": "__SingleUse_CUMO",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "temperature_value_1_text",
+            "X": 141,
+            "Y": 95,
+            "Width": 39,
+            "Height": 28,
+            "TextId": "__SingleUse_VGIG",
+            "TextRotation": "0",
+            "AutoSize": true
+          },
+          {
+            "Type": "TextArea",
+            "Name": "settings_text",
+            "X": 62,
+            "Y": 23,
+            "Width": 209,
+            "Height": 48,
+            "TextId": "__SingleUse_WU9C",
             "TextRotation": "0",
             "AutoSize": true
           }
