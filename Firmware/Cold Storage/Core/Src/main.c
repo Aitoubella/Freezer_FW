@@ -19,50 +19,35 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "adc.h"
-#include "dac.h"
+#include "crc.h"
+#include "dma.h"
+#include "fatfs.h"
 #include "i2c.h"
+#include "rtc.h"
 #include "spi.h"
-#include "usb_otg.h"
+#include "usart.h"
+#include "usb_device.h"
 #include "gpio.h"
+#include "app_touchgfx.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "string.h"
-#include "stdbool.h"
-#include "stdlib.h"
-#include "math.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-typedef struct {
-    uint8_t seconds;
-    uint8_t minutes;
-    uint8_t hours;
-    bool am;
-    uint8_t day_of_week;
-    uint8_t date;
-    uint8_t month;
-    uint8_t year;
-    bool clock_halt;
-    bool out;
-    bool sqwe;
-    bool rs1;
-    bool rs0;
-} time;
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-#define TIME_STRUCT_SIZE 0x08
-#define RTC_ADDRESS (0x68 << 1)
-uint8_t data[8];
-uint8_t* get_time_array;
-char msgBuffer[19]; //2017-02-23 10:10:10
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -75,197 +60,11 @@ char msgBuffer[19]; //2017-02-23 10:10:10
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 /* USER CODE BEGIN PFP */
-uint8_t* read_time(void);
-void set_time(uint8_t sec, uint8_t min, uint8_t hr, uint8_t dy, uint8_t dat, uint8_t mnth, uint8_t yr);
-void decodeTime(const uint8_t *data, time *s_time);
-uint8_t* encodeData(const time *s_time);
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t* read_time(void){
-
-    data[0] = 0x00;
-    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
-    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x00, &get_time_array[0], 1, 50);
-
-    data[0] = 0x01;
-    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
-    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[1], 1, 50);
-
-    data[0] = 0x02;
-    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
-    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[2], 1, 50);
-
-    data[0] = 0x03;
-    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
-    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[3], 1, 50);
-
-    data[0] = 0x04;
-    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
-    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[4], 1, 50);
-
-    data[0] = 0x05;
-    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
-    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[5], 1, 50);
-
-    data[0] = 0x06;
-    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
-    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[6], 1, 50);
-
-    data[0] = 0x07;
-    HAL_I2C_Master_Transmit(&hi2c1, RTC_ADDRESS, data, 1, 50);
-    HAL_I2C_Master_Receive(&hi2c1, RTC_ADDRESS|0x01, &get_time_array[7], 1, 50);
-
-
-		return get_time_array;
-
-}
-
-void set_time(uint8_t sec, uint8_t min, uint8_t hr, uint8_t dy, uint8_t dat, uint8_t mnth, uint8_t yr){
-
-		time *s_time;
-		s_time->seconds=sec;
-		s_time->minutes=min;
-		s_time->hours=hr;
-		s_time->day_of_week=dy;
-		s_time->date=dat;
-		s_time->month=mnth;
-		s_time->year=yr;
-		s_time->out=false;
-		s_time->sqwe=false;
-		s_time->rs0=false;
-		s_time->rs1=false;
-
-		uint8_t* data_set =encodeData(s_time);
-
-  for(uint8_t i=0;i<8;i++){
-
-		HAL_I2C_Mem_Write(&hi2c1, RTC_ADDRESS,i,1, (uint8_t*)data_set , 1, 100);
-
-	}
-
-
-
-}
-
-
-
-void decodeTime(const uint8_t *data, time *s_time) {
-
-uint8_t msd = 0, lsd = 0;
-    uint8_t /*am_pm = -1,*/_12h_mode = -1;
-
-    lsd = (data[0] & 0x0F);
-    msd = (data[0] & 0x70) >> 4;
-    s_time->seconds = lsd + 10 * msd;
-
-    lsd = (data[1] & 0x0F);
-    msd = (data[1] & 0x70) >> 4;
-    s_time->minutes = lsd + 10 * msd;
-
-    // If 1, then 12-hour mode is enabled, 0 - 24-hour mode
-    _12h_mode = (data[2] & 0x40) >> 6;
-
-    // When 12-hour mode enabled, PM = 1, AM = 0, otherwise first bit of
-    // hour_msd
-    if (_12h_mode) {
-        //am_pm = (data[2] & 0b00100000) >> 5;
-        msd = (data[2] & 0x10) >> 4;
-    } else {
-        msd = (data[2] & 0x30) >> 4;
-    }
-    lsd = (data[2] & 0x0F);
-    s_time->hours = lsd + 10 * msd;
-
-    s_time->day_of_week = (data[3] & 0x07);
-
-    lsd = (data[4] & 0x0F);
-    msd = (data[4] & 0x30) >> 4;
-    s_time->date = lsd + 10 * msd;
-
-    lsd = (data[5] & 0x0F);
-    msd = (data[5] & 0x10) >> 4;
-    s_time->month = lsd + 10 * msd;
-
-    lsd = (data[6] & 0x0F);
-    msd = (data[6] & 0xF0) >> 4;
-    s_time->year = lsd + 10 * msd;
-
-    s_time->clock_halt = (data[0] & 0x70) >> 7;
-    s_time->out = (data[7] & 0x70) >> 7;
-    s_time->sqwe = (data[7] & 0x10) >> 4;
-    s_time->rs1 = (data[7] & 0x02) >> 1;
-    s_time->rs0 = (data[7] & 0x01);
-
-}
-
-
-uint8_t* encodeData(const time *s_time) {
-    uint8_t *data = calloc(TIME_STRUCT_SIZE, sizeof(uint8_t));
-    uint8_t msd, lsd;
-
-    // 0x00 Clock halt and seconds
-    msd = s_time->seconds / 10;
-    lsd = s_time->seconds - msd * 10;
-    data[0] = (s_time->clock_halt << 7) | (msd << 4) | (lsd);
-
-    // 0x01 Minutes
-    msd = s_time->minutes / 10;
-    lsd = s_time->minutes - msd * 10;
-    data[1] = (msd << 4) | (lsd);
-
-    // 0x02 Hours
-    msd = s_time->hours / 10;
-    lsd = s_time->hours - msd * 10;
-    data[2] = (0 << 6 /*24h mode*/) | (msd << 4) | (lsd);
-
-    // 0x03 Day of week
-    data[3] = s_time->day_of_week;
-
-    // 0x04 Date (day of month)
-    msd = s_time->date / 10;
-    lsd = s_time->date - msd * 10;
-    data[4] = (msd << 4) | (lsd);
-
-    // 0x05 Month
-    msd = s_time->month / 10;
-    lsd = s_time->month - msd * 10;
-    data[5] = (msd << 4) | (lsd);
-
-    // 0x06 Year
-    msd = s_time->year / 10;
-    lsd = s_time->year - msd * 10;
-    data[6] = (msd << 4) | (lsd);
-
-    // 0x07 Control part:
-    // OUT, SQWE, RS1 and RS0
-    data[7] = (s_time->out << 7) | (s_time->sqwe << 4) | (s_time->rs1 << 1)
-            | (s_time->rs0);
-
-    return data;
-}
-
-
-time getTime(void) {
-    uint8_t* datam = read_time();
-    time s_time;
-    decodeTime(datam, &s_time);
-    free(data);
-    return s_time;
-}
-
-void print_time(){
-
-	time t1=getTime();
-	sprintf(msgBuffer, "%04d-%02d-%02d %02d:%02d:%02d",
-            t1.year,
-            t1.month,
-            t1.date,
-            t1.hours,
-            t1.minutes,
-            t1.seconds);
-}
 
 /* USER CODE END 0 */
 
@@ -300,14 +99,18 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_ADC1_Init();
-  MX_I2C1_Init();
+  MX_DMA_Init();
   MX_I2C2_Init();
   MX_SPI1_Init();
+  MX_ADC1_Init();
   MX_SPI2_Init();
+  MX_FATFS_Init();
   MX_SPI3_Init();
-  MX_DAC1_Init();
-  MX_USB_OTG_FS_USB_Init();
+  MX_RTC_Init();
+  MX_CRC_Init();
+  MX_USB_DEVICE_Init();
+  MX_USART1_UART_Init();
+  MX_TouchGFX_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -318,6 +121,7 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
+  MX_TouchGFX_Process();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -342,12 +146,13 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 1;
-  RCC_OscInitStruct.PLL.PLLN = 18;
+  RCC_OscInitStruct.PLL.PLLN = 20;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV7;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
   RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;

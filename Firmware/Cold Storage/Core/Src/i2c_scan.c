@@ -1,7 +1,8 @@
 /*
  * i2c_scan.c
  *
- *  Created by Ait
+ *  Created on: Jul 6, 2023
+ *      Author: Loc
  */
 
 

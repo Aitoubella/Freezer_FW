@@ -1,8 +1,8 @@
 /*
  * DS1307.c
  *
- *  Created on: Sep 18, 2023
- *      Author: Ait
+ *  Created on: Jul 6, 2023
+ *      Author: Loc
  */
 #include "DS1307.h"
 #include "main.h"
@@ -38,7 +38,7 @@ uint8_t DS1307_GetClockHalt(void) {
 	return (DS1307_GetRegByte(DS1307_REG_SECOND) & 0x80) >> 7;
 }
 
-/**s
+/**
  * @brief Sets the byte in the designated DS1307 register to value.
  * @param regAddr Register address to write.
  * @param val Value to set, 0 to 255.
@@ -56,10 +56,7 @@ uint8_t DS1307_SetRegByte(uint8_t regAddr, uint8_t val)
  */
 uint8_t DS1307_GetRegByte(uint8_t regAddr) {
 	uint8_t val;
-	uint8_t status;
-	status = HAL_I2C_Master_Transmit(_ds1307_ui2c, DS1307_I2C_ADDR << 1, &regAddr, 1, DS1307_TIMEOUT);
-
-
+	HAL_I2C_Master_Transmit(_ds1307_ui2c, DS1307_I2C_ADDR << 1, &regAddr, 1, DS1307_TIMEOUT);
 	HAL_I2C_Master_Receive(_ds1307_ui2c, DS1307_I2C_ADDR << 1, &val, 1, DS1307_TIMEOUT);
 	return val;
 }
@@ -276,3 +273,5 @@ uint8_t DS1307_EncodeBCD(uint8_t dec) {
 #ifdef __cplusplus
 }
 #endif
+
+
