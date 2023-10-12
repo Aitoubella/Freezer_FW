@@ -6,7 +6,7 @@
  */
 #include "main.h"
 #include "core.h"
-
+#include "spi.h"
 volatile uint32_t flag_DMA_Stream_bsy;
 #define MADCTL_MY 0x80  ///< Bottom to top
 #define MADCTL_MX 0x40  ///< Right to left
@@ -53,26 +53,8 @@ static void ILI9341_Delay(uint32_t ms)
 }
 void Send_DMA_Data16(uint16_t* buff, uint16_t dataSize)// Basic function - write those for your MCU !!!!@@@@<#<@<#>#$@!s
 {
-	LL_SPI_Disable(SPI2);
-	LL_SPI_SetDataWidth(SPI2, LL_SPI_DATAWIDTH_16BIT);
-	  ILI9341_DC_HIGH;
-	  ILI9341_CS_LOW;
-	 LL_DMA_DisableStream(DMA1,LL_DMA_STREAM_4);
-	 LL_DMA_ConfigTransfer(DMA1,
-	                        LL_DMA_STREAM_4,
-	                        LL_DMA_DIRECTION_MEMORY_TO_PERIPH | LL_DMA_PRIORITY_HIGH | LL_DMA_MODE_NORMAL |
-	                        LL_DMA_PERIPH_NOINCREMENT | LL_DMA_MEMORY_INCREMENT |
-							LL_DMA_PDATAALIGN_HALFWORD | LL_DMA_MDATAALIGN_HALFWORD);
-	  LL_DMA_ConfigAddresses(DMA1,
-	                         LL_DMA_STREAM_4,
-	                         (uint32_t)buff, LL_SPI_DMA_GetRegAddr(SPI2),
-	                         LL_DMA_GetDataTransferDirection(DMA1, LL_DMA_STREAM_4));
-	  LL_DMA_SetDataLength(DMA1, LL_DMA_STREAM_4, dataSize);
-	  LL_DMA_EnableIT_TC(DMA1, LL_DMA_STREAM_4);
-	  LL_SPI_EnableDMAReq_TX(SPI2);
-	  LL_SPI_Enable(SPI2);
-	  LL_DMA_EnableStream(DMA1, LL_DMA_STREAM_4);
-	  flag_DMA_Stream_bsy=1;
+	 HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *)buff, 2);
+	 flag_DMA_Stream_bsy=1;
 }
 
 void DMA1_Str4_TransmitComplete_Callback()   //Call from stm32f4xx_it.c
@@ -81,20 +63,14 @@ void DMA1_Str4_TransmitComplete_Callback()   //Call from stm32f4xx_it.c
 
 	DMA_ILI9341_SPI_TransmitComplete_Callback();  //file lv_driver.c
 
-	 LL_SPI_SetDataWidth(SPI2, LL_SPI_DATAWIDTH_8BIT);
-	ILI9341_CS_HIGH;
-	LL_DMA_ClearFlag_TC4(DMA1);
+
 	flag_DMA_Stream_bsy=0;
 }
 
 
 void Send_Data8(uint8_t data) //Basic function - write those for your MCU !!!!@@@@<#<@<#>#$@!s
 {
-    while(!LL_SPI_IsActiveFlag_TXE(SPI2)) {}
-    LL_SPI_TransmitData8 (SPI2, data);
-		//while(!LL_SPI_IsActiveFlag_RXNE(SPI1)) {}
-		(void) SPI2->DR; //fake Rx read;
-    while (LL_SPI_IsActiveFlag_BSY(SPI2)){}
+	 HAL_SPI_Transmit_DMA(&hspi1, &data, 1);
 }
 
 static void ILI9341_SendToTFT(uint8_t *Byte, uint32_t Length)
@@ -239,7 +215,7 @@ void ILI9341_Init()
     uint8_t cmd, x, numArgs;
     const uint8_t *addr = initcmd;
 
-	  LL_SPI_Enable(SPI2);   //Depend from you device
+
 
 #if (ILI9341_USE_HW_RESET == 1)
 	ILI9341_RST_LOW;
