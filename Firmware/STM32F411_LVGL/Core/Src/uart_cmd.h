@@ -8,6 +8,6 @@
 #ifndef UART_CMD_H_
 #define UART_CMD_H_
 
-
+void uart_cmd_init(void* cmd_cb);
 
 #endif /* UART_CMD_H_ */
