@@ -84,10 +84,9 @@ uart_cmd_cb_t uart_cmd_cb = uart_cmd_cb_default;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	if(huart->Instance == huart1.Instance)
+	if(huart->Instance == UART.Instance)
 	{
-//		HAL_UART_Transmit(&UART, (uint8_t *)uart_buf, UART_BUFF_SIZE, 10);
-	  HAL_UART_Receive_IT(&huart1, uart_buf, UART_BUFF_SIZE);
+	  HAL_UART_Receive_IT(&UART, uart_buf, UART_BUFF_SIZE);
 	}
 }
 
@@ -103,9 +102,10 @@ void uart_cmd_task(void)
 			uart_data_process(data_raw_buf, raw_count);   //Process data
 			memset(data_raw_buf, 0, sizeof(data_raw_buf)); //Reset data_raw_buf
 			raw_count = 0;  //Reset count
-//			HAL_UART_Receive_IT(&huart1, uart_buf, UART_BUFF_SIZE);
+		}else
+		{
+			raw_count ++;
 		}
-		raw_count ++;
 		uart_buf[chr_count] = 0; //Reset data
 		chr_count ++;
 		if(chr_count >= UART_BUFF_SIZE) chr_count = 0;

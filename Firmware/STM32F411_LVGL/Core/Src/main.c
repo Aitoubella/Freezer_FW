@@ -25,12 +25,15 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "../lvgl/lvgl.h"
+#include <stdio.h>
+#include "event.h"
+#include "uart_cmd.h"
 
-#include "../ili9341/core.h"
-#include "../ili9341/lv_driver.h"
 #include "logo.h"
 #include "../lvgl/examples/lv_examples.h"
+
+#include "lvgl_ili9341_port.h"
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -106,20 +109,21 @@ int main(void)
   MX_GPIO_Init();
   MX_DMA_Init();
   MX_SPI1_Init();
-  MX_USART2_UART_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  ILI9341_Init();
+  printf("\r\nBoard Start \r\n");
+  uart_cmd_init(NULL);
   //	XPT2046_Init(&hspi1, EXTI9_5_IRQn);
-  	HAL_Delay(30);
-
-  	lv_init();
-  	lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, ILI_SCR_HORIZONTAL * BUFFOR_SCR_ROWS);
-  	lv_disp_drv_init(&disp_drv);            /*Basic initialization*/
-  	disp_drv.draw_buf = &disp_buf;          /*Set an initialized buffer*/
-  	disp_drv.flush_cb = ILI9341_flush;        /*Set a flush callback to draw to the display*/
-  	disp_drv.hor_res = ILI_SCR_HORIZONTAL;                 /*Set the horizontal resolution in pixels*/
-  	disp_drv.ver_res = ILI_SCR_VERTICAL;                 /*Set the vertical resolution in pixels*/
-  	lv_disp_drv_register(&disp_drv); /*Register the driver and save the created display objects*/
+	HAL_Delay(30);
+	ILI9341_port_init();
+	lv_init();
+	lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, ILI_SCR_HORIZONTAL * BUFFOR_SCR_ROWS);
+	lv_disp_drv_init(&disp_drv);            /*Basic initialization*/
+	disp_drv.draw_buf = &disp_buf;          /*Set an initialized buffer*/
+	disp_drv.flush_cb = ILI9341_flush;        /*Set a flush callback to draw to the display*/
+	disp_drv.hor_res = ILI_SCR_HORIZONTAL;                 /*Set the horizontal resolution in pixels*/
+	disp_drv.ver_res = ILI_SCR_VERTICAL;                 /*Set the vertical resolution in pixels*/
+	lv_disp_drv_register(&disp_drv); /*Register the driver and save the created display objects*/
 
 
   //	lv_indev_drv_t indev_drv;
@@ -129,7 +133,7 @@ int main(void)
   //	lv_indev_drv_register(&indev_drv);
   	HAL_Delay(10);
 
-  	//lv_example_get_started_1();
+//  	lv_example_get_started_1();
   	lv_example_textarea_2();
   	//lv_example_win_1();
   	//lv_example_animimg_1();
@@ -148,13 +152,14 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
+//
 	  if(HAL_GetTick()-lvglTime >= 5)
 	  {
 		  lvglTime=HAL_GetTick();
 		  lv_task_handler();
 		  lv_tick_inc(5);
 	  }
+	  event_run_task();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -209,7 +214,27 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @param  None
+  * @retval None
+  */
+void __io_putchar(uint8_t ch)
+{
+	HAL_UART_Transmit(&huart1, &ch, 1, HAL_MAX_DELAY);
+}
+int _write(int file, char *ptr, int len)
+{
+  (void)file;
+  int DataIdx;
 
+  for (DataIdx = 0; DataIdx < len; DataIdx++)
+  {
+    __io_putchar(*ptr++);
+  }
+  setbuf(stdout, NULL);
+  return len;
+}
 /* USER CODE END 4 */
 
 /**
