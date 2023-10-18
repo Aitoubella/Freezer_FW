@@ -25,31 +25,14 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
-#include "event.h"
-#include "uart_cmd.h"
-
-#include "logo.h"
-#include "../lvgl/examples/lv_examples.h"
-
-#include "lvgl_ili9341_port.h"
-
+#include "lvgl.h"
+#include "LCDController.h"
+#include "ui.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-static lv_disp_draw_buf_t disp_buf;
- //The second buffer is optional*/
 
-#define ILI_SCR_HORIZONTAL 320
-#define ILI_SCR_VERTICAL   240
-#define BUFFOR_SCR_ROWS 40
-
- static lv_color_t buf_1[ILI_SCR_HORIZONTAL * BUFFOR_SCR_ROWS] ;
- static lv_color_t buf_2[ILI_SCR_HORIZONTAL * BUFFOR_SCR_ROWS] ;
- 	 	 	 	 	 	 	 	 	 	 	 	 	 	 //DMA don't have acces to CCMRAM :(
- 	 	 	 	 	 	 	 	 	 	 	 	 	 	 	 //I don't have so too much time on experiments
- static lv_disp_drv_t disp_drv;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -111,55 +94,19 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-  printf("\r\nBoard Start \r\n");
-  uart_cmd_init(NULL);
-  //	XPT2046_Init(&hspi1, EXTI9_5_IRQn);
-	HAL_Delay(30);
-	ILI9341_port_init();
-	lv_init();
-	lv_disp_draw_buf_init(&disp_buf, buf_1, buf_2, ILI_SCR_HORIZONTAL * BUFFOR_SCR_ROWS);
-	lv_disp_drv_init(&disp_drv);            /*Basic initialization*/
-	disp_drv.draw_buf = &disp_buf;          /*Set an initialized buffer*/
-	disp_drv.flush_cb = ILI9341_flush;        /*Set a flush callback to draw to the display*/
-	disp_drv.hor_res = ILI_SCR_HORIZONTAL;                 /*Set the horizontal resolution in pixels*/
-	disp_drv.ver_res = ILI_SCR_VERTICAL;                 /*Set the vertical resolution in pixels*/
-	lv_disp_drv_register(&disp_drv); /*Register the driver and save the created display objects*/
+  lv_init();
 
+  lv_port_disp_init();
 
-  //	lv_indev_drv_t indev_drv;
-  //	lv_indev_drv_init(&indev_drv);
-  //	indev_drv.type =LV_INDEV_TYPE_POINTER;
-  //	indev_drv.read_cb = lvXPT2064_Read;
-  //	lv_indev_drv_register(&indev_drv);
-  	HAL_Delay(10);
-
-//  	lv_example_get_started_1();
-  	lv_example_textarea_2();
-  	//lv_example_win_1();
-  	//lv_example_animimg_1();
-  	//lv_example_flex_1();
-  	//lv_example_scroll_6();
-  	//lv_example_chart_7();
-  	//lv_example_btnmatrix_3();
-  	//lv_example_label_1(); //ciekawe przesuwanie tekstu!
-  	//lv_example_img_3();  //o to jest mocne :D sporo zasobów musi zrec
-
-  	uint32_t LedTim0;
-  	uint32_t lvglTime=0;
+  ui_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//
-	  if(HAL_GetTick()-lvglTime >= 5)
-	  {
-		  lvglTime=HAL_GetTick();
-		  lv_task_handler();
-		  lv_tick_inc(5);
-	  }
-	  event_run_task();
+	  lv_timer_handler();
+	  HAL_Delay(5);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -214,27 +161,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-/**
-  * @brief  Retargets the C library printf function to the USART.
-  * @param  None
-  * @retval None
-  */
-void __io_putchar(uint8_t ch)
-{
-	HAL_UART_Transmit(&huart1, &ch, 1, HAL_MAX_DELAY);
-}
-int _write(int file, char *ptr, int len)
-{
-  (void)file;
-  int DataIdx;
 
-  for (DataIdx = 0; DataIdx < len; DataIdx++)
-  {
-    __io_putchar(*ptr++);
-  }
-  setbuf(stdout, NULL);
-  return len;
-}
 /* USER CODE END 4 */
 
 /**
