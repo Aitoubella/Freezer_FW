@@ -59,8 +59,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Buzzer_Pin GPIO_PIN_0
 #define Buzzer_GPIO_Port GPIOA
-#define TFT_DC_Pin GPIO_PIN_4
-#define TFT_DC_GPIO_Port GPIOA
+#define TFT_CS_Pin GPIO_PIN_4
+#define TFT_CS_GPIO_Port GPIOA
 #define BTN_1_Pin GPIO_PIN_9
 #define BTN_1_GPIO_Port GPIOE
 #define BTN_2_Pin GPIO_PIN_10
@@ -81,22 +81,22 @@ void Error_Handler(void);
 #define CMPRSR_FAN_VCC_GPIO_Port GPIOD
 #define CMPRSR_D_Pin GPIO_PIN_13
 #define CMPRSR_D_GPIO_Port GPIOD
-#define CRG_OK_Pin GPIO_PIN_14
-#define CRG_OK_GPIO_Port GPIOD
+#define CHRG_OK_Pin GPIO_PIN_14
+#define CHRG_OK_GPIO_Port GPIOD
 #define TFT_RST_Pin GPIO_PIN_7
 #define TFT_RST_GPIO_Port GPIOC
 #define TFT_BKLIGHT_Pin GPIO_PIN_8
 #define TFT_BKLIGHT_GPIO_Port GPIOC
-#define TFT_CS_Pin GPIO_PIN_9
-#define TFT_CS_GPIO_Port GPIOC
+#define TFT_DC_Pin GPIO_PIN_9
+#define TFT_DC_GPIO_Port GPIOC
 #define FLASH_RST_Pin GPIO_PIN_8
 #define FLASH_RST_GPIO_Port GPIOA
-#define HTR_CTR_Pin GPIO_PIN_5
-#define HTR_CTR_GPIO_Port GPIOD
-#define FAN_CTR1_Pin GPIO_PIN_6
-#define FAN_CTR1_GPIO_Port GPIOD
-#define FAN_CTR2_Pin GPIO_PIN_7
-#define FAN_CTR2_GPIO_Port GPIOD
+#define HTR_CTL_Pin GPIO_PIN_5
+#define HTR_CTL_GPIO_Port GPIOD
+#define FAN_CTL1_Pin GPIO_PIN_6
+#define FAN_CTL1_GPIO_Port GPIOD
+#define FAN_CTL2_Pin GPIO_PIN_7
+#define FAN_CTL2_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 

@@ -2,7 +2,7 @@
  * flash.h
  *
  *  Created on: Jul 5, 2023
- *      Author: Loc
+ *
  */
 
 #ifndef SRC_FLASH_H_
