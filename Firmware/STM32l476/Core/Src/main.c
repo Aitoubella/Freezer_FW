@@ -32,6 +32,7 @@
 /* USER CODE BEGIN Includes */
 #include "lcd_ui.h"
 #include "event.h"
+#include "DS1307.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -109,7 +110,11 @@ int main(void)
   MX_CRC_Init();
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+//  test_log_init();
   event_init();
+  //Buzzer or led use
+  led_init();
+  buzzer_init();
   //Init i2c periph for DS1307
   DS1307_Init(&hi2c2);
 

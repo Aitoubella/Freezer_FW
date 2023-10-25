@@ -83,6 +83,8 @@ void Error_Handler(void);
 #define CMPRSR_D_GPIO_Port GPIOD
 #define CHRG_OK_Pin GPIO_PIN_14
 #define CHRG_OK_GPIO_Port GPIOD
+#define LED_Pin GPIO_PIN_15
+#define LED_GPIO_Port GPIOD
 #define TFT_RST_Pin GPIO_PIN_7
 #define TFT_RST_GPIO_Port GPIOC
 #define TFT_BKLIGHT_Pin GPIO_PIN_8

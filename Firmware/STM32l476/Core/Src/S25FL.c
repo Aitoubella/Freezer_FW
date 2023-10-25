@@ -3,11 +3,11 @@
 #include "stm32l4xx.h"
 #include "S25FL.h"
 #include "spi.h"
-#define Sector_Size  4096     //256Byte
+#define Sector_Size  4096       //256Byte
 #define Page_Size    256        //byte
 #define Total_Sector 32        //Total sector of M25P16
 extern SPI_HandleTypeDef hspi1;
-
+#define S25FL_SPI        hspi1
 
 
 /*******************************************************************************
@@ -20,7 +20,7 @@ extern SPI_HandleTypeDef hspi1;
 *******************************************************************************/
 HAL_StatusTypeDef SPI_Flash_SendByte(uint8_t tx)
 {
-	return HAL_SPI_Transmit(&hspi1, &tx, 1, 100);
+	return HAL_SPI_Transmit(&S25FL_SPI, &tx, 1, 100);
 }
 
 /*******************************************************************************
@@ -33,7 +33,7 @@ HAL_StatusTypeDef SPI_Flash_SendByte(uint8_t tx)
 *******************************************************************************/
 HAL_StatusTypeDef SPI_Flash_SendRecv(uint8_t tx, uint8_t* rx)
 {
-	return HAL_SPI_TransmitReceive(&hspi1, &tx, rx, 1, 100);
+	return HAL_SPI_TransmitReceive(&S25FL_SPI, &tx, rx, 1, 100);
 }
 
 /*******************************************************************************
@@ -82,14 +82,18 @@ HAL_StatusTypeDef FlashWaitBusy(void)
 {
   uint8_t FLASH_Status = 0;
   HAL_StatusTypeDef status = HAL_OK;
+  uint16_t err_count = 0;
   Select_Flash();	
   SPI_Flash_SendByte(S25FL_RDSR);
   do
   {
 	  status = SPI_Flash_SendRecv(Dummy_Byte, &FLASH_Status);
 	  if(status != HAL_OK) return status;
+	  err_count ++;
+//	  if(err_count >  100) return HAL_BUSY;
   }
-  while ((FLASH_Status & WIP_Flag) == SET); 
+  while (((FLASH_Status & WIP_Flag) == SET));
+
   NotSelect_Flash();
   return status;
 }
@@ -123,7 +127,7 @@ HAL_StatusTypeDef FlashSectorEarse(uint32_t page)
 	adress[1] = (page >> 16) & 0xFF;
 	adress[2] = (page >> 8) & 0xFF;
 	adress[3] = page & 0xFF;
-	status = HAL_SPI_Transmit(&hspi1, adress, 4, 100);
+	status = HAL_SPI_Transmit(&S25FL_SPI, adress, 4, 100);
 	NotSelect_Flash();
 	return status;
 }
@@ -147,9 +151,9 @@ HAL_StatusTypeDef Flash_Read_Array(uint32_t start_address, uint8_t buffer[], uin
 	adress[2] = (start_address >> 8) & 0xFF;
 	adress[3] = start_address & 0xFF;
 
-	status = HAL_SPI_Transmit(&hspi1, adress, 4, 100);
+	status = HAL_SPI_Transmit(&S25FL_SPI, adress, 4, 100);
 	if(status != HAL_OK) return status;
-	status = HAL_SPI_Receive(&hspi1, buffer, length, 100);
+	status = HAL_SPI_Receive(&S25FL_SPI, buffer, length, 100);
 	NotSelect_Flash();
 	return status;
 }
@@ -184,7 +188,9 @@ HAL_StatusTypeDef Flash_Write_Array(uint32_t start_address,uint8_t buffer[],uint
 	adress[1] = (start_address >> 16) & 0xFF;
 	adress[2] = (start_address >> 8) & 0xFF;
 	adress[3] = start_address & 0xFF;
-	status = HAL_SPI_Transmit(&hspi1, adress, 4, 100);
+	status = HAL_SPI_Transmit(&S25FL_SPI, adress, 4, 100);
+	if(status != HAL_OK) return status;
+	status = HAL_SPI_Transmit(&S25FL_SPI, adress, 4, 100);
 	NotSelect_Flash();
 	return status;
 }

@@ -58,14 +58,15 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(TFT_CS_GPIO_Port, TFT_CS_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOE, BTN_1_Pin|BTN_2_Pin|BTN_3_Pin|FLASH_CS_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(FLASH_CS_GPIO_Port, FLASH_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, CMPRSR_SPD_Pin|CMPRSR_EN_Pin|CMPRSR_FAN_GND_Pin|CMPRSR_FAN_VCC_Pin
-                          |CMPRSR_D_Pin|CHRG_OK_Pin|HTR_CTL_Pin|FAN_CTL1_Pin, GPIO_PIN_RESET);
+                          |CMPRSR_D_Pin|CHRG_OK_Pin|LED_Pin|HTR_CTL_Pin
+                          |FAN_CTL1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOC, TFT_RST_Pin|TFT_BKLIGHT_Pin|TFT_DC_Pin, GPIO_PIN_RESET);
@@ -77,12 +78,18 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PEPin PEPin PEPin PEPin */
-  GPIO_InitStruct.Pin = BTN_1_Pin|BTN_2_Pin|BTN_3_Pin|FLASH_CS_Pin;
+  /*Configure GPIO pins : PEPin PEPin PEPin */
+  GPIO_InitStruct.Pin = BTN_1_Pin|BTN_2_Pin|BTN_3_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = FLASH_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+  HAL_GPIO_Init(FLASH_CS_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = SD_CS_Pin;
@@ -92,9 +99,11 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PDPin PDPin PDPin PDPin
-                           PDPin PDPin PDPin PDPin */
+                           PDPin PDPin PDPin PDPin
+                           PDPin */
   GPIO_InitStruct.Pin = CMPRSR_SPD_Pin|CMPRSR_EN_Pin|CMPRSR_FAN_GND_Pin|CMPRSR_FAN_VCC_Pin
-                          |CMPRSR_D_Pin|CHRG_OK_Pin|HTR_CTL_Pin|FAN_CTL1_Pin;
+                          |CMPRSR_D_Pin|CHRG_OK_Pin|LED_Pin|HTR_CTL_Pin
+                          |FAN_CTL1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

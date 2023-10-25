@@ -1,8 +1,8 @@
 /*
  * DS1307.h
  *
- *  Created on: OCT 24, 2023
- *
+ *  Created on: Jul 6, 2023
+ *      Author: Loc
  */
 
 #ifndef SRC_DS1307_H_
@@ -57,5 +57,22 @@ uint8_t DS1307_GetSecond(void);
 int8_t DS1307_GetTimeZoneHour(void);
 uint8_t DS1307_GetTimeZoneMin(void);
 
+void DS1307_SetDayOfWeek(uint8_t dow);
+void DS1307_SetDay(uint8_t day);
+void DS1307_SetMonth(uint8_t month);
+void DS1307_SetYear(uint16_t year);
 
+void DS1307_SetHour(uint8_t hour_24mode);
+void DS1307_SetMinute(uint8_t minute);
+void DS1307_SetSecond(uint8_t second);
+void DS1307_SetTimeZone(int8_t hr, uint8_t min);
+
+uint8_t DS1307_DecodeBCD(uint8_t bin);
+uint8_t DS1307_EncodeBCD(uint8_t dec);
+
+HAL_StatusTypeDef DS1307_SetDate(uint8_t day, uint8_t month, uint16_t year);
+HAL_StatusTypeDef DS1307_SetTime(uint8_t hour, uint8_t min, uint8_t sec);
+
+HAL_StatusTypeDef DS1307_GetDate(uint8_t* day, uint8_t* month, uint16_t* year);
+HAL_StatusTypeDef DS1307_GetTime(uint8_t* hour, uint8_t* min, uint8_t* second);
 #endif /* SRC_DS1307_H_ */
