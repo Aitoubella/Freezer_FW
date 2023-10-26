@@ -1,12 +1,13 @@
+
 #ifndef _BUTTON_H_
 #define _BUTTON_H_
 #include "gpio.h"
 #define BUTTON_NUM                   3
 typedef enum
 {
-	BTN_RIGHT = 0,
-	BTN_ENTER,
-	BTN_LEFT,
+	BTN_ENTER = 0,
+	BTN_UP,
+	BTN_DOWN,
 	BTN_MAX
 }button_num_t;
 
