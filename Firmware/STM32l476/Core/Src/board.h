@@ -1,9 +1,8 @@
-
 /*
  * board.h
  *
- *  Created on: Oct 25, 2023
- *      
+ *  Created on: Oct 23, 2023
+ *      Author: Loc
  */
 
 #ifndef SRC_BOARD_H_

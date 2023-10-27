@@ -1,4 +1,3 @@
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -58,20 +57,48 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define RTD5_Pin GPIO_PIN_0
+#define RTD5_GPIO_Port GPIOC
+#define RTD6_Pin GPIO_PIN_1
+#define RTD6_GPIO_Port GPIOC
+#define SD_SPI2_MISO_Pin GPIO_PIN_2
+#define SD_SPI2_MISO_GPIO_Port GPIOC
 #define Buzzer_Pin GPIO_PIN_0
 #define Buzzer_GPIO_Port GPIOA
+#define RTD1_Pin GPIO_PIN_1
+#define RTD1_GPIO_Port GPIOA
+#define RTD2_Pin GPIO_PIN_2
+#define RTD2_GPIO_Port GPIOA
 #define TFT_CS_Pin GPIO_PIN_4
 #define TFT_CS_GPIO_Port GPIOA
-#define BTN_1_Pin GPIO_PIN_9
-#define BTN_1_GPIO_Port GPIOE
-#define BTN_2_Pin GPIO_PIN_10
-#define BTN_2_GPIO_Port GPIOE
-#define BTN_3_Pin GPIO_PIN_11
-#define BTN_3_GPIO_Port GPIOE
+#define FLASH_SPI1_MISO_Pin GPIO_PIN_6
+#define FLASH_SPI1_MISO_GPIO_Port GPIOA
+#define FLASH_SPI1_MOSI_Pin GPIO_PIN_7
+#define FLASH_SPI1_MOSI_GPIO_Port GPIOA
+#define RTD3_Pin GPIO_PIN_4
+#define RTD3_GPIO_Port GPIOC
+#define RTD4_Pin GPIO_PIN_5
+#define RTD4_GPIO_Port GPIOC
+#define BTN_ENTER_Pin GPIO_PIN_9
+#define BTN_ENTER_GPIO_Port GPIOE
+#define BTN_DOWN_Pin GPIO_PIN_10
+#define BTN_DOWN_GPIO_Port GPIOE
+#define BTN_UP_Pin GPIO_PIN_11
+#define BTN_UP_GPIO_Port GPIOE
 #define FLASH_CS_Pin GPIO_PIN_12
 #define FLASH_CS_GPIO_Port GPIOE
+#define FLASH_SPI1_SCK_Pin GPIO_PIN_13
+#define FLASH_SPI1_SCK_GPIO_Port GPIOE
+#define DS1307_I2C2_SCL_Pin GPIO_PIN_10
+#define DS1307_I2C2_SCL_GPIO_Port GPIOB
+#define DS1307_I2C2_SDA_Pin GPIO_PIN_11
+#define DS1307_I2C2_SDA_GPIO_Port GPIOB
 #define SD_CS_Pin GPIO_PIN_12
 #define SD_CS_GPIO_Port GPIOB
+#define SD_SPI2_SCK_Pin GPIO_PIN_13
+#define SD_SPI2_SCK_GPIO_Port GPIOB
+#define SD_SPI2_MOSI_Pin GPIO_PIN_15
+#define SD_SPI2_MOSI_GPIO_Port GPIOB
 #define CMPRSR_SPD_Pin GPIO_PIN_9
 #define CMPRSR_SPD_GPIO_Port GPIOD
 #define CMPRSR_EN_Pin GPIO_PIN_10
@@ -94,6 +121,12 @@ void Error_Handler(void);
 #define TFT_DC_GPIO_Port GPIOC
 #define FLASH_RST_Pin GPIO_PIN_8
 #define FLASH_RST_GPIO_Port GPIOA
+#define TFT_SPI3_SCK_Pin GPIO_PIN_10
+#define TFT_SPI3_SCK_GPIO_Port GPIOC
+#define TFT_SPI3_MISO_Pin GPIO_PIN_11
+#define TFT_SPI3_MISO_GPIO_Port GPIOC
+#define TFT_SPI3_MOSI_Pin GPIO_PIN_12
+#define TFT_SPI3_MOSI_GPIO_Port GPIOC
 #define HTR_CTL_Pin GPIO_PIN_5
 #define HTR_CTL_GPIO_Port GPIOD
 #define FAN_CTL1_Pin GPIO_PIN_6

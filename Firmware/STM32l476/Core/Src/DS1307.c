@@ -1,8 +1,7 @@
 /*
  * DS1307.c
  *
- *  Created on: Jul 6, 2023
- *      Author: Loc
+ *
  */
 #include "DS1307.h"
 #include "main.h"

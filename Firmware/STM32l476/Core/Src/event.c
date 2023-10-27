@@ -2,7 +2,7 @@
  * event.c
  *
  *  Created on: Mar 25, 2021
- *      Author: lochoang
+ *  
  */
 
 #include "event.h"

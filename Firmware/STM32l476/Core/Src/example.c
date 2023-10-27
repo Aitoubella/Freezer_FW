@@ -2,7 +2,7 @@
  * example.c
  *
  *  Created on: Oct 24, 2023
- *      Author: Loc
+ *      
  */
 
 #ifndef SRC_EXAMPLE_C_

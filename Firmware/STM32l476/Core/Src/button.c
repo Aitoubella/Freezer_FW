@@ -1,4 +1,3 @@
-
 #include "button.h"
 #include "event.h"
 #include <stdint.h>
@@ -7,9 +6,9 @@ event_id button_id;
 
 #define BUTTON_DEBOUNCE_DEF                {0,0}
 
-#define BUTTON_1                          {BTN_1_GPIO_Port, BTN_1_Pin, BUTTON_DEBOUNCE_DEF}
-#define BUTTON_2                          {BTN_2_GPIO_Port, BTN_2_Pin, BUTTON_DEBOUNCE_DEF}
-#define BUTTON_3                          {BTN_3_GPIO_Port, BTN_3_Pin, BUTTON_DEBOUNCE_DEF}
+#define BUTTON_1                          {BTN_ENTER_GPIO_Port, BTN_ENTER_Pin, BUTTON_DEBOUNCE_DEF}
+#define BUTTON_2                          {BTN_DOWN_GPIO_Port, BTN_DOWN_Pin, BUTTON_DEBOUNCE_DEF}
+#define BUTTON_3                          {BTN_UP_GPIO_Port, BTN_UP_Pin, BUTTON_DEBOUNCE_DEF}
 #define BUTTON_LIST                       {BUTTON_1, BUTTON_2,BUTTON_3}
 
 

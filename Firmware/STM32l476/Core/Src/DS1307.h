@@ -1,8 +1,7 @@
 /*
  * DS1307.h
  *
- *  Created on: Jul 6, 2023
- *      Author: Loc
+ * 
  */
 
 #ifndef SRC_DS1307_H_
