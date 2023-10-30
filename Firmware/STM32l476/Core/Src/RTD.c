@@ -1,8 +1,6 @@
 /*
  * RTD.c
  *
- *  Created on: Oct 26, 2023
- *      Author: Loc
  */
 
 
@@ -30,7 +28,7 @@ uint32_t mV_to_ohm(uint32_t input)
 
 uint32_t ohm_to_temperature(uint32_t input)
 {
-	return input*375/100000;
+	return input*375;
 }
 void rtd_task(void)
 {

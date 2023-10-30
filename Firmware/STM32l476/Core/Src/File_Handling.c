@@ -1,8 +1,6 @@
 /*
  * File_Handling_RTOS.c
  *
- *  Created on: 26-June-2020
- *    
  */
 
 #include "File_Handling.h"

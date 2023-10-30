@@ -1,8 +1,6 @@
 /*
  * flash.h
- *
- *  Created on: Jul 5, 2023
- *    
+
  */
 
 #ifndef SRC_FLASH_H_

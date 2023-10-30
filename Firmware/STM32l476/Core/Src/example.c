@@ -1,8 +1,7 @@
 /*
  * example.c
  *
- *  Created on: Oct 24, 2023
- *      
+
  */
 
 #ifndef SRC_EXAMPLE_C_

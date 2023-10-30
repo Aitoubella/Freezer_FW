@@ -1,8 +1,5 @@
 /*
  * i2c_scan.h
- *
- *  Created on: Jul 6, 2023
- *      A
  */
 
 #ifndef SRC_I2C_SCAN_H_

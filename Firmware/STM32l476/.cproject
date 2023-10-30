@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule moduleId="org.eclipse.cdt.core.settings">
@@ -104,10 +105,10 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
+						<entry excluding="Src/adpcm.c|Src/cuckoo.c|Src/MT25QL.c|Src/example.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="lvgl_ui"/>
-						<entry excluding="tests|scripts|examples|env_support|docs|demos" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="lvgl"/>
+						<entry excluding="src/draw/stm32_dma2d|tests|scripts|examples|env_support|docs|demos" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name="lvgl"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="USB_HOST"/>
-						<entry excluding="Src/MT25QL.c|Src/example.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="FATFS"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
@@ -211,8 +212,9 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
+						<entry excluding="Src/adpcm.c|Src/cuckoo.c|Src/MT25QL.c|Src/example.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="lvgl/src/draw/swm341_dma2d"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="USB_HOST"/>
-						<entry excluding="Src/MT25QL.c|Src/example.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="FATFS"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
@@ -243,5 +245,12 @@
 		</scannerConfigBuildInfo>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
-	<storageModule moduleId="refreshScope"/>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/freezer_controler"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/freezer_controler"/>
+		</configuration>
+	</storageModule>
 </cproject>

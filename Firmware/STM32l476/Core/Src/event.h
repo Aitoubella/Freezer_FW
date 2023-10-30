@@ -1,8 +1,6 @@
 /*
  * app_event.h
  *
- *  Created on: Mar 25, 2021
-
  */
 
 #ifndef _APP_EVENT_

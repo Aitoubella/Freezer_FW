@@ -1,14 +1,11 @@
 /*
  * MT25QL.h
- *
- *  Created on: Oct 24, 2023
- *      Author: Loc
  */
 
 #ifndef SRC_MT25QL_H_
 #define SRC_MT25QL_H_
 #include <stdint.h>
-
+#include "main.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,6 +14,15 @@ extern "C" {
 /**
  * \brief MT25QL Flash Memory documentation defined values.
  */
+#define S25FL_PIN_CS	    FLASH_CS_Pin  //CS Pin
+#define S25FL_PORT          FLASH_CS_GPIO_Port
+
+
+/* Select SPI FLASH: ChipSelect pin low  */
+#define MT25QL_CS_LOW()       HAL_GPIO_WritePin (S25FL_PORT, S25FL_PIN_CS, GPIO_PIN_RESET)
+/* Deselect SPI FLASH: ChipSelect pin high */
+#define MT25QL_CS_HIGH()    HAL_GPIO_WritePin(S25FL_PORT, S25FL_PIN_CS, GPIO_PIN_SET)
+#define MT25QL_SPI           hspi1
 #define FLASH_PAGE_SIZE     (256U)          /* 256B */
 #define SUBSECTOR_4KB       (0x00001000U)   /* 4KB */
 #define SUBSECTOR_32KB      (0x00008000U)   /* 32KB */

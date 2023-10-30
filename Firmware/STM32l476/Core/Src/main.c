@@ -111,6 +111,7 @@ int main(void)
   MX_RTC_Init();
   MX_CRC_Init();
   MX_USB_HOST_Init();
+  MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
 //  test_log_init();
   event_init();
@@ -120,7 +121,7 @@ int main(void)
   //Init i2c periph for DS1307
   DS1307_Init(&hi2c2);
   //RTD temperature sensor
-//  rtd_init();
+  rtd_init();
   //Board test
 //  board_test_init();
   //Lcd tft 320x240

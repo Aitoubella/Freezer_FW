@@ -1,8 +1,6 @@
 /*
  * MT25QL.c
  *
- *  Created on: Oct 24, 2023
- *      Author: Loc
  */
 
 
@@ -130,7 +128,10 @@ static void change_bits_in_word(volatile uint32_t *word,
  */
 static void send_write_enable(struct mt25ql_dev_t* dev)
 {
-    qspi_ip6514e_send_simple_cmd(dev->controller, WRITE_ENABLE_CMD);
+	uint8_t data = WRITE_ENABLE_CMD;
+	MT25QL_CS_LOW();
+    HAL_SPI_Transmit(&MT25QL_SPI, &data, 1, 100);
+    MT25QL_CS_HIGH();
 }
 
 /**
@@ -146,7 +147,6 @@ static enum mt25ql_error_t set_spi_mode(struct mt25ql_dev_t* dev,
                                         enum qspi_ip6514e_spi_mode_t spi_mode)
 {
     uint8_t enhanced_volatile_cfg_reg = 0;
-    enum qspi_ip6514e_error_t controller_error;
 
     /* Read the Enhanced Volatile Configuration Register, modify it according
      * to the requested SPI mode then write back the modified value to the
@@ -161,9 +161,7 @@ static enum mt25ql_error_t set_spi_mode(struct mt25ql_dev_t* dev,
                                              ARG_NOT_USED,
                                              0); /* No dummy cycles needed for
                                                     this command. */
-    if (controller_error != QSPI_IP6514E_ERR_NONE) {
-        return (enum mt25ql_error_t)controller_error;
-    }
+
 
     switch(spi_mode) {
     case QSPI_IP6514E_SPI_MODE:
@@ -909,7 +907,7 @@ enum mt25ql_error_t mt25ql_erase(struct mt25ql_dev_t* dev,
         return MT25QL_ERR_ADDR_TOO_BIG;
     }
 
-    HAL_SPI_Transmit(&MT25QL_SPI, pData, Size, Timeout)
+    HAL_SPI_Transmit(&MT25QL_SPI, pData, Size, Timeout);
     controller_error = qspi_ip6514e_send_cmd(dev->controller,
                                              erase_cmd,
                                              ARG_PTR_NOT_USED,

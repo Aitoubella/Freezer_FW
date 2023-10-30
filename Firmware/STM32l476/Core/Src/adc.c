@@ -45,7 +45,7 @@ void MX_ADC1_Init(void)
   /** Common config
   */
   hadc1.Instance = ADC1;
-  hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV10;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV4;
   hadc1.Init.Resolution = ADC_RESOLUTION_12B;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.ScanConvMode = ADC_SCAN_ENABLE;
@@ -162,12 +162,12 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     PC4     ------> ADC1_IN13
     PC5     ------> ADC1_IN14
     */
-    GPIO_InitStruct.Pin = RTD5_Pin|RTD6_Pin|RTD3_Pin|RTD4_Pin;
+    GPIO_InitStruct.Pin = RTD5_IN1_Pin|RTD6_IN2_Pin|RTD3_IN13_Pin|RTD4_IN14_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = RTD1_Pin|RTD2_Pin;
+    GPIO_InitStruct.Pin = RTD1_IN6_Pin|RTD2_IN7_Pin;
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -215,9 +215,9 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     PC4     ------> ADC1_IN13
     PC5     ------> ADC1_IN14
     */
-    HAL_GPIO_DeInit(GPIOC, RTD5_Pin|RTD6_Pin|RTD3_Pin|RTD4_Pin);
+    HAL_GPIO_DeInit(GPIOC, RTD5_IN1_Pin|RTD6_IN2_Pin|RTD3_IN13_Pin|RTD4_IN14_Pin);
 
-    HAL_GPIO_DeInit(GPIOA, RTD1_Pin|RTD2_Pin);
+    HAL_GPIO_DeInit(GPIOA, RTD1_IN6_Pin|RTD2_IN7_Pin);
 
     /* ADC1 DMA DeInit */
     HAL_DMA_DeInit(adcHandle->DMA_Handle);

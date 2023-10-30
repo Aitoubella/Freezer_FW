@@ -57,28 +57,28 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define RTD5_Pin GPIO_PIN_0
-#define RTD5_GPIO_Port GPIOC
-#define RTD6_Pin GPIO_PIN_1
-#define RTD6_GPIO_Port GPIOC
+#define RTD5_IN1_Pin GPIO_PIN_0
+#define RTD5_IN1_GPIO_Port GPIOC
+#define RTD6_IN2_Pin GPIO_PIN_1
+#define RTD6_IN2_GPIO_Port GPIOC
 #define SD_SPI2_MISO_Pin GPIO_PIN_2
 #define SD_SPI2_MISO_GPIO_Port GPIOC
 #define Buzzer_Pin GPIO_PIN_0
 #define Buzzer_GPIO_Port GPIOA
-#define RTD1_Pin GPIO_PIN_1
-#define RTD1_GPIO_Port GPIOA
-#define RTD2_Pin GPIO_PIN_2
-#define RTD2_GPIO_Port GPIOA
+#define RTD1_IN6_Pin GPIO_PIN_1
+#define RTD1_IN6_GPIO_Port GPIOA
+#define RTD2_IN7_Pin GPIO_PIN_2
+#define RTD2_IN7_GPIO_Port GPIOA
 #define TFT_CS_Pin GPIO_PIN_4
 #define TFT_CS_GPIO_Port GPIOA
 #define FLASH_SPI1_MISO_Pin GPIO_PIN_6
 #define FLASH_SPI1_MISO_GPIO_Port GPIOA
 #define FLASH_SPI1_MOSI_Pin GPIO_PIN_7
 #define FLASH_SPI1_MOSI_GPIO_Port GPIOA
-#define RTD3_Pin GPIO_PIN_4
-#define RTD3_GPIO_Port GPIOC
-#define RTD4_Pin GPIO_PIN_5
-#define RTD4_GPIO_Port GPIOC
+#define RTD3_IN13_Pin GPIO_PIN_4
+#define RTD3_IN13_GPIO_Port GPIOC
+#define RTD4_IN14_Pin GPIO_PIN_5
+#define RTD4_IN14_GPIO_Port GPIOC
 #define BTN_ENTER_Pin GPIO_PIN_9
 #define BTN_ENTER_GPIO_Port GPIOE
 #define BTN_DOWN_Pin GPIO_PIN_10
@@ -133,6 +133,10 @@ void Error_Handler(void);
 #define FAN_CTL1_GPIO_Port GPIOD
 #define FAN_CTL2_Pin GPIO_PIN_7
 #define FAN_CTL2_GPIO_Port GPIOD
+#define EXT_I2C1_SCL_Pin GPIO_PIN_6
+#define EXT_I2C1_SCL_GPIO_Port GPIOB
+#define EXT_I2C1_SDA_Pin GPIO_PIN_7
+#define EXT_I2C1_SDA_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
