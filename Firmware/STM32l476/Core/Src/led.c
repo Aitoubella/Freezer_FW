@@ -4,13 +4,16 @@
 
 static event_id led_id;
 
+#define LED_LOGIC_ON        GPIO_PIN_RESET
+#define LED_LOGIC_OFF       GPIO_PIN_SET
+
 
 #define LED_TICK             10
 
 #define MS_TO_COUNT(x)        (x/LED_TICK)
 
-
-
+#define LED_ON(gpio,pin)    HAL_GPIO_WritePin(gpio, pin, LED_LOGIC_ON);
+#define LED_OFF(gpio,pin)    HAL_GPIO_WritePin(gpio, pin, LED_LOGIC_OFF);
 enum
 {
 	LED_STOP_STATE = 0,
@@ -27,11 +30,11 @@ static uint8_t led_initialize = 0;
 
 void led_on(led_t *x)
 {
-	HAL_GPIO_WritePin(x->gpio, x->pin, GPIO_PIN_SET);
+	led_start_togle(x, 10000, 0, 100);
 }
 void led_off(led_t *x)
 {
-	HAL_GPIO_WritePin(x->gpio, x->pin, GPIO_PIN_RESET);
+	led_start_togle(x, 0, 10000, 100);
 }
 
 
@@ -43,8 +46,14 @@ void led_task(void)
 	   switch(led_list[i]->state)
 	   {
 		case LED_ON_STATE:
-			led_on(led_list[i]);
-			led_list[i]->state = LED_ON_WATING_STATE;
+			if(led_list[i]->on_total_count == 0)//Not duty for on
+			{
+				led_list[i]->state = LED_OFF_STATE; //Move to off state
+			}else
+			{
+				LED_ON(led_list[i]->gpio,led_list[i]->pin);
+				led_list[i]->state = LED_ON_WATING_STATE;
+			}
 		break;
 
 		case LED_ON_WATING_STATE:
@@ -57,8 +66,14 @@ void led_task(void)
 		break;
 
 		case LED_OFF_STATE:
-			led_off(led_list[i]);
-			led_list[i]->state = LED_OFF_WAITING_STATE;
+			if(led_list[i]->off_total_count == 0)
+			{
+				led_list[i]->state = LED_ON_STATE;
+			}else
+			{
+				LED_OFF(led_list[i]->gpio,led_list[i]->pin);
+				led_list[i]->state = LED_OFF_WAITING_STATE;
+			}
 		break;
 
 		case LED_OFF_WAITING_STATE:
@@ -81,7 +96,7 @@ void led_task(void)
 			break;
 
 		case LED_STOP_STATE:
-			led_off(led_list[i]);
+			LED_OFF(led_list[i]->gpio,led_list[i]->pin);
 			led_list[i]->state = LEDS_STOP_WATING_STATE;
 			break;
 
@@ -108,6 +123,10 @@ void led_add(led_t* l)
 	if(l) led_list[led_count++] = l; //Pointer to list
 }
 
+/**
+ * @brief Start togle with init param
+ * @return none
+ * */
 void led_start_togle(led_t* l, uint16_t on_ms, uint16_t off_ms, uint16_t count)
 {
 	l->on_total_count = MS_TO_COUNT(on_ms);
@@ -117,15 +136,19 @@ void led_start_togle(led_t* l, uint16_t on_ms, uint16_t off_ms, uint16_t count)
 	l->off_count = 0;
 	l->togle_count = 0;
 	l->state = LED_ON_STATE;
-
 }
 
 void led_stop_togle(led_t *l)
 {
+	l->state_backup = l->state;
 	l->state = LED_STOP_STATE;
 }
 
 
+void led_continue_togle(led_t *l)
+{
+	l->state = l->state_backup;
+}
 
 
 

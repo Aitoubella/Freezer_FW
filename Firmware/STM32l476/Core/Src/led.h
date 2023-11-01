@@ -15,10 +15,13 @@ typedef struct
 	uint16_t togle_count;     //number of togle times
 	uint16_t on_count;  //duty on
 	uint16_t off_count; //duty off
-	uint16_t state;
+	uint8_t state;
+	uint8_t state_backup;
 }led_t;
 
 void led_init(void);
+void led_on(led_t *x);
+void led_off(led_t *x);
 void led_add(led_t* l);
 void led_start_togle(led_t* l, uint16_t on_ms, uint16_t off_ms, uint16_t count);
 void led_stop_togle(led_t *l);
