@@ -1,7 +1,6 @@
 /*
  * example.c
  *
-
  */
 
 #ifndef SRC_EXAMPLE_C_

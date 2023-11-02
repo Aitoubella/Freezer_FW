@@ -1,7 +1,6 @@
 /*
  * DS1307.c
  *
-
  */
 #include "DS1307.h"
 #include "main.h"

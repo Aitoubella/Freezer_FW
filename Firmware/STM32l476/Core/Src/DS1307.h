@@ -1,7 +1,6 @@
 /*
  * DS1307.h
  *
-
  */
 
 #ifndef SRC_DS1307_H_

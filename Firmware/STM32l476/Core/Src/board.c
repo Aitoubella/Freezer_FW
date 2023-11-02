@@ -1,8 +1,6 @@
 /*
  * board.c
  *
- *  Created on: Oct 23, 2023
- *      Author: Loc
  */
 
 

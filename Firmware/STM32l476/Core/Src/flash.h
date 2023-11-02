@@ -1,6 +1,6 @@
 /*
  * flash.h
-
+ *
  */
 
 #ifndef SRC_FLASH_H_

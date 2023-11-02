@@ -4,8 +4,8 @@
 
 static event_id led_id;
 
-#define LED_LOGIC_ON        GPIO_PIN_RESET
-#define LED_LOGIC_OFF       GPIO_PIN_SET
+#define LED_LOGIC_ON        GPIO_PIN_SET
+#define LED_LOGIC_OFF       GPIO_PIN_RESET
 
 
 #define LED_TICK             10

@@ -11,5 +11,11 @@ led_t buzzer = BUZZER;
 
 void buzzer_init(void)
 {
+	led_init();
 	led_add(&buzzer);
+}
+
+void buzzer_togle(led_t* buzzer, uint16_t on_ms, uint16_t off_ms, uint16_t count)
+{
+	led_start_togle(buzzer, on_ms, off_ms, count);
 }

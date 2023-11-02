@@ -93,12 +93,12 @@ void lcd_label_set_param(lv_obj_t* label, const char* txt, lv_coord_t x, lv_coor
 
 void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_mode_t pwr_mode, operation_mode_t op_mode, uint8_t bat_value, battery_state_t bat_st)
 {
-	lcd_t speaker_symbol = FONT_VERDENA_24;
-	lcd_t temper = FONT_VERDENA_24;
-	lcd_t operation_mode = FONT_VERDENA_40;
-	lcd_t power_mode = FONT_VERDENA_40;
-	lcd_t bat_state = FONT_VERDENA_36;
-	lcd_t bat_symbol = FONT_VERDENA_100;
+	lcd_ui_t speaker_symbol = FONT_VERDENA_24;
+	lcd_ui_t temper = FONT_VERDENA_24;
+	lcd_ui_t operation_mode = FONT_VERDENA_40;
+	lcd_ui_t power_mode = FONT_VERDENA_40;
+	lcd_ui_t bat_state = FONT_VERDENA_36;
+	lcd_ui_t bat_symbol = FONT_VERDENA_100;
 	if(sp_mode ==  SPEAKER_MODE_ON)
 	{
 
@@ -141,30 +141,36 @@ void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_m
 	lcd_set_background_color(bat_state.obj, YELLOW_COLOR);
 }
 
-void lcd_operation_mode_screen(uint8_t operation_mode)
+void lcd_operation_mode_screen(operation_mode_t index)
 {
-	lv_obj_t* operation_mode_text_obj = get_label();
-	lcd_label_set_param(operation_mode_text_obj, "Operation Mode", 0, -96, &ui_font_verdana364, WHITE_COLOR);
+	lcd_ui_t operation_mode = FONT_VERDENA_36;
+	lcd_ui_t fridge = FONT_VERDENA_24;
+	lcd_ui_t freezer = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
-	lv_obj_t* operation_mode_fridge_obj = get_label();
-	lv_obj_t* operation_mode_freezer_obj = get_label();
-	lv_obj_t* operation_mode_back_obj = get_label();
-	if(operation_mode == OPERATION_MODE_FREEZER)
+
+	if(index == OPERATION_MODE_DEFAULT)
 	{
-		lcd_label_set_param(operation_mode_fridge_obj, "Fridge", 0, -28, &ui_font_verdana244, WHITE_COLOR);
-		lcd_label_set_param(operation_mode_freezer_obj,"Freezer", 0, 10, &ui_font_verdana404, WHITE_COLOR);
-		lcd_label_set_param(operation_mode_back_obj, "Back", 0, 51, &ui_font_verdana244, WHITE_COLOR);
-	}else if(operation_mode == OPERATION_MODE_FRIDEGE)
-	{
-		lcd_label_set_param(operation_mode_fridge_obj, "Fridge", 0, -14, &ui_font_verdana404, WHITE_COLOR);
-		lcd_label_set_param(operation_mode_freezer_obj,"Freezer", 0, 10, &ui_font_verdana244, WHITE_COLOR);
-		lcd_label_set_param(operation_mode_back_obj, "Back", 0, 51, &ui_font_verdana244, WHITE_COLOR);
-	}else
-	{
-		lcd_label_set_param(operation_mode_fridge_obj, "Fridge", 0, 10, &ui_font_verdana244, WHITE_COLOR);
-		lcd_label_set_param(operation_mode_freezer_obj,"Freezer", 0, 10, &ui_font_verdana244, WHITE_COLOR);
-		lcd_label_set_param(operation_mode_back_obj, "Back", 0, 51, &ui_font_verdana404, WHITE_COLOR);
+		fridge.font = &ui_font_verdana244;
+		freezer.font = &ui_font_verdana244;
+		back.font = &ui_font_verdana244;
 	}
+	if(index == OPERATION_MODE_FREEZER)
+	{
+		freezer.font = &ui_font_verdana364;
+	}else if(index == OPERATION_MODE_FRIDEGE)
+	{
+		fridge.font = &ui_font_verdana364;
+	}else if(index == OPERATION_MODE_BACK)
+	{
+		back.font = &ui_font_verdana364;
+	}
+
+	lcd_label_set_param(operation_mode.obj, "Operation Mode", 0, -96, operation_mode.font, WHITE_COLOR);
+	lcd_label_set_param(fridge.obj, "Fridge", 0, -28, fridge.font, WHITE_COLOR);
+	lcd_label_set_param(freezer.obj, "Freezer", 0, 10, freezer.font, WHITE_COLOR);
+	lcd_label_set_param(back.obj, "Back", 0, 51, back.font, WHITE_COLOR);
+
 }
 
 void lcd_turn_off_unit(display_unit_t value)
@@ -173,7 +179,7 @@ void lcd_turn_off_unit(display_unit_t value)
 	lcd_label_set_param(turn_unit_obj, "Turn off unit?", 0, -96, &ui_font_verdana364, WHITE_COLOR);
 	lv_obj_t* yes_obj = get_label();
 	lv_obj_t* no_obj = get_label();
-	if(value == ON)
+	if(value == DISPLAY_UINIT_ON)
 	{
 		lcd_label_set_param(yes_obj, "YES", 0, -11, &ui_font_verdana404, WHITE_COLOR);
 		lcd_label_set_param(no_obj, "NO", 0, 28, &ui_font_verdana244, WHITE_COLOR);
@@ -192,7 +198,7 @@ void lcd_setting(setting_t setting)
 	lv_obj_t* datetime_obj = get_label();
 	lv_obj_t* download_data_obj = get_label();
 	lv_obj_t* back_obj = get_label();
-	if(setting == SETTING_DATE_TIME)
+	if(setting == SETTING_DATETIME)
 	{
 		lcd_label_set_param(datetime_obj, "Date/Time", 0, -47, &ui_font_verdana404, WHITE_COLOR);
 		lcd_label_set_param(download_data_obj, "Download Data", 0, 0, &ui_font_verdana244, WHITE_COLOR);
@@ -211,7 +217,8 @@ void lcd_setting(setting_t setting)
 }
 
 
-void lcd_setting_date_time(setting_date_time_t index, date_time_t* time)
+
+void lcd_setting_datetime(setting_datetime_t index, datetime_t* time)
 {
 	lv_obj_t* year_obj = get_label();
 	lv_obj_t* month_obj = get_label();
@@ -227,22 +234,22 @@ void lcd_setting_date_time(setting_date_time_t index, date_time_t* time)
 	const lv_font_t* back_font = &ui_font_verdana244;
 
 
-	if(index == SETTING_DATE_TIME_YEAR)
+	if(index == SETTING_DATETIME_YEAR)
 	{
 		year_font = &ui_font_verdana404;
-	}else if(index == SETTING_DATE_TIME_MONTH)
+	}else if(index == SETTING_DATETIME_MONTH)
 	{
 		month_font = &ui_font_verdana404;
-	}else if(index == SETTING_DATE_TIME_DAY)
+	}else if(index == SETTING_DATETIME_DAY)
 	{
 		day_font = &ui_font_verdana404;
-	}else if(index == SETTING_DATE_TIME_HOUR)
+	}else if(index == SETTING_DATETIME_HOUR)
 	{
 		hour_font = &ui_font_verdana404;
-	}else if(index == SETTING_DATE_TIME_MINUTE)
+	}else if(index == SETTING_DATETIME_MINUTE)
 	{
 		minute_font = &ui_font_verdana404;
-	}else if(index == SETTING_DATE_TIME_BACK)
+	}else if(index == SETTING_DATETIME_BACK)
 	{
 		back_font = &ui_font_verdana404;
 	}
@@ -262,14 +269,139 @@ void lcd_setting_date_time(setting_date_time_t index, date_time_t* time)
 }
 
 
+void lcd_setting_datetime_year(uint16_t year)
+{
+	lcd_ui_t set_year = FONT_VERDENA_36;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
+	lcd_label_set_param(set_year.obj, "Set Year", 0, -78, set_year.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",year + 1);
+	lcd_label_set_param(time_1.obj, temp_buff, 0, -10, time_1.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",year);
+	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",year - 1);
+	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+}
+
+void lcd_setting_datetime_month(uint8_t month)
+{
+	lcd_ui_t set_month = FONT_VERDENA_36;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
+	lcd_label_set_param(set_month.obj, "Set Month", 0, -78, set_month.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",month + 1);
+	lcd_label_set_param(time_1.obj, temp_buff, 0, -10, time_1.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",month);
+	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",month - 1);
+	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+}
+
+void lcd_setting_datetime_day(uint8_t day)
+{
+	lcd_ui_t set_day = FONT_VERDENA_36;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
+	lcd_label_set_param(set_day.obj, "Set Day", 0, -78, set_day.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",day + 1);
+	lcd_label_set_param(time_1.obj, temp_buff, 0, -10, time_1.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",day);
+	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",day - 1);
+	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+}
+
+void lcd_setting_datetime_hour(uint8_t hour)
+{
+	lcd_ui_t set_hour = FONT_VERDENA_36;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
+	lcd_label_set_param(set_hour.obj, "Set Hour", 0, -78, set_hour.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",hour + 1);
+	lcd_label_set_param(time_1.obj, temp_buff, 0, -10, time_1.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",hour);
+	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",hour - 1);
+	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+}
+
+void lcd_setting_datetime_min(uint8_t min)
+{
+	lcd_ui_t set_min = FONT_VERDENA_36;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
+	lcd_label_set_param(set_min.obj, "Set Minute", 0, -78, set_min.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",min + 1);
+	lcd_label_set_param(time_1.obj, temp_buff, 0, -10, time_1.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",min);
+	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",min - 1);
+	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+}
+
+
+void lcd_setting_download_data(setting_download_data_t index)
+{
+	lcd_ui_t download_data = FONT_VERDENA_36;
+	lcd_ui_t download_data_to_usb = FONT_VERDENA_36;
+	lcd_ui_t back = FONT_VERDENA_24;
+
+	if(index == SETTING_DOWNLOAD_DATA_TO_USB)
+	{
+		download_data_to_usb.font = &ui_font_verdana364;
+	}else
+	{
+		back.font = &ui_font_verdana404;
+	}
+
+	lcd_label_set_param(download_data.obj, "Download Data", 0, -96, download_data.font, WHITE_COLOR);
+	lcd_label_set_param(download_data_to_usb.obj, "Download to USB", 0, 0, download_data_to_usb.font, WHITE_COLOR);
+	lcd_label_set_param(back.obj, "Back", 0, 47, back.font, WHITE_COLOR);
+}
+
+void lcd_setting_download_data_insert(setting_download_data_insert_t index)
+{
+	lcd_ui_t insert = FONT_VERDENA_36;
+	lcd_ui_t continue_usb = FONT_VERDENA_36;
+	lcd_ui_t cancel = FONT_VERDENA_24;
+
+	if(index == SETTING_DOWNLOAD_DATA_CONTINUE)
+	{
+		continue_usb.font = &ui_font_verdana404;
+	}else
+	{
+		cancel.font = &ui_font_verdana404;
+	}
+
+	lcd_label_set_param(insert.obj, "Insert USB drive\nto download CSV", 0, -70, insert.font, WHITE_COLOR);
+	lcd_label_set_param(continue_usb.obj, "Continue", 0, 22, continue_usb.font, WHITE_COLOR);
+	lcd_label_set_param(cancel.obj, "Cancel", 0, 63, cancel.font, WHITE_COLOR);
+}
+
+void lcd_setting_download_data_complete(void)
+{
+	lcd_ui_t complete = FONT_VERDENA_36;
+	lcd_ui_t safe_remove = FONT_VERDENA_36;
+	lcd_ui_t continue_label = FONT_VERDENA_24;
+
+	lcd_label_set_param(complete.obj, "Download\ncomplete", 0, -70, complete.font, WHITE_COLOR);
+	lcd_label_set_param(safe_remove.obj, "Safe to remove\nUSB Device", 0, 22, safe_remove.font, WHITE_COLOR);
+	lcd_label_set_param(continue_label.obj, "Continue", 0, 81, continue_label.font, WHITE_COLOR);
+}
+
 void lcd_service(service_t index)
 {
-	lcd_t service = FONT_VERDENA_36;
-	lcd_t temperature = FONT_VERDENA_24;
-	lcd_t alarm = FONT_VERDENA_24;
-	lcd_t data_logging = FONT_VERDENA_24;
-	lcd_t calibration = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t service = FONT_VERDENA_36;
+	lcd_ui_t temperature = FONT_VERDENA_24;
+	lcd_ui_t alarm = FONT_VERDENA_24;
+	lcd_ui_t data_logging = FONT_VERDENA_24;
+	lcd_ui_t calibration = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 
 	if(index == SERVICE_TEMPERATURE)
@@ -300,10 +432,10 @@ void lcd_service(service_t index)
 
 void lcd_service_temperature(service_temperature_t index)
 {
-	lcd_t temperature = FONT_VERDENA_36;
-	lcd_t fridge = FONT_VERDENA_24;
-	lcd_t freezer = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t temperature = FONT_VERDENA_36;
+	lcd_ui_t fridge = FONT_VERDENA_24;
+	lcd_ui_t freezer = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 	if(index == SERVICE_TEMPERATURE_FRIDGE)
 	{
@@ -325,12 +457,12 @@ void lcd_service_temperature(service_temperature_t index)
 
 void lcd_service_alarms(service_alarm_t index)
 {
-	lcd_t alarm = FONT_VERDENA_36;
-	lcd_t temperature = FONT_VERDENA_24;
-	lcd_t bat = FONT_VERDENA_24;
-	lcd_t lid = FONT_VERDENA_24;
-	lcd_t mute = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t alarm = FONT_VERDENA_36;
+	lcd_ui_t temperature = FONT_VERDENA_24;
+	lcd_ui_t bat = FONT_VERDENA_24;
+	lcd_ui_t lid = FONT_VERDENA_24;
+	lcd_ui_t mute = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 	if(index == SERVICE_ALARMS_TEMPERATURE)
 	{
@@ -359,9 +491,9 @@ void lcd_service_alarms(service_alarm_t index)
 
 void lcd_service_data_logging(service_data_logging_t index)
 {
-	lcd_t data_logging = FONT_VERDENA_36;
-	lcd_t logging_interval = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t data_logging = FONT_VERDENA_36;
+	lcd_ui_t logging_interval = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 
 	if(index == SERVICE_DATA_LOGGING_INTERVAL)
@@ -380,10 +512,10 @@ void lcd_service_data_logging(service_data_logging_t index)
 
 void lcd_service_data_logging_set(uint8_t value)
 {
-	lcd_t logging_interval = FONT_VERDENA_36;
-	lcd_t time_1 = FONT_VERDENA_24;
-	lcd_t time_2 = FONT_VERDENA_40;
-	lcd_t time_3 = FONT_VERDENA_24;
+	lcd_ui_t logging_interval = FONT_VERDENA_36;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
 	lcd_label_set_param(logging_interval.obj, "Logging Interval", 0, -70, logging_interval.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value + 1);
 	lcd_label_set_param(time_1.obj, temp_buff, 0, 0, time_1.font, WHITE_COLOR);
@@ -393,11 +525,11 @@ void lcd_service_data_logging_set(uint8_t value)
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 74, time_3.font, WHITE_COLOR);
 }
 
-void lcd_service_data_calibration(service_calibration_t index)
+void lcd_service_calibration(service_calibration_t index)
 {
-	lcd_t calibration = FONT_VERDENA_36;
-	lcd_t temp_offset = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t calibration = FONT_VERDENA_36;
+	lcd_ui_t temp_offset = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 
 	if(index == SERVICE_CALIBRATION_TEMP_OFFSET)
@@ -413,12 +545,12 @@ void lcd_service_data_calibration(service_calibration_t index)
 	lcd_label_set_param(back.obj, "Back", 0, 38, back.font, WHITE_COLOR);
 }
 
-void lcd_service_data_calibration_set(uint8_t value)
+void lcd_service_calibration_set(uint8_t value)
 {
-	lcd_t temp_offset = FONT_VERDENA_36;
-	lcd_t temper_1 = FONT_VERDENA_24;
-	lcd_t temper_2 = FONT_VERDENA_40;
-	lcd_t temper_3 = FONT_VERDENA_24;
+	lcd_ui_t temp_offset = FONT_VERDENA_36;
+	lcd_ui_t temper_1 = FONT_VERDENA_24;
+	lcd_ui_t temper_2 = FONT_VERDENA_40;
+	lcd_ui_t temper_3 = FONT_VERDENA_24;
 	lcd_label_set_param(temp_offset.obj, "Temp Offset", 0, -70, temp_offset.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d°C",value + 1);
 	lcd_label_set_param(temper_1.obj, temp_buff, 0, 0, temper_1.font, WHITE_COLOR);
@@ -430,10 +562,10 @@ void lcd_service_data_calibration_set(uint8_t value)
 
 void lcd_service_temperature_fridge(service_temperature_fridge_t index, int8_t value)
 {
-	lcd_t fridge = FONT_VERDENA_36;
-	lcd_t set_point = FONT_VERDENA_36;
-	lcd_t temper = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t fridge = FONT_VERDENA_36;
+	lcd_ui_t set_point = FONT_VERDENA_36;
+	lcd_ui_t temper = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 	if(index == SERVICE_TEMPERATURE_FRIDGE_VALUE)
 	{
@@ -452,10 +584,10 @@ void lcd_service_temperature_fridge(service_temperature_fridge_t index, int8_t v
 
 void lcd_service_temperature_freezer(service_temperature_freezer_t index, int8_t value)
 {
-	lcd_t freezer = FONT_VERDENA_36;
-	lcd_t set_point = FONT_VERDENA_36;
-	lcd_t temper = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t freezer = FONT_VERDENA_36;
+	lcd_ui_t set_point = FONT_VERDENA_36;
+	lcd_ui_t temper = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 	if(index == SERVICE_TEMPERATURE_FREEZER_VALUE)
 	{
@@ -475,11 +607,11 @@ void lcd_service_temperature_freezer(service_temperature_freezer_t index, int8_t
 
 void lcd_service_temperature_fridge_set(int8_t value)
 {
-	lcd_t mode = FONT_VERDENA_36;
-	lcd_t set_point = FONT_VERDENA_36;
-	lcd_t temper_1 = FONT_VERDENA_24;
-	lcd_t temper_2 = FONT_VERDENA_40;
-	lcd_t temper_3 = FONT_VERDENA_24;
+	lcd_ui_t mode = FONT_VERDENA_36;
+	lcd_ui_t set_point = FONT_VERDENA_36;
+	lcd_ui_t temper_1 = FONT_VERDENA_24;
+	lcd_ui_t temper_2 = FONT_VERDENA_40;
+	lcd_ui_t temper_3 = FONT_VERDENA_24;
 
 
 	lcd_label_set_param(mode.obj, "Fridge", 0, -96, mode.font, WHITE_COLOR);
@@ -495,11 +627,11 @@ void lcd_service_temperature_fridge_set(int8_t value)
 
 void lcd_service_temperature_freezer_set(int8_t value)
 {
-	lcd_t mode = FONT_VERDENA_36;
-	lcd_t set_point = FONT_VERDENA_36;
-	lcd_t temper_1 = FONT_VERDENA_24;
-	lcd_t temper_2 = FONT_VERDENA_40;
-	lcd_t temper_3 = FONT_VERDENA_24;
+	lcd_ui_t mode = FONT_VERDENA_36;
+	lcd_ui_t set_point = FONT_VERDENA_36;
+	lcd_ui_t temper_1 = FONT_VERDENA_24;
+	lcd_ui_t temper_2 = FONT_VERDENA_40;
+	lcd_ui_t temper_3 = FONT_VERDENA_24;
 
 
 	lcd_label_set_param(mode.obj, "Freezer", 0, -96, mode.font, WHITE_COLOR);
@@ -515,9 +647,9 @@ void lcd_service_temperature_freezer_set(int8_t value)
 
 void lcd_service_alarm_temperature(service_alarms_temperature_t index)
 {
-	lcd_t temp_deviation = FONT_VERDENA_24;
-	lcd_t alarm_delay = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t temp_deviation = FONT_VERDENA_24;
+	lcd_ui_t alarm_delay = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 	if(index == SERVICE_ALARM_TEMP_TEMP_DEVIATION)
 	{
 		temp_deviation.font = &ui_font_verdana404;
@@ -536,11 +668,11 @@ void lcd_service_alarm_temperature(service_alarms_temperature_t index)
 
 void lcd_service_alarm_temperature_temp_deviation_set(int8_t value)
 {
-	lcd_t temp_deviation = FONT_VERDENA_36;
+	lcd_ui_t temp_deviation = FONT_VERDENA_36;
 
-	lcd_t temper_1 = FONT_VERDENA_24;
-	lcd_t temper_2 = FONT_VERDENA_40;
-	lcd_t temper_3 = FONT_VERDENA_24;
+	lcd_ui_t temper_1 = FONT_VERDENA_24;
+	lcd_ui_t temper_2 = FONT_VERDENA_40;
+	lcd_ui_t temper_3 = FONT_VERDENA_24;
 	lcd_label_set_param(temp_deviation.obj, "Temp Deviation", 0, -70, temp_deviation.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d°C",value + 1);
 	lcd_label_set_param(temper_1.obj, temp_buff, 0, 0, temper_1.font, WHITE_COLOR);
@@ -552,11 +684,11 @@ void lcd_service_alarm_temperature_temp_deviation_set(int8_t value)
 
 void lcd_service_alarm_temperature_alarm_delay_set(uint8_t value)
 {
-	lcd_t temp_deviation = FONT_VERDENA_36;
+	lcd_ui_t temp_deviation = FONT_VERDENA_36;
 
-	lcd_t temper_1 = FONT_VERDENA_24;
-	lcd_t temper_2 = FONT_VERDENA_40;
-	lcd_t temper_3 = FONT_VERDENA_24;
+	lcd_ui_t temper_1 = FONT_VERDENA_24;
+	lcd_ui_t temper_2 = FONT_VERDENA_40;
+	lcd_ui_t temper_3 = FONT_VERDENA_24;
 	lcd_label_set_param(temp_deviation.obj, "Alarm Delay", 0, -70, temp_deviation.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value + 1);
 	lcd_label_set_param(temper_1.obj, temp_buff, 0, 0, temper_1.font, WHITE_COLOR);
@@ -568,9 +700,9 @@ void lcd_service_alarm_temperature_alarm_delay_set(uint8_t value)
 
 void lcd_service_alarm_bat(service_alarms_bat_t index, uint8_t value)
 {
-	lcd_t alarm_bat = FONT_VERDENA_36;
-	lcd_t temp_value = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t alarm_bat = FONT_VERDENA_36;
+	lcd_ui_t temp_value = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 	if(index == SERVICE_ALARM_BAT_VALUE)
 	{
@@ -587,11 +719,11 @@ void lcd_service_alarm_bat(service_alarms_bat_t index, uint8_t value)
 
 void lcd_service_alarm_bat_set(uint8_t value)
 {
-	lcd_t bat_alarm = FONT_VERDENA_36;
+	lcd_ui_t bat_alarm = FONT_VERDENA_36;
 
-	lcd_t percent_1 = FONT_VERDENA_24;
-	lcd_t percent_2 = FONT_VERDENA_40;
-	lcd_t percent_3 = FONT_VERDENA_24;
+	lcd_ui_t percent_1 = FONT_VERDENA_24;
+	lcd_ui_t percent_2 = FONT_VERDENA_40;
+	lcd_ui_t percent_3 = FONT_VERDENA_24;
 	lcd_label_set_param(bat_alarm.obj, "Alarm Delay", 0, -70, bat_alarm.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d %%",value + 1);
 	lcd_label_set_param(percent_1.obj, temp_buff, 0, 0, percent_1.font, WHITE_COLOR);
@@ -603,9 +735,9 @@ void lcd_service_alarm_bat_set(uint8_t value)
 
 void lcd_service_alarm_lid(service_alarms_lid_t index, uint8_t value)
 {
-	lcd_t alarm_lid = FONT_VERDENA_36;
-	lcd_t time = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t alarm_lid = FONT_VERDENA_36;
+	lcd_ui_t time = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 	if(index == SERVICE_ALARM_LID_VALUE)
 	{
@@ -622,11 +754,11 @@ void lcd_service_alarm_lid(service_alarms_lid_t index, uint8_t value)
 
 void lcd_service_alarm_lid_set(uint8_t value)
 {
-	lcd_t lid_alarm = FONT_VERDENA_36;
+	lcd_ui_t lid_alarm = FONT_VERDENA_36;
 
-	lcd_t time_1 = FONT_VERDENA_24;
-	lcd_t time_2 = FONT_VERDENA_40;
-	lcd_t time_3 = FONT_VERDENA_24;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
 	lcd_label_set_param(lid_alarm.obj, "Lid Alarm", 0, -70, lid_alarm.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value + 1);
 	lcd_label_set_param(time_1.obj, temp_buff, 0, 0, time_1.font, WHITE_COLOR);
@@ -639,9 +771,9 @@ void lcd_service_alarm_lid_set(uint8_t value)
 
 void lcd_service_alarms_mute_duration(service_alarms_mute_duration_t index, uint8_t value)
 {
-	lcd_t mute_duration = FONT_VERDENA_36;
-	lcd_t time = FONT_VERDENA_24;
-	lcd_t back = FONT_VERDENA_24;
+	lcd_ui_t mute_duration = FONT_VERDENA_36;
+	lcd_ui_t time = FONT_VERDENA_24;
+	lcd_ui_t back = FONT_VERDENA_24;
 
 	if(index == SERVICE_ALARM_MUTE_DURATION_VALUE)
 	{
@@ -658,10 +790,10 @@ void lcd_service_alarms_mute_duration(service_alarms_mute_duration_t index, uint
 
 void lcd_service_alarms_mute_duration_set(uint8_t value)
 {
-	lcd_t mute_duration = FONT_VERDENA_36;
-	lcd_t time_1 = FONT_VERDENA_24;
-	lcd_t time_2 = FONT_VERDENA_40;
-	lcd_t time_3 = FONT_VERDENA_24;
+	lcd_ui_t mute_duration = FONT_VERDENA_36;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
 	lcd_label_set_param(mute_duration.obj, "Mute Duration", 0, -70, mute_duration.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value + 1);
 	lcd_label_set_param(time_1.obj, temp_buff, 0, 0, time_1.font, WHITE_COLOR);
@@ -675,9 +807,9 @@ void lcd_service_alarms_mute_duration_set(uint8_t value)
 void lcd_service_alarms_warning(warning_mode_t mode, warning_type_t type)
 {
 
-	lcd_t mode_obj = FONT_VERDENA_40;
-	lcd_t type_obj = FONT_VERDENA_36;
-	lcd_t warning_symbol = FONT_VERDENA_40;
+	lcd_ui_t mode_obj = FONT_VERDENA_40;
+	lcd_ui_t type_obj = FONT_VERDENA_36;
+	lcd_ui_t warning_symbol = FONT_VERDENA_40;
 	lcd_set_background_color(screen, RED_COLOR);
 	if(mode == WARNING_MODE_FRIDGE)
 	{
