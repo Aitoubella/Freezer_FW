@@ -1,3 +1,4 @@
+
 /*
  * board.c
  *
@@ -13,7 +14,7 @@
 event_id test_id;
 uint8_t arr_wr[] = {0,1,2,3,1,4,5,6,7,89};
 uint8_t arr_rd[20] = {1};
-date_time_t datetime;
+datetime_t datetime;
 void test_task(void)
 {
 	DS1307_GetDate(&datetime.day, &datetime.month, &datetime.year);

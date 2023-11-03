@@ -205,11 +205,11 @@ void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_m
 void lcd_operation_mode_screen(uint8_t operation_mode);
 void lcd_turn_off_unit(display_unit_t value);
 void lcd_setting_datetime(setting_datetime_t index, datetime_t* time);
-void lcd_setting_datetime_year(uint16_t year);
-void lcd_setting_datetime_month(uint8_t month);
-void lcd_setting_datetime_day(uint8_t day);
-void lcd_setting_datetime_hour(uint8_t hour);
-void lcd_setting_datetime_min(uint8_t min);
+void lcd_setting_datetime_year_set(uint16_t year);
+void lcd_setting_datetime_month_set(uint8_t month);
+void lcd_setting_datetime_day_set(uint8_t day);
+void lcd_setting_datetime_hour_set(uint8_t hour);
+void lcd_setting_datetime_min_set(uint8_t min);
 void lcd_setting_download_data(setting_download_data_t index);
 void lcd_setting_download_data_insert(setting_download_data_insert_t index);
 void lcd_setting_download_data_complete(void);

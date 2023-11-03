@@ -269,7 +269,7 @@ void lcd_setting_datetime(setting_datetime_t index, datetime_t* time)
 }
 
 
-void lcd_setting_datetime_year(uint16_t year)
+void lcd_setting_datetime_year_set(uint16_t year)
 {
 	lcd_ui_t set_year = FONT_VERDENA_36;
 	lcd_ui_t time_1 = FONT_VERDENA_24;
@@ -284,7 +284,7 @@ void lcd_setting_datetime_year(uint16_t year)
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
 }
 
-void lcd_setting_datetime_month(uint8_t month)
+void lcd_setting_datetime_month_set(uint8_t month)
 {
 	lcd_ui_t set_month = FONT_VERDENA_36;
 	lcd_ui_t time_1 = FONT_VERDENA_24;
@@ -299,7 +299,7 @@ void lcd_setting_datetime_month(uint8_t month)
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
 }
 
-void lcd_setting_datetime_day(uint8_t day)
+void lcd_setting_datetime_day_set(uint8_t day)
 {
 	lcd_ui_t set_day = FONT_VERDENA_36;
 	lcd_ui_t time_1 = FONT_VERDENA_24;
@@ -314,7 +314,7 @@ void lcd_setting_datetime_day(uint8_t day)
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
 }
 
-void lcd_setting_datetime_hour(uint8_t hour)
+void lcd_setting_datetime_hour_set(uint8_t hour)
 {
 	lcd_ui_t set_hour = FONT_VERDENA_36;
 	lcd_ui_t time_1 = FONT_VERDENA_24;
@@ -329,7 +329,7 @@ void lcd_setting_datetime_hour(uint8_t hour)
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
 }
 
-void lcd_setting_datetime_min(uint8_t min)
+void lcd_setting_datetime_min_set(uint8_t min)
 {
 	lcd_ui_t set_min = FONT_VERDENA_36;
 	lcd_ui_t time_1 = FONT_VERDENA_24;
