@@ -186,23 +186,6 @@ GenerateClassCluster=0
 DocumentUniqueId=TXDSBEBG
 
 [Document9]
-DocumentPath=SoftPowerSwitch.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=6
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=ZGYVWCWN
-
-[Document10]
 DocumentPath=USBIface.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -219,7 +202,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=EXSQLIOZ
 
-[Document11]
+[Document10]
 DocumentPath=TopLevel.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -236,7 +219,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=KJTBPZZR
 
-[Document12]
+[Document11]
 DocumentPath=RTC.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -253,7 +236,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=CFOIOHFL
 
-[Document13]
+[Document12]
 DocumentPath=Power.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -270,7 +253,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=VWBWTYCK
 
-[Document14]
+[Document13]
 DocumentPath=Freezer_Controller.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -287,7 +270,7 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=NVBNJSTX
 
-[Document15]
+[Document14]
 DocumentPath=PcbLib1.PcbLib
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -304,23 +287,6 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=AJVDJLTN
 
-[Document16]
-DocumentPath=Freezer_Controller.SCHLIB
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=0
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=IOHYOLRY
-
 [ProjectVariant1]
 UniqueID=38871D39-267C-4C9F-BBA5-EFA4F518E16D
 Description=Default
@@ -328,234 +294,6 @@ AllowFabrication=0
 ParameterCount=0
 VariationCount=0
 ParamVariationCount=0
-
-[GeneratedDocument1]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\NC Drill\BIOL-003-1.0.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument2]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument3]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.G1
-DItemRevisionGUID=
-
-[GeneratedDocument4]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.G2
-DItemRevisionGUID=
-
-[GeneratedDocument5]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GBL
-DItemRevisionGUID=
-
-[GeneratedDocument6]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GBO
-DItemRevisionGUID=
-
-[GeneratedDocument7]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GBP
-DItemRevisionGUID=
-
-[GeneratedDocument8]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument9]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GKO
-DItemRevisionGUID=
-
-[GeneratedDocument10]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM1
-DItemRevisionGUID=
-
-[GeneratedDocument11]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM2
-DItemRevisionGUID=
-
-[GeneratedDocument12]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM3
-DItemRevisionGUID=
-
-[GeneratedDocument13]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM4
-DItemRevisionGUID=
-
-[GeneratedDocument14]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM5
-DItemRevisionGUID=
-
-[GeneratedDocument15]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM6
-DItemRevisionGUID=
-
-[GeneratedDocument16]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM7
-DItemRevisionGUID=
-
-[GeneratedDocument17]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM8
-DItemRevisionGUID=
-
-[GeneratedDocument18]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM9
-DItemRevisionGUID=
-
-[GeneratedDocument19]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM10
-DItemRevisionGUID=
-
-[GeneratedDocument20]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GM16
-DItemRevisionGUID=
-
-[GeneratedDocument21]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GTL
-DItemRevisionGUID=
-
-[GeneratedDocument22]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument23]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GTP
-DItemRevisionGUID=
-
-[GeneratedDocument24]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument25]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\NC Drill\BIOL-003-1.0.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument26]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.REP
-DItemRevisionGUID=
-
-[GeneratedDocument27]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Gerber\BIOL-003-1.0.RUL
-DItemRevisionGUID=
-
-[GeneratedDocument28]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\NC Drill\BIOL-003-1.0.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument29]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\BOM\BOM BIOL-003-1.0-BR1.0.xlsx
-DItemRevisionGUID=
-
-[GeneratedDocument30]
-DocumentPath=Project Outputs for Freezer_Controller\Design Rule Check - Freezer_Controller.html
-DItemRevisionGUID=
-
-[GeneratedDocument31]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.DRR
-DItemRevisionGUID=
-
-[GeneratedDocument32]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.EXTREP
-DItemRevisionGUID=
-
-[GeneratedDocument33]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.G1
-DItemRevisionGUID=
-
-[GeneratedDocument34]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.G2
-DItemRevisionGUID=
-
-[GeneratedDocument35]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GBL
-DItemRevisionGUID=
-
-[GeneratedDocument36]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GBO
-DItemRevisionGUID=
-
-[GeneratedDocument37]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GBP
-DItemRevisionGUID=
-
-[GeneratedDocument38]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GBS
-DItemRevisionGUID=
-
-[GeneratedDocument39]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GD1
-DItemRevisionGUID=
-
-[GeneratedDocument40]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GG1
-DItemRevisionGUID=
-
-[GeneratedDocument41]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GKO
-DItemRevisionGUID=
-
-[GeneratedDocument42]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GM1
-DItemRevisionGUID=
-
-[GeneratedDocument43]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GM2
-DItemRevisionGUID=
-
-[GeneratedDocument44]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GM16
-DItemRevisionGUID=
-
-[GeneratedDocument45]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GM19
-DItemRevisionGUID=
-
-[GeneratedDocument46]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GPB
-DItemRevisionGUID=
-
-[GeneratedDocument47]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GPT
-DItemRevisionGUID=
-
-[GeneratedDocument48]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GTL
-DItemRevisionGUID=
-
-[GeneratedDocument49]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GTO
-DItemRevisionGUID=
-
-[GeneratedDocument50]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GTP
-DItemRevisionGUID=
-
-[GeneratedDocument51]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.GTS
-DItemRevisionGUID=
-
-[GeneratedDocument52]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.LDP
-DItemRevisionGUID=
-
-[GeneratedDocument53]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.REP
-DItemRevisionGUID=
-
-[GeneratedDocument54]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.RUL
-DItemRevisionGUID=
-
-[GeneratedDocument55]
-DocumentPath=Project Outputs for Freezer_Controller\Freezer_Controller.TXT
-DItemRevisionGUID=
-
-[GeneratedDocument56]
-DocumentPath=Project Outputs for Freezer_Controller\Manufacturing Outputs BIOL-003-1.0\Pick Place\Pick Place BIOL-003-1.0.txt
-DItemRevisionGUID=
-
-[GeneratedDocument57]
-DocumentPath=Project Outputs for Freezer_Controller\Pick Place for Freezer_Controller.csv
-DItemRevisionGUID=
 
 [Parameter1]
 Name=BOMRevision
@@ -627,7 +365,7 @@ OutputDir=
 [OutputGroup1]
 Name=Netlist Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=PCADNetlist
 OutputName1=PCAD Netlist
@@ -733,7 +471,7 @@ OutputDefault20=0
 [OutputGroup2]
 Name=Simulator Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 
 [OutputGroup3]
@@ -879,7 +617,7 @@ PageOptions15=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|Print
 [OutputGroup4]
 Name=Assembly Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Test Points For Assembly
 OutputName1=Test Point Report
@@ -907,7 +645,7 @@ PageOptions3=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintS
 [OutputGroup5]
 Name=Fabrication Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Drill
 OutputName1=Drill Drawing/Guides
@@ -989,7 +727,7 @@ Configuration12_Item2=AddToAllLayerClasses.Set= |AddToAllPlots.Set=SerializeLaye
 [OutputGroup6]
 Name=Report Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=BOM_PartType
 OutputName1=Bill of Materials
@@ -1060,7 +798,7 @@ PageOptions9=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|PrintS
 [OutputGroup7]
 Name=Other Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Text Print
 OutputName1=Text Print
@@ -1168,7 +906,7 @@ PageOptions17=Record=PageOptions|CenterHorizontal=True|CenterVertical=True|Print
 [OutputGroup8]
 Name=Validation Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Design Rules Check
 OutputName1=Design Rules Check
@@ -1212,7 +950,7 @@ OutputDefault7=0
 [OutputGroup9]
 Name=Export Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=ExportIDF
 OutputName1=Export IDF
@@ -1278,7 +1016,7 @@ OutputDefault12=0
 [OutputGroup10]
 Name=PostProcess Outputs
 Description=
-TargetPrinter=\\zeus\HP_Color_LaserJet_CP1215
+TargetPrinter=Foxit Reader PDF Printer
 PrinterOptions=Record=PrinterOptions|Copies=1|Duplex=1|TrueTypeOptions=3|Collate=1|PrintJobKind=1|PrintWhat=1
 OutputType1=Copy Files
 OutputName1=Copy Files
