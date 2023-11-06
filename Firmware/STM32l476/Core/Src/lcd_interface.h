@@ -1,6 +1,8 @@
 /*
  * lcd_interface.h
  *
+ *  Created on: Oct 30, 2023
+ *      Author: Loc
  */
 
 #ifndef SRC_LCD_INTERFACE_H_
@@ -14,9 +16,8 @@ typedef enum
 	LCD_SETTING_STATE,
 	LCD_SERVICE_STATE,
 	//level 2
-	LCD_OPERATION_MODE_DEFAULT_STATE,
-	LCD_OPERATION_MODE_FREEZER_STATE,
 	LCD_OPERATION_MODE_FRIDEGE_STATE,
+	LCD_OPERATION_MODE_FREEZER_STATE,
 	LCD_OPERATION_MODE_BACK_STATE,
 
 	LCD_SETTING_DEFAULT_STATE,
@@ -100,5 +101,5 @@ typedef enum
 	LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_SET_STATE,
 
 }lcd_state_t;
-void lcd_interface_show(lcd_state_t state, void* value);
+void lcd_interface_show(lcd_state_t state);
 #endif /* SRC_LCD_INTERFACE_H_ */

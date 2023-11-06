@@ -1,7 +1,6 @@
 /*
  * lcd_interface.c
  *
-
  */
 
 
@@ -68,17 +67,18 @@ lcd_inter_t lcd =
 void button_cb(uint8_t btn_num, btn_evt_t evt)
 {
 	static uint8_t lcd_state = LCD_MAIN_STATE;
-	int32_t value;
+	static uint8_t has_event = 0;
 	switch(btn_num)
 	{
 	case BTN_ENTER:
 		if(evt == BUTTON_SHORT_PRESS)
 		{
+			has_event = 1;
 			switch(lcd_state)
 			{
 			//level 1
 			case LCD_MAIN_STATE:
-				lcd_state = LCD_SERVICE_STATE;
+				lcd_state = LCD_OPERATION_MODE_STATE;
 				break;
 			case LCD_OPERATION_MODE_STATE:
 				lcd_state = LCD_SETTING_STATE;
@@ -91,17 +91,15 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			//level 2 enter to level 3
 			//Operation mode
-			case LCD_OPERATION_MODE_DEFAULT_STATE:
-				lcd_state = LCD_SERVICE_STATE;
-				break;
+
 			case LCD_OPERATION_MODE_FREEZER_STATE:
-				lcd_state = LCD_SERVICE_STATE;
+				lcd_state = LCD_SETTING_STATE;
 				break;
 			case LCD_OPERATION_MODE_FRIDEGE_STATE:
-				lcd_state = LCD_SERVICE_STATE;
+				lcd_state = LCD_SETTING_STATE;
 				break;
 			case LCD_OPERATION_MODE_BACK_STATE:
-				lcd_state = LCD_SERVICE_STATE;
+				lcd_state = LCD_SETTING_STATE;
 				break;
 
 			//setting date time
@@ -119,17 +117,29 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			case LCD_SERVICE_TEMPERATURE_STATE:
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_STATE;
 				break;
+			case LCD_SERVICE_TEMPERATURE_BACK_STATE:
+				lcd_state = LCD_SERVICE_TEMPERATURE_STATE;
+				break;
 			//service alarm
 			case LCD_SERVICE_ALARM_STATE:
 				lcd_state = LCD_SERVICE_ALARMS_TEMPERATURE_STATE;
+				break;
+			case LCD_SERVICE_ALARMS_BACK_STATE:
+				lcd_state = LCD_SERVICE_ALARM_STATE;
 				break;
 			//service data loging
 			case LCD_SERVICE_DATA_LOGGING_STATE:
 				lcd_state = LCD_SERVICE_DATA_LOGGING_INTERVAL_STATE;
 				break;
+			case LCD_SERVICE_DATA_LOGGING_BACK_STATE:
+				lcd_state = LCD_SERVICE_DATA_LOGGING_STATE;
+				break;
 			//service calibration
 			case LCD_SERVICE_CALIBRATION_STATE:
 				lcd_state = LCD_SERVICE_CALIBRATION_TEMP_OFFSET_STATE;
+				break;
+			case LCD_SERVICE_CALIBRATION_BACK_STATE:
+				lcd_state = LCD_SERVICE_CALIBRATION_STATE;
 				break;
 			case LCD_SERVICE_BACK_STATE:
 				lcd_state = LCD_SERVICE_STATE;
@@ -251,27 +261,29 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 
 		}else if(evt == BUTTON_HOLD_2_SEC)
 		{
+			has_event  = 1;
 			lcd_turn_off_unit(lcd.display_unit);
 		}
 		break;
 	case BTN_UP:
 		if(evt == BUTTON_SHORT_PRESS)
 		{
+			has_event  = 1;
 			switch(lcd_state)
 			{
 			//level 2
 			//Operation
 			case LCD_OPERATION_MODE_STATE:
-				lcd_state = LCD_OPERATION_MODE_BACK_STATE;
-				break;
-			case LCD_OPERATION_MODE_BACK_STATE:
 				lcd_state = LCD_OPERATION_MODE_FRIDEGE_STATE;
 				break;
 			case LCD_OPERATION_MODE_FRIDEGE_STATE:
+				lcd_state = LCD_OPERATION_MODE_BACK_STATE;
+				break;
+			case LCD_OPERATION_MODE_BACK_STATE:
 				lcd_state = LCD_OPERATION_MODE_FREEZER_STATE;
 				break;
 			case LCD_OPERATION_MODE_FREEZER_STATE:
-				lcd_state = LCD_OPERATION_MODE_BACK_STATE;
+				lcd_state = LCD_OPERATION_MODE_FRIDEGE_STATE;
 				break;
 
 			//Setting
@@ -345,18 +357,18 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			//service alarms
 			case LCD_SERVICE_ALARMS_TEMPERATURE_STATE:
-				lcd_state = LCD_SERVICE_ALARMS_BATTERY_STATE;
-				break;
-			case LCD_SERVICE_ALARMS_BATTERY_STATE:
-				lcd_state = LCD_SERVICE_ALARMS_LID_STATE;
-				break;
-			case LCD_SERVICE_ALARMS_LID_STATE:
-				lcd_state = LCD_SERVICE_ALARMS_MUTE_AlARMS_STATE;
-				break;
-			case LCD_SERVICE_ALARMS_MUTE_AlARMS_STATE:
 				lcd_state = LCD_SERVICE_ALARMS_BACK_STATE;
 				break;
 			case LCD_SERVICE_ALARMS_BACK_STATE:
+				lcd_state = LCD_SERVICE_ALARMS_MUTE_AlARMS_STATE;
+				break;
+			case LCD_SERVICE_ALARMS_MUTE_AlARMS_STATE:
+				lcd_state = LCD_SERVICE_ALARMS_LID_STATE;
+				break;
+			case LCD_SERVICE_ALARMS_LID_STATE:
+				lcd_state = LCD_SERVICE_ALARMS_BATTERY_STATE;
+				break;
+			case LCD_SERVICE_ALARMS_BATTERY_STATE:
 				lcd_state = LCD_SERVICE_ALARMS_TEMPERATURE_STATE;
 				break;
 			//service data logging
@@ -471,6 +483,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 	case BTN_DOWN:
 		if(evt == BUTTON_SHORT_PRESS)
 		{
+			has_event  = 1;
 			switch(lcd_state)
 			{
 			//level 2
@@ -479,12 +492,12 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_OPERATION_MODE_FREEZER_STATE;
 				break;
 			case LCD_OPERATION_MODE_FREEZER_STATE:
-				lcd_state = LCD_OPERATION_MODE_FRIDEGE_STATE;
-				break;
-			case LCD_OPERATION_MODE_FRIDEGE_STATE:
 				lcd_state = LCD_OPERATION_MODE_BACK_STATE;
 				break;
 			case LCD_OPERATION_MODE_BACK_STATE:
+				lcd_state = LCD_OPERATION_MODE_FRIDEGE_STATE;
+				break;
+			case LCD_OPERATION_MODE_FRIDEGE_STATE:
 				lcd_state = LCD_OPERATION_MODE_FREEZER_STATE;
 				break;
 				//Setting
@@ -528,13 +541,13 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SETTING_DATETIME_DAY_STATE;
 				break;
 			case LCD_SETTING_DATETIME_DAY_STATE:
-				lcd_state = SETTING_DATETIME_HOUR;
+				lcd_state = LCD_SETTING_DATETIME_HOUR_STATE;
 				break;
 			case LCD_SETTING_DATETIME_HOUR_STATE:
 				lcd_state = LCD_SETTING_DATETIME_MINUTE_STATE;
 				break;
-			case SETTING_DATETIME_MINUTE:
-				lcd_state = LCD_SERVICE_BACK_STATE;
+			case LCD_SETTING_DATETIME_MINUTE_STATE:
+				lcd_state = LCD_SETTING_DATETIME_BACK_STATE;
 				break;
 			case LCD_SETTING_DATETIME_BACK_STATE:
 				lcd_state = LCD_SETTING_DATETIME_YEAR_STATE;
@@ -555,7 +568,8 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			case LCD_SERVICE_TEMPERATURE_BACK_STATE:
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_STATE;
-				break;
+
+
 			//service alarms
 			case LCD_SERVICE_ALARMS_TEMPERATURE_STATE:
 				lcd_state = LCD_SERVICE_ALARMS_BATTERY_STATE;
@@ -682,12 +696,17 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			}
 		}
 	}
-	lcd_interface_show(lcd_state, (void *)&value);
-
+	if(has_event)
+	{
+		lcd_ui_clear();
+		lcd_interface_show(lcd_state);
+		lcd_ui_refresh();
+		has_event  = 0;
+	}
 }
 
 
-void lcd_interface_show(lcd_state_t state, void* value)
+void lcd_interface_show(lcd_state_t state)
 {
 	switch((uint8_t)state)
 	{
@@ -704,9 +723,6 @@ void lcd_interface_show(lcd_state_t state, void* value)
 		lcd_service(lcd.service);
 		break;
 	//Level 2
-	case LCD_OPERATION_MODE_DEFAULT_STATE:
-		lcd_operation_mode_screen(OPERATION_MODE_DEFAULT);
-		break;
 	case LCD_OPERATION_MODE_FREEZER_STATE:
 		lcd_operation_mode_screen(OPERATION_MODE_FREEZER);
 		break;
@@ -913,5 +929,8 @@ void lcd_interface_show(lcd_state_t state, void* value)
 
 void lcd_interface_init(void)
 {
+	lcd_ui_clear();
+	lcd_interface_show(LCD_MAIN_STATE);
+	lcd_ui_load_screen();
 	button_init(button_cb);
 }

@@ -24,9 +24,8 @@ LV_FONT_DECLARE( ui_font_verdana1004);
 #define FONT_VERDENA_140 {get_label(),&ui_font_verdana1404} //Font verdena
 typedef enum
 {
-	OPERATION_MODE_DEFAULT = 0,
+	OPERATION_MODE_FRIDEGE = 0,
 	OPERATION_MODE_FREEZER,
-	OPERATION_MODE_FRIDEGE,
 	OPERATION_MODE_BACK,
 }operation_mode_t;
 
@@ -197,9 +196,9 @@ typedef struct
 }lcd_ui_t;
 
 void lcd_ui_init(void);
-void lcd_ui_refesh(void);
+void lcd_ui_refresh(void);
 void lcd_ui_clear(void);
-
+void lcd_ui_load_screen(void);
 void lcd_setting(setting_t setting);
 void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_mode_t pwr_mode, operation_mode_t op_mode, uint8_t bat_value, battery_state_t bat_st);
 void lcd_operation_mode_screen(uint8_t operation_mode);

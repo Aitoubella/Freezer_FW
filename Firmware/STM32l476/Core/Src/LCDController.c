@@ -88,9 +88,9 @@ void lv_port_disp_init(void)
 
     /* Example for 2) */
 //    static lv_disp_draw_buf_t draw_buf_dsc_2;
-//    static lv_color_t buf_2_1[MY_DISP_HOR_RES * 80];                        /*A buffer for 80 rows*/
-//    static lv_color_t buf_2_2[MY_DISP_HOR_RES * 80];                        /*An other buffer for 80 rows*/
-//    lv_disp_draw_buf_init(&draw_buf_dsc_2, buf_2_1, buf_2_2, MY_DISP_HOR_RES * 80);   /*Initialize the display buffer*/
+//    static lv_color_t buf_2_1[MY_DISP_HOR_RES * 10];                        /*A buffer for 80 rows*/
+//    static lv_color_t buf_2_2[MY_DISP_HOR_RES * 10];                        /*An other buffer for 80 rows*/
+//    lv_disp_draw_buf_init(&draw_buf_dsc_2, buf_2_1, buf_2_2, MY_DISP_HOR_RES * 10);   /*Initialize the display buffer*/
 
 
     /*-----------------------------------

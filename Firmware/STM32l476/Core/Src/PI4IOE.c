@@ -1,8 +1,6 @@
 /*
  * PI4IOE.c
  *
- *  Created on: Oct 28, 2023
- *      Author: Loc
  */
 
 

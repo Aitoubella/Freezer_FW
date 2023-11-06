@@ -5,8 +5,8 @@
 typedef enum
 {
 	BTN_ENTER = 0,
-	BTN_DOWN,
 	BTN_UP,
+	BTN_DOWN,
 	BTN_MAX
 }button_num_t;
 

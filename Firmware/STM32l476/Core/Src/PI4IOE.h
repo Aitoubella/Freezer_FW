@@ -1,9 +1,6 @@
 /*
  * PI4IOE.h
- *
- *  Created on: Oct 28, 2023
- *      Author: Loc
- */
+  */
 
 #ifndef SRC_PI4IOE_H_
 #define SRC_PI4IOE_H_
