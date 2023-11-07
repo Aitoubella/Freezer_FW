@@ -85,11 +85,13 @@ void rtd_task(void)
 {
 	d =  ((rtd1_res)/R0 - 1)*1000000000000/6;
 	DComplex *result = solve_quartic(a,b,c,d);
-//	for(uint8_t i = 0; i < 4; i++)
-//	{
-		temp_result = creal(result[3]);
-//	}
+	temp_result = creal(result[3]);
 	event_inactive(&rtd_id);
+}
+
+double rtd_get_temperature(void)
+{
+	return temp_result;
 }
 
 void rtd_init(void)

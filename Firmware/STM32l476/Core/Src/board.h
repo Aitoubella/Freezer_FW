@@ -1,7 +1,6 @@
 /*
  * board.h
  *
-
  */
 
 #ifndef SRC_BOARD_H_

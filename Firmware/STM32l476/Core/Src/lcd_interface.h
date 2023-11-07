@@ -2,11 +2,33 @@
  * lcd_interface.h
  *
  *  Created on: Oct 30, 2023
- *      Author: Loc
  */
 
 #ifndef SRC_LCD_INTERFACE_H_
 #define SRC_LCD_INTERFACE_H_
+#include <stdint.h>
+#include "lcd_ui.h"
+typedef struct
+{
+	operation_mode_t op_mode;
+	power_mode_t pwr_mode;
+	speaker_mode_t spk_mode;
+	battery_state_t bat_state;
+	servie_alarms_warning_mode_t servie_alarms_warning_mode;
+	warning_mode_t warning_mode;
+	datetime_t datetime;
+	int16_t temperature;
+	uint8_t bat_value;
+	int8_t temperature_fridge;
+	int8_t temperature_freezer;
+	int8_t alarm_temperature_deviation;
+	uint8_t alarm_temperature_delay;
+	uint8_t alarm_bat;
+	uint8_t alarm_lid;
+	uint8_t logging_interval;
+	int8_t temp_offset;
+	uint8_t alarm_mute_duration;
+}lcd_inter_t;
 
 typedef enum
 {
@@ -54,9 +76,12 @@ typedef enum
 
 	LCD_SERVICE_DATA_LOGGING_INTERVAL_STATE,
 	LCD_SERVICE_DATA_LOGGING_BACK_STATE,
+	LCD_SERVICE_DATA_LOGGING_INTERVAL_SET_STATE,
 
 	LCD_SERVICE_CALIBRATION_TEMP_OFFSET_STATE,
 	LCD_SERVICE_CALIBRATION_BACK_STATE,
+	LCD_SERVICE_CALIBRATION_TEMP_OFFSET_SET_STATE,
+
 
 	//Level 4
 	LCD_SETTING_DATETIME_YEAR_SET_STATE,
@@ -67,6 +92,9 @@ typedef enum
 
 	LCD_SETTING_DOWNLOAD_DATA_CONTINUE_STATE,
 	LCD_SETTING_DOWNLOAD_DATA_CANCEL_STATE,
+
+	LCD_SETTING_DOWNLOAD_DATA_COMPLETE_STATE,
+
 
 	LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_STATE,
 	LCD_SERVICE_TEMPERATURE_FRIDGE_BACK_STATE,
@@ -101,5 +129,52 @@ typedef enum
 	LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_SET_STATE,
 
 }lcd_state_t;
+
+typedef enum
+{
+	LCD_GET_TEMPERATURE_EVT = 0,
+	LCD_GET_BAT_VALUE_EVT,
+	LCD_SET_OPERATION_MODE_EVT,
+	LCD_GET_OPERATION_PWR_MODE_EVT,
+	LCD_GET_SPEAKER_MODE_EVT,
+	LCD_GET_BAT_STATE_EVT,
+
+	LCD_GET_DATETIME_EVT,
+	LCD_SET_DATETIME_EVT,
+
+	LCD_GET_TEMPERATURE_FRIDGE_EVT,
+	LCD_SET_TEMPERATURE_FRIDGE_EVT,
+	LCD_GET_TEMPERATURE_FREEZER_EVT,
+	LCD_SET_TEMPERATURE_FREEZER_EVT,
+
+	LCD_GET_ALARM_TEMPERATURE_DEVIATION_EVT,
+	LCD_SET_ALARM_TEMPERATURE_DEVIATION_EVT,
+
+	LCD_GET_ALARM_TEMPERATURE_DELAY_EVT,
+	LCD_SET_ALARM_TEMPERATURE_DELAY_EVT,
+
+	LCD_GET_ALARM_BAT_EVT,
+	LCD_SET_ALARM_BAT_EVT,
+
+	LCD_GET_ALARM_LID_EVT,
+	LCD_SET_ALARM_LID_EVT,
+
+	LCD_GET_LOGGING_INTERVAL_EVT,
+	LCD_SET_LOGGING_INTERVAL_EVT,
+
+	LCD_GET_TEMP_OFFSET_EVT,
+	LCD_SET_TEMP_OFFSET_EVT,
+
+	LCD_SET_LARM_MUTE_DURATION_EVT,
+
+	LCD_USB_INSERT_DOWNLOAD_EVT,
+}lcd_get_set_evt_t;
+
+
 void lcd_interface_show(lcd_state_t state);
+uint8_t lcd_get_set_cb(lcd_get_set_evt_t evt, void* value);
+
+lcd_inter_t* lcd_interface_get_param(void);
+lcd_state_t lcd_interface_get_state(void);
+
 #endif /* SRC_LCD_INTERFACE_H_ */

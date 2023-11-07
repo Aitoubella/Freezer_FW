@@ -1,8 +1,6 @@
 /*
  * lcd_ui.c
  *
- *  Created on: Oct 18, 2023
- *      Author: Loc
  */
 
 
@@ -89,11 +87,15 @@ void lcd_ui_load_screen(void)
 
 void lcd_ui_refresh(void)
 {
-
 	lv_refr_now(NULL);
 	label_count = 0;
-
 }
+
+void lcd_hide_label(lv_obj_t*  obj)
+{
+	lv_obj_add_flag(obj,LV_OBJ_FLAG_HIDDEN);
+}
+
 void lcd_label_set_param(lv_obj_t* label, const char* txt, lv_coord_t x, lv_coord_t y, const lv_font_t * font, uint32_t color)
 {
 	lv_obj_set_width( label, LV_SIZE_CONTENT);  /// 1
@@ -292,6 +294,7 @@ void lcd_setting_datetime_year_set(uint16_t year)
 	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",year - 1);
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+
 }
 
 void lcd_setting_datetime_month_set(uint8_t month)
@@ -307,6 +310,14 @@ void lcd_setting_datetime_month_set(uint8_t month)
 	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",month - 1);
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+	if(month == 12)
+	{
+		lcd_hide_label(time_1.obj);
+	}
+	if(month == 1)
+	{
+		lcd_hide_label(time_3.obj);
+	}
 }
 
 void lcd_setting_datetime_day_set(uint8_t day)
@@ -322,6 +333,14 @@ void lcd_setting_datetime_day_set(uint8_t day)
 	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",day - 1);
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+	if(day == 31)
+	{
+		lcd_hide_label(time_1.obj);
+	}
+	if(day == 1)
+	{
+		lcd_hide_label(time_3.obj);
+	}
 }
 
 void lcd_setting_datetime_hour_set(uint8_t hour)
@@ -337,6 +356,14 @@ void lcd_setting_datetime_hour_set(uint8_t hour)
 	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",hour - 1);
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+	if(hour == 23)
+	{
+		lcd_hide_label(time_1.obj);
+	}
+	if(hour == 0)
+	{
+		lcd_hide_label(time_3.obj);
+	}
 }
 
 void lcd_setting_datetime_min_set(uint8_t min)
@@ -352,6 +379,16 @@ void lcd_setting_datetime_min_set(uint8_t min)
 	lcd_label_set_param(time_2.obj, temp_buff, 0, 30, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d",min - 1);
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 68, time_3.font, WHITE_COLOR);
+
+	if(min == 59)
+	{
+		lcd_hide_label(time_1.obj);
+	}
+	if(min == 0)
+	{
+		lcd_hide_label(time_3.obj);
+	}
+
 }
 
 
@@ -363,10 +400,10 @@ void lcd_setting_download_data(setting_download_data_t index)
 
 	if(index == SETTING_DOWNLOAD_DATA_TO_USB)
 	{
-		download_data_to_usb.font = &ui_font_verdana404;
+		download_data_to_usb.font = &ui_font_verdana364;
 	}else
 	{
-		back.font = &ui_font_verdana404;
+		back.font = &ui_font_verdana364;
 	}
 
 	lcd_label_set_param(download_data.obj, "Download Data", 0, -96, download_data.font, WHITE_COLOR);
@@ -377,7 +414,7 @@ void lcd_setting_download_data(setting_download_data_t index)
 void lcd_setting_download_data_insert(setting_download_data_insert_t index)
 {
 	lcd_ui_t insert = FONT_VERDENA_36;
-	lcd_ui_t continue_usb = FONT_VERDENA_36;
+	lcd_ui_t continue_usb = FONT_VERDENA_24;
 	lcd_ui_t cancel = FONT_VERDENA_24;
 
 	if(index == SETTING_DOWNLOAD_DATA_CONTINUE)
@@ -507,10 +544,10 @@ void lcd_service_data_logging(service_data_logging_t index)
 
 	if(index == SERVICE_DATA_LOGGING_INTERVAL)
 	{
-		logging_interval.font = &ui_font_verdana404;
+		logging_interval.font = &ui_font_verdana364;
 	}else if(index == SERVICE_DATA_LOGGING_BACK)
 	{
-		back.font = &ui_font_verdana404;
+		back.font = &ui_font_verdana364;
 	}
 
 	lcd_label_set_param(data_logging.obj, "Data Logging", 0, -96, data_logging.font, WHITE_COLOR);
@@ -524,6 +561,7 @@ void lcd_service_data_logging_set(uint8_t value)
 	lcd_ui_t time_1 = FONT_VERDENA_24;
 	lcd_ui_t time_2 = FONT_VERDENA_40;
 	lcd_ui_t time_3 = FONT_VERDENA_24;
+
 	lcd_label_set_param(logging_interval.obj, "Logging Interval", 0, -70, logging_interval.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value + 1);
 	lcd_label_set_param(time_1.obj, temp_buff, 0, 0, time_1.font, WHITE_COLOR);
@@ -531,6 +569,10 @@ void lcd_service_data_logging_set(uint8_t value)
 	lcd_label_set_param(time_2.obj, temp_buff, 0, 37, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value - 1);
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 74, time_3.font, WHITE_COLOR);
+	if(value == 1)
+	{
+		lv_obj_add_flag(time_3.obj,LV_OBJ_FLAG_HIDDEN);
+	}
 }
 
 void lcd_service_calibration(service_calibration_t index)
@@ -553,7 +595,7 @@ void lcd_service_calibration(service_calibration_t index)
 	lcd_label_set_param(back.obj, "Back", 0, 38, back.font, WHITE_COLOR);
 }
 
-void lcd_service_calibration_set(uint8_t value)
+void lcd_service_calibration_set(int8_t value)
 {
 	lcd_ui_t temp_offset = FONT_VERDENA_36;
 	lcd_ui_t temper_1 = FONT_VERDENA_24;
@@ -693,16 +735,21 @@ void lcd_service_alarm_temperature_alarm_delay_set(uint8_t value)
 {
 	lcd_ui_t temp_deviation = FONT_VERDENA_36;
 
-	lcd_ui_t temper_1 = FONT_VERDENA_24;
-	lcd_ui_t temper_2 = FONT_VERDENA_40;
-	lcd_ui_t temper_3 = FONT_VERDENA_24;
+	lcd_ui_t time_1 = FONT_VERDENA_24;
+	lcd_ui_t time_2 = FONT_VERDENA_40;
+	lcd_ui_t time_3 = FONT_VERDENA_24;
 	lcd_label_set_param(temp_deviation.obj, "Alarm Delay", 0, -70, temp_deviation.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value + 1);
-	lcd_label_set_param(temper_1.obj, temp_buff, 0, 0, temper_1.font, WHITE_COLOR);
+	lcd_label_set_param(time_1.obj, temp_buff, 0, 0, time_1.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value);
-	lcd_label_set_param(temper_2.obj, temp_buff, 0, 37, temper_2.font, WHITE_COLOR);
+	lcd_label_set_param(time_2.obj, temp_buff, 0, 37, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value - 1);
-	lcd_label_set_param(temper_3.obj, temp_buff, 0, 74, temper_3.font, WHITE_COLOR);
+	lcd_label_set_param(time_3.obj, temp_buff, 0, 74, time_3.font, WHITE_COLOR);
+
+	if(value == 0)
+	{
+		lcd_hide_label(time_3.obj);
+	}
 }
 
 void lcd_service_alarm_bat(service_alarms_bat_t index, uint8_t value)
@@ -731,13 +778,21 @@ void lcd_service_alarm_bat_set(uint8_t value)
 	lcd_ui_t percent_1 = FONT_VERDENA_24;
 	lcd_ui_t percent_2 = FONT_VERDENA_40;
 	lcd_ui_t percent_3 = FONT_VERDENA_24;
-	lcd_label_set_param(bat_alarm.obj, "Alarm Delay", 0, -70, bat_alarm.font, WHITE_COLOR);
+	lcd_label_set_param(bat_alarm.obj, "Battery Alarm", 0, -70, bat_alarm.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d %%",value + 1);
 	lcd_label_set_param(percent_1.obj, temp_buff, 0, 0, percent_1.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d %%",value);
 	lcd_label_set_param(percent_2.obj, temp_buff, 0, 37, percent_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d %%",value - 1);
 	lcd_label_set_param(percent_3.obj, temp_buff, 0, 74, percent_3.font, WHITE_COLOR);
+	if(value == 1)
+	{
+		lcd_hide_label(percent_3.obj);
+	}
+	if(value >= 99)
+	{
+		lcd_hide_label(percent_1.obj);
+	}
 }
 
 void lcd_service_alarm_lid(service_alarms_lid_t index, uint8_t value)
@@ -754,7 +809,7 @@ void lcd_service_alarm_lid(service_alarms_lid_t index, uint8_t value)
 		back.font = &ui_font_verdana404;
 	}
 	lcd_label_set_param(alarm_lid.obj, "Lid Alarm", 0, -78, alarm_lid.font, WHITE_COLOR);
-	snprintf(temp_buff, MAX_TEMP_CHAR, "%d%%",value);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value);
 	lcd_label_set_param(time.obj, temp_buff, 0, 0, time.font, WHITE_COLOR);
 	lcd_label_set_param(back.obj, "Back", 0, 44, back.font, WHITE_COLOR);
 }
@@ -773,6 +828,10 @@ void lcd_service_alarm_lid_set(uint8_t value)
 	lcd_label_set_param(time_2.obj, temp_buff, 0, 37, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value - 1);
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 74, time_3.font, WHITE_COLOR);
+	if(value == 0)
+	{
+		lcd_hide_label(time_3.obj);
+	}
 }
 
 
@@ -790,7 +849,7 @@ void lcd_service_alarms_mute_duration(service_alarms_mute_duration_t index, uint
 		back.font = &ui_font_verdana404;
 	}
 	lcd_label_set_param(mute_duration.obj, "Mute Duration", 0, -78, mute_duration.font, WHITE_COLOR);
-	snprintf(temp_buff, MAX_TEMP_CHAR, "%d%%",value);
+	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value);
 	lcd_label_set_param(time.obj, temp_buff, 0, 0, time.font, WHITE_COLOR);
 	lcd_label_set_param(back.obj, "Back", 0, 44, back.font, WHITE_COLOR);
 }
@@ -808,6 +867,10 @@ void lcd_service_alarms_mute_duration_set(uint8_t value)
 	lcd_label_set_param(time_2.obj, temp_buff, 0, 37, time_2.font, WHITE_COLOR);
 	snprintf(temp_buff, MAX_TEMP_CHAR, "%d mins",value - 1);
 	lcd_label_set_param(time_3.obj, temp_buff, 0, 74, time_3.font, WHITE_COLOR);
+	if(value == 0)
+	{
+		lcd_hide_label(time_3.obj);
+	}
 }
 
 

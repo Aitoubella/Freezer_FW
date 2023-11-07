@@ -1,4 +1,3 @@
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -123,6 +122,7 @@ int main(void)
   //Lcd tft 320x240
   lcd_ui_init();
   lcd_interface_init();
+  main_app_init();
 //  lcd_ui_clear();
 //  lcd_main_screen_screen(SPEAKER_MODE_ON, -20, POWER_MODE_DC, OPERATION_MODE_FREEZER, 80, BATTERY_STATE_CHARGING);
 //  lcd_ui_refesh();

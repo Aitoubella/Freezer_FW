@@ -1,6 +1,7 @@
 /*
  * lcd_interface.c
  *
+ *  Created on: Oct 30, 2023
  */
 
 
@@ -8,65 +9,39 @@
 #include "lcd_ui.h"
 #include "button.h"
 #include "buzzer.h"
-
-
-
-typedef struct
-{
-	operation_mode_t op_mode;
-	power_mode_t pwr_mode;
-	speaker_mode_t spk_mode;
-	battery_state_t bat_state;
-	display_unit_t display_unit;
-	setting_t setting;
-	setting_download_data_t setting_download_data;
-	setting_download_data_insert_t setting_download_data_insert;
-	setting_datetime_t set_datetime;
-	service_t service;
-	service_temperature_t service_temperature;
-	service_data_logging_t service_data_logging;
-	service_alarm_t service_alarm;
-	service_calibration_t service_calibration;
-	service_temperature_fridge_t service_temperature_fridge;
-	service_alarms_bat_t service_alarms_bat;
-	service_alarms_lid_t service_alarms_lid;
-	service_alarms_mute_duration_t service_alarms_mute_duration;
-	servie_alarms_warning_mode_t servie_alarms_warning_mode;
-	warning_mode_t warning_mode;
-	datetime_t datetime;
-
-	int16_t temperature;
-	uint8_t bat_value;
-	int8_t temperature_fidge;
-	int8_t temperature_freezer;
-
-	int8_t alarm_temperature_deviation;
-	uint8_t alarm_temperature_delay;
-	uint8_t alarm_bat;
-	uint8_t alarm_lid;
-}lcd_inter_t;
-
-
-
-struct menu_t
-{
-	struct menu_t *parent;
-	void* show;
-	uint8_t index;
-	uint8_t total;
-	struct menu_t *next;
+#include "DS1307.h"
+lcd_inter_t main_param = {
+	.op_mode = OPERATION_MODE_FREEZER,
+	.pwr_mode = POWER_MODE_AC,
+	.spk_mode = SPEAKER_MODE_ON,
+	.bat_value = 80, //%
+	.bat_state = BATTERY_STATE_CHARGING,
+	.alarm_bat = 15, //%
+	.alarm_lid = 2,  //mins
+	.alarm_temperature_delay = 3, //mins
+	.alarm_temperature_deviation = 3, // Celcius
+	.servie_alarms_warning_mode = WARNING_FREEZER,
+	.warning_mode = WARNING_MODE_FREEZER,
+	.temperature = 5,//Celcius
+	.logging_interval = 5,//Mins
+	.temperature_fridge = 10,//Celcius
+	.temperature_freezer = 9,//Celcius
+	.temp_offset = 3, //Celcisu
+	.datetime.year = 2023,
+	.datetime.month = 11,
+	.datetime.day = 3,
 };
 
-typedef struct menu_t menu_t_;
-lcd_inter_t lcd =
+static uint8_t lcd_state = LCD_MAIN_STATE;
+
+static lcd_inter_t lcd =
 {
-	.display_unit = DISPLAY_UINIT_ON,
 	.bat_state = BATTERY_STATE_NOT_CHARGE,
 };
 
 void button_cb(uint8_t btn_num, btn_evt_t evt)
 {
-	static uint8_t lcd_state = LCD_MAIN_STATE;
+
 	static uint8_t has_event = 0;
 	switch(btn_num)
 	{
@@ -78,9 +53,20 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			{
 			//level 1
 			case LCD_MAIN_STATE:
-				lcd_state = LCD_OPERATION_MODE_STATE;
+				//Load all current param
+				memcpy((uint8_t *)&lcd,(uint8_t *)&main_param, sizeof(lcd_inter_t));
+				//Check operation mode
+				if(lcd.op_mode == OPERATION_MODE_FRIDEGE)
+				{
+					lcd_state = LCD_OPERATION_MODE_FRIDEGE_STATE;
+				}else
+				{
+					lcd_state = LCD_OPERATION_MODE_FREEZER_STATE;
+				}
+//				lcd_state = LCD_OPERATION_MODE_STATE;
 				break;
 			case LCD_OPERATION_MODE_STATE:
+
 				lcd_state = LCD_SETTING_STATE;
 				break;
 			case LCD_SETTING_STATE:
@@ -91,11 +77,14 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			//level 2 enter to level 3
 			//Operation mode
-
 			case LCD_OPERATION_MODE_FREEZER_STATE:
+				lcd.op_mode = OPERATION_MODE_FREEZER;
+				lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &lcd.op_mode);
 				lcd_state = LCD_SETTING_STATE;
 				break;
 			case LCD_OPERATION_MODE_FRIDEGE_STATE:
+				lcd.op_mode = OPERATION_MODE_FRIDEGE;
+				lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &lcd.op_mode);
 				lcd_state = LCD_SETTING_STATE;
 				break;
 			case LCD_OPERATION_MODE_BACK_STATE:
@@ -104,6 +93,8 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 
 			//setting date time
 			case LCD_SETTING_DATETIME_STATE:
+				DS1307_GetDate(&lcd.datetime.day,&lcd.datetime.month,&lcd.datetime.year);
+				DS1307_GetTime(&lcd.datetime.hour,&lcd.datetime.minute,&lcd.datetime.second);
 				lcd_state = LCD_SETTING_DATETIME_YEAR_STATE;
 				break;
 			//setting download data
@@ -117,12 +108,21 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			case LCD_SERVICE_TEMPERATURE_STATE:
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_STATE;
 				break;
+			case LCD_SERVICE_TEMPERATURE_FRIDGE_STATE:
+				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_STATE;
+				break;
+			case LCD_SERVICE_TEMPERATURE_FREEZER_STATE:
+				lcd_state = LCD_SERVICE_TEMPERATURE_FREEZER_VALUE_STATE;
+				break;
 			case LCD_SERVICE_TEMPERATURE_BACK_STATE:
 				lcd_state = LCD_SERVICE_TEMPERATURE_STATE;
 				break;
 			//service alarm
 			case LCD_SERVICE_ALARM_STATE:
 				lcd_state = LCD_SERVICE_ALARMS_TEMPERATURE_STATE;
+				break;
+			case LCD_SERVICE_ALARMS_TEMPERATURE_STATE:
+				lcd_state = LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_STATE;
 				break;
 			case LCD_SERVICE_ALARMS_BACK_STATE:
 				lcd_state = LCD_SERVICE_ALARM_STATE;
@@ -162,6 +162,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SETTING_DATETIME_MIN_SET_STATE;
 				break;
 			case LCD_SETTING_DATETIME_BACK_STATE:
+				lcd_get_set_cb(LCD_SET_DATETIME_EVT, &lcd.datetime);
 				lcd_state = LCD_SETTING_DATETIME_STATE;
 				break;
 			//Back datetime when set done
@@ -187,6 +188,16 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			case LCD_SETTING_DOWNLOAD_DATA_BACK_STATE:
 				lcd_state = LCD_SETTING_DOWNLOAD_DATA_STATE;
 				break;
+			case LCD_SETTING_DOWNLOAD_DATA_CANCEL_STATE:
+				lcd_state = LCD_SETTING_DOWNLOAD_DATA_TO_USB_STATE;
+				break;
+			case LCD_SETTING_DOWNLOAD_DATA_CONTINUE_STATE:
+				//USB host init cb
+				lcd_state = LCD_SETTING_DOWNLOAD_DATA_COMPLETE_STATE;
+				break;
+			case LCD_SETTING_DOWNLOAD_DATA_COMPLETE_STATE:
+				lcd_state = LCD_SETTING_DOWNLOAD_DATA_CONTINUE_STATE;
+				break;
 			//Temperature go in set
 			case LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_STATE:
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_SET_STATE;
@@ -196,12 +207,14 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			//Temperature back to previous
 			case LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_SET_STATE:
+				lcd_get_set_cb(LCD_SET_TEMPERATURE_FREEZER_EVT, &lcd.temperature_fridge);
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_STATE;
 				break;
 			case LCD_SERVICE_TEMPERATURE_FRIDGE_BACK_STATE:
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_STATE;
 				break;
 			case LCD_SERVICE_TEMPERATURE_FREEZER_VALUE_SET_STATE:
+				lcd_get_set_cb(LCD_SET_TEMPERATURE_FREEZER_EVT, &lcd.temperature_freezer);
 				lcd_state = LCD_SERVICE_TEMPERATURE_FREEZER_VALUE_STATE;
 				break;
 			case LCD_SERVICE_TEMPERATURE_FREEZER_BACK_STATE:
@@ -219,14 +232,18 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			//Alarm temp deviation set
 			case LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_SET_STATE:
+				lcd_get_set_cb(LCD_SET_ALARM_TEMPERATURE_DEVIATION_EVT, &lcd.alarm_temperature_deviation);
 				lcd_state = LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_STATE;
 				break;
 			//Alarm delay set
 			case LCD_SERVICE_ALARM_TEMP_ALARM_DELAY_SET_STATE:
-				//user cb
+				lcd_get_set_cb(LCD_SET_ALARM_TEMPERATURE_DELAY_EVT, &lcd.alarm_temperature_delay);
 				lcd_state = LCD_SERVICE_ALARM_TEMP_ALARM_DELAY_STATE;
 				break;
 			//Alarm bat
+			case LCD_SERVICE_ALARMS_BATTERY_STATE:
+				lcd_state = LCD_SERVICE_ALARM_BAT_VALUE_STATE;
+				break;
 			case LCD_SERVICE_ALARM_BAT_VALUE_STATE:
 				lcd_state = LCD_SERVICE_ALARM_BAT_VALUE_SET_STATE;
 				break;
@@ -234,9 +251,13 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARMS_BATTERY_STATE;
 				break;
 			case LCD_SERVICE_ALARM_BAT_VALUE_SET_STATE:
+				lcd_get_set_cb(LCD_SET_ALARM_BAT_EVT, &lcd.alarm_bat);
 				lcd_state = LCD_SERVICE_ALARM_BAT_VALUE_STATE;
 				break;
 			//Alarm Lid
+			case LCD_SERVICE_ALARMS_LID_STATE:
+				lcd_state = LCD_SERVICE_ALARM_LID_VALUE_STATE;
+				break;
 			case LCD_SERVICE_ALARM_LID_VALUE_STATE:
 				lcd_state = LCD_SERVICE_ALARM_LID_VALUE_SET_STATE;
 				break;
@@ -244,9 +265,13 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARMS_LID_STATE;
 				break;
 			case LCD_SERVICE_ALARM_LID_VALUE_SET_STATE:
+				lcd_get_set_cb(LCD_SET_ALARM_LID_EVT, &lcd.alarm_lid);
 				lcd_state = LCD_SERVICE_ALARM_LID_VALUE_STATE;
 				break;
 			//Alarm Mute
+			case LCD_SERVICE_ALARMS_MUTE_AlARMS_STATE:
+				lcd_state = LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_STATE;
+				break;
 			case LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_STATE:
 				lcd_state = LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_SET_STATE;
 				break;
@@ -254,15 +279,31 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARMS_MUTE_AlARMS_STATE;
 				break;
 			case LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_SET_STATE:
+				lcd_get_set_cb(LCD_SET_LARM_MUTE_DURATION_EVT, &lcd.alarm_mute_duration);
 				lcd_state = LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_STATE;
 				break;
-
+			//Service data logging interval
+			case LCD_SERVICE_DATA_LOGGING_INTERVAL_STATE:
+				lcd_state = LCD_SERVICE_DATA_LOGGING_INTERVAL_SET_STATE;
+				break;
+			case LCD_SERVICE_DATA_LOGGING_INTERVAL_SET_STATE:
+				lcd_get_set_cb(LCD_SET_LOGGING_INTERVAL_EVT, &lcd.logging_interval);
+				lcd_state = LCD_SERVICE_DATA_LOGGING_INTERVAL_STATE;
+				break;
+			//Service calibration temperature offset
+			case LCD_SERVICE_CALIBRATION_TEMP_OFFSET_STATE:
+				lcd_state = LCD_SERVICE_CALIBRATION_TEMP_OFFSET_SET_STATE;
+				break;
+			case LCD_SERVICE_CALIBRATION_TEMP_OFFSET_SET_STATE:
+				lcd_get_set_cb(LCD_SET_TEMP_OFFSET_EVT, &lcd.temp_offset);
+				lcd_state = LCD_SERVICE_CALIBRATION_TEMP_OFFSET_STATE;
+				break;
 			}
 
 		}else if(evt == BUTTON_HOLD_2_SEC)
 		{
 			has_event  = 1;
-			lcd_turn_off_unit(lcd.display_unit);
+			lcd_turn_off_unit(DISPLAY_UINIT_OFF);
 		}
 		break;
 	case BTN_UP:
@@ -378,6 +419,9 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			case LCD_SERVICE_DATA_LOGGING_BACK_STATE:
 				lcd_state = LCD_SERVICE_DATA_LOGGING_INTERVAL_STATE;
 				break;
+			case LCD_SERVICE_DATA_LOGGING_INTERVAL_SET_STATE:
+				lcd.logging_interval ++;
+				break;
 			//service calibration
 			case LCD_SERVICE_CALIBRATION_TEMP_OFFSET_STATE:
 				lcd_state = LCD_SERVICE_CALIBRATION_BACK_STATE;
@@ -388,19 +432,23 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			//level 4
 			//setting date time  year,month,day,hour,min
 			case LCD_SETTING_DATETIME_YEAR_SET_STATE:
-				//User callback
+				lcd.datetime.year ++;
 				break;
 			case LCD_SETTING_DATETIME_MONTH_SET_STATE:
-				//User callback
+				lcd.datetime.month ++;
+				if(lcd.datetime.month > 12) lcd.datetime.month = 1;
 				break;
 			case LCD_SETTING_DATETIME_DAY_SET_STATE:
-				//User callback
+				lcd.datetime.day ++;
+				if(lcd.datetime.day > 31) lcd.datetime.day = 1;
 				break;
 			case LCD_SETTING_DATETIME_HOUR_SET_STATE:
-				//User callback
+				lcd.datetime.hour ++;
+				if(lcd.datetime.hour > 23) lcd.datetime.hour = 0;
 				break;
 			case LCD_SETTING_DATETIME_MIN_SET_STATE:
-				//User callback
+				lcd.datetime.minute ++;
+				if(lcd.datetime.minute > 59) lcd.datetime.minute = 0;
 				break;
 			//download data
 			case LCD_SETTING_DOWNLOAD_DATA_CONTINUE_STATE:
@@ -417,7 +465,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_STATE;
 				break;
 			case LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_SET_STATE:
-				//user cb
+				lcd.temperature_fridge ++;
 				break;
 
 			case LCD_SERVICE_TEMPERATURE_FREEZER_VALUE_STATE:
@@ -428,7 +476,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 
 			case LCD_SERVICE_TEMPERATURE_FREEZER_VALUE_SET_STATE:
-				//user cb
+				lcd.temperature_freezer ++;
 				break;
 			//Alarm temp deviation set
 			case LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_STATE:
@@ -441,11 +489,11 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_STATE;
 				break;
 			case LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_SET_STATE:
-				//user cb
+				lcd.alarm_temperature_deviation ++;
 				break;
 			//Alarm delay set
 			case LCD_SERVICE_ALARM_TEMP_ALARM_DELAY_SET_STATE:
-				//user cb
+				lcd.alarm_temperature_delay ++;
 				break;
 			//Alarm bat
 			case LCD_SERVICE_ALARM_BAT_VALUE_STATE:
@@ -455,7 +503,8 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARM_BAT_VALUE_STATE;
 				break;
 			case LCD_SERVICE_ALARM_BAT_VALUE_SET_STATE:
-				//user cb
+				lcd.alarm_bat ++;
+				if(lcd.alarm_bat > 99) lcd.alarm_bat = 1;
 				break;
 			//Alarm Lid
 			case LCD_SERVICE_ALARM_LID_VALUE_STATE:
@@ -465,7 +514,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARM_LID_VALUE_STATE;
 				break;
 			case LCD_SERVICE_ALARM_LID_VALUE_SET_STATE:
-				//user cb
+				lcd.alarm_lid ++;
 				break;
 			//Alarm mute duration
 			case LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_STATE:
@@ -475,7 +524,10 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_STATE;
 				break;
 			case LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_SET_STATE:
-				//user cb
+				lcd.alarm_mute_duration ++;
+				break;
+			case LCD_SERVICE_CALIBRATION_TEMP_OFFSET_SET_STATE:
+				lcd.temp_offset ++;
 				break;
 			}
 		}
@@ -603,19 +655,24 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			//Level 4
 			//setting date time  year,month,day,hour,min
 			case LCD_SETTING_DATETIME_YEAR_SET_STATE:
-				//User callback
+				if(lcd.datetime.year < 2023) lcd.datetime.year = 2023;
+				else lcd.datetime.year --;
 				break;
 			case LCD_SETTING_DATETIME_MONTH_SET_STATE:
-				//User callback
+				if(lcd.datetime.month <= 1) lcd.datetime.month = 12;
+				else lcd.datetime.month --;
 				break;
 			case LCD_SETTING_DATETIME_DAY_SET_STATE:
-				//User callback
+				if(lcd.datetime.day <= 1) lcd.datetime.day = 31;
+				else lcd.datetime.day --;
 				break;
 			case LCD_SETTING_DATETIME_HOUR_SET_STATE:
-				//User callback
+				if(lcd.datetime.hour < 1) lcd.datetime.hour = 23;
+				else lcd.datetime.hour --;
 				break;
 			case LCD_SETTING_DATETIME_MIN_SET_STATE:
-				//User callback
+				if(lcd.datetime.minute < 1) lcd.datetime.minute = 59;
+				else lcd.datetime.minute --;
 				break;
 			//Download data continue or back
 			case LCD_SETTING_DOWNLOAD_DATA_CONTINUE_STATE:
@@ -632,7 +689,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_STATE;
 				break;
 			case LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_SET_STATE:
-				//user cb
+				lcd.temperature_fridge --;
 				break;
 
 			case LCD_SERVICE_TEMPERATURE_FREEZER_VALUE_STATE:
@@ -643,7 +700,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 
 			case LCD_SERVICE_TEMPERATURE_FREEZER_VALUE_SET_STATE:
-				//user cb
+				lcd.temperature_freezer --;
 				break;
 			//Alarm temp deviation set
 			case LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_STATE:
@@ -656,11 +713,11 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_STATE;
 				break;
 			case LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_SET_STATE:
-				//user cb
+				lcd.alarm_temperature_deviation -- ;
 				break;
 			//Alarm delay set
 			case LCD_SERVICE_ALARM_TEMP_ALARM_DELAY_SET_STATE:
-				//user cb
+				if(lcd.alarm_temperature_delay > 0) lcd.alarm_temperature_delay -- ;
 				break;
 			//Alarm bat
 			case LCD_SERVICE_ALARM_BAT_VALUE_STATE:
@@ -670,7 +727,8 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARM_BAT_VALUE_STATE;
 				break;
 			case LCD_SERVICE_ALARM_BAT_VALUE_SET_STATE:
-				//user cb
+				if(lcd.alarm_bat <= 1) lcd.alarm_bat = 99;
+				else lcd.alarm_bat -- ;
 				break;
 			//Alarm Lid
 			case LCD_SERVICE_ALARM_LID_VALUE_STATE:
@@ -680,7 +738,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARM_LID_VALUE_STATE;
 				break;
 			case LCD_SERVICE_ALARM_LID_VALUE_SET_STATE:
-				//user cb
+				if(lcd.alarm_lid > 0) lcd.alarm_lid -- ;
 				break;
 			//Alarm mute duration
 			case LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_STATE:
@@ -690,9 +748,14 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_STATE;
 				break;
 			case LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_SET_STATE:
-				//user cb
+				if(lcd.alarm_mute_duration > 0) lcd.alarm_mute_duration -- ;
 				break;
-
+			case LCD_SERVICE_DATA_LOGGING_INTERVAL_SET_STATE:
+				if(lcd.logging_interval > 1) lcd.logging_interval --;
+				break;
+			case LCD_SERVICE_CALIBRATION_TEMP_OFFSET_SET_STATE:
+				lcd.temp_offset --;
+				break;
 			}
 		}
 	}
@@ -717,10 +780,10 @@ void lcd_interface_show(lcd_state_t state)
 		lcd_operation_mode_screen(lcd.op_mode);
 		break;
 	case LCD_SETTING_STATE:
-		lcd_setting(lcd.setting);
+		lcd_setting(SETTING_DEFAULT);
 		break;
 	case LCD_SERVICE_STATE:
-		lcd_service(lcd.service);
+		lcd_service(SERVICE_DEFAULT);
 		break;
 	//Level 2
 	case LCD_OPERATION_MODE_FREEZER_STATE:
@@ -855,15 +918,18 @@ void lcd_interface_show(lcd_state_t state)
 	case LCD_SETTING_DOWNLOAD_DATA_CANCEL_STATE:
 		lcd_setting_download_data_insert(SETTING_DOWNLOAD_DATA_CANCEL);
 		break;
+	case LCD_SETTING_DOWNLOAD_DATA_COMPLETE_STATE:
+		lcd_setting_download_data_complete();
+		break;
 
 	case LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_STATE:
-		lcd_service_temperature_fridge(SERVICE_TEMPERATURE_FRIDGE_VALUE, lcd.temperature_fidge);
+		lcd_service_temperature_fridge(SERVICE_TEMPERATURE_FRIDGE_VALUE, lcd.temperature_fridge);
 		break;
 	case LCD_SERVICE_TEMPERATURE_FRIDGE_BACK_STATE:
-		lcd_service_temperature_fridge(SERVICE_TEMPERATURE_FRIDGE_BACK, lcd.temperature_fidge);
+		lcd_service_temperature_fridge(SERVICE_TEMPERATURE_FRIDGE_BACK, lcd.temperature_fridge);
 		break;
 	case LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_SET_STATE:
-		lcd_service_temperature_fridge_set(lcd.temperature_fidge);
+		lcd_service_temperature_fridge_set(lcd.temperature_fridge);
 		break;
 
 	case LCD_SERVICE_TEMPERATURE_FREEZER_VALUE_STATE:
@@ -886,11 +952,12 @@ void lcd_interface_show(lcd_state_t state)
 		lcd_service_alarm_temperature(SERVICE_ALARM_TEMP_BACK);
 		break;
 
+
 	case LCD_SERVICE_ALARM_TEMP_TEMP_DEVIATION_SET_STATE:
 		lcd_service_alarm_temperature_temp_deviation_set(lcd.alarm_temperature_deviation);
 		break;
 	case LCD_SERVICE_ALARM_TEMP_ALARM_DELAY_SET_STATE:
-		lcd_service_alarm_temperature_temp_deviation_set(lcd.alarm_temperature_delay);
+		lcd_service_alarm_temperature_alarm_delay_set(lcd.alarm_temperature_delay);
 		break;
 
 	case LCD_SERVICE_ALARM_BAT_VALUE_STATE:
@@ -907,29 +974,47 @@ void lcd_interface_show(lcd_state_t state)
 		lcd_service_alarm_lid(SERVICE_ALARM_LID_VALUE,lcd.alarm_lid);
 		break;
 	case LCD_SERVICE_ALARM_LID_BACK_STATE:
-		lcd_service_alarm_lid(SERVICE_ALARM_LID_VALUE, lcd.alarm_lid);
+		lcd_service_alarm_lid(SERVICE_ALARM_LID_BACK, lcd.alarm_lid);
 		break;
 	case LCD_SERVICE_ALARM_LID_VALUE_SET_STATE:
 		lcd_service_alarm_lid_set(lcd.alarm_lid);
 		break;
 
 	case LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_STATE:
-		lcd_service_alarms_mute_duration(SERVICE_ALARM_MUTE_DURATION_VALUE,lcd.alarm_lid);
+		lcd_service_alarms_mute_duration(SERVICE_ALARM_MUTE_DURATION_VALUE,lcd.alarm_mute_duration);
 		break;
 	case LCD_SERVICE_ALARM_MUTE_DURATION_BACK_STATE:
-		lcd_service_alarms_mute_duration(SERVICE_ALARM_MUTE_DURATION_BACK,lcd.alarm_lid);
+		lcd_service_alarms_mute_duration(SERVICE_ALARM_MUTE_DURATION_BACK,lcd.alarm_mute_duration);
 		break;
 	case LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_SET_STATE:
-		lcd_service_alarms_mute_duration_set(lcd.alarm_lid);
+		lcd_service_alarms_mute_duration_set(lcd.alarm_mute_duration);
+		break;
+
+	case LCD_SERVICE_DATA_LOGGING_INTERVAL_SET_STATE:
+		lcd_service_data_logging_set(lcd.logging_interval);
+		break;
+
+	case LCD_SERVICE_CALIBRATION_TEMP_OFFSET_SET_STATE:
+		lcd_service_calibration_set(lcd.temp_offset);
 		break;
 	}
 }
 
+lcd_state_t lcd_interface_get_state(void)
+{
+	return lcd_state;
+}
 
+lcd_inter_t* lcd_interface_get_param(void)
+{
+	return &lcd;
+}
 
 void lcd_interface_init(void)
 {
 	lcd_ui_clear();
+	//Load all current param
+	memcpy((uint8_t *)&lcd,(uint8_t *)&main_param, sizeof(lcd_inter_t));
 	lcd_interface_show(LCD_MAIN_STATE);
 	lcd_ui_load_screen();
 	button_init(button_cb);

@@ -1,8 +1,6 @@
 /*
  * lcd_ui.h
  *
- *  Created on: Oct 18, 2023
- *      Author: Loc
  */
 
 #ifndef SRC_LCD_UI_H_
@@ -218,14 +216,14 @@ void lcd_service_alarms(service_alarm_t index);
 void lcd_service_data_logging(service_data_logging_t index);
 void lcd_service_data_logging_set(uint8_t value);
 void lcd_service_calibration(service_calibration_t index);
-void lcd_service_calibration_set(uint8_t value);
+void lcd_service_calibration_set(int8_t value);
 void lcd_service_temperature_fridge(service_temperature_fridge_t index, int8_t value);
 void lcd_service_temperature_fridge_set(int8_t value);
 void lcd_service_temperature_freezer(service_temperature_freezer_t index, int8_t value);
 void lcd_service_temperature_freezer_set(int8_t value);
 void lcd_service_alarm_temperature(service_alarms_temperature_t index);
 void lcd_service_alarm_temperature_temp_deviation_set(int8_t value);
-void lcd_service_alarm_temp_set_alarm_delay(uint8_t value);
+void lcd_service_alarm_temperature_alarm_delay_set(uint8_t value);
 void lcd_service_alarm_bat(service_alarms_bat_t index, uint8_t value);
 void lcd_service_alarm_bat_set(uint8_t value);
 void lcd_service_alarm_lid(service_alarms_lid_t index, uint8_t value);
