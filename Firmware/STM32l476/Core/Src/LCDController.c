@@ -2,6 +2,7 @@
  * LCDController.c
  *
  *  Created on: Sep 28, 2023
+ *      Author: controllerstech
  */
 
 
@@ -18,7 +19,7 @@
  *********************/
 #define MY_DISP_HOR_RES    320
 #define MY_DISP_VER_RES    240
-
+#define BUFFER_ROW_LCD     10
 
 /**********************
  *      TYPEDEFS
@@ -36,7 +37,8 @@ static void disp_flush(lv_disp_drv_t * disp_drv, const lv_area_t * area, lv_colo
 /**********************
  *  STATIC VARIABLES
  **********************/
-
+static lv_disp_draw_buf_t draw_buf_dsc_1;
+static lv_color_t buf_1[MY_DISP_HOR_RES * BUFFER_ROW_LCD*6];                          /*A buffer for 10 rows*/
 static lv_disp_drv_t disp_drv;                         /*Descriptor of a display driver*/
 
 
@@ -81,9 +83,9 @@ void lv_port_disp_init(void)
      */
 
     /* Example for 1) */
-    static lv_disp_draw_buf_t draw_buf_dsc_1;
-    static lv_color_t buf_1[MY_DISP_HOR_RES * 10];                          /*A buffer for 10 rows*/
-    lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, MY_DISP_HOR_RES * 10);   /*Initialize the display buffer*/
+
+
+    lv_disp_draw_buf_init(&draw_buf_dsc_1, buf_1, NULL, MY_DISP_HOR_RES * BUFFER_ROW_LCD);   /*Initialize the display buffer*/
 
     /* Example for 2) */
 //    static lv_disp_draw_buf_t draw_buf_dsc_2;

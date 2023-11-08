@@ -1,7 +1,6 @@
 /*
  * lcd_interface.c
  *
- *  Created on: Oct 30, 2023
  */
 
 
@@ -10,12 +9,14 @@
 #include "button.h"
 #include "buzzer.h"
 #include "DS1307.h"
-lcd_inter_t main_param = {
+#include "ili9341.h"
+lcd_inter_t setting = {
 	.op_mode = OPERATION_MODE_FREEZER,
 	.pwr_mode = POWER_MODE_AC,
 	.spk_mode = SPEAKER_MODE_ON,
-	.bat_value = 80, //%
-	.bat_state = BATTERY_STATE_CHARGING,
+	.bat_value = 100, //%
+	.bat_state = BATTERY_STATE_NOT_CHARGE,
+	.bat_signal = BATTER_WARNING_LOW,
 	.alarm_bat = 15, //%
 	.alarm_lid = 2,  //mins
 	.alarm_temperature_delay = 3, //mins
@@ -51,10 +52,22 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			has_event = 1;
 			switch(lcd_state)
 			{
+			//lcd turn off unit
+			case LCD_TURN_OFF_UNIT_NO_STATE:
+				lcd_state = LCD_MAIN_STATE;
+				break;
+			case LCD_TURN_OFF_UNIT_YES_STATE:
+				LED_L(); //Turn off Back Light led
+				lcd_state = LCD_OFF_DISPLAY_WATING;
+				break;
+			case LCD_OFF_DISPLAY_WATING:
+				lcd_state = LCD_MAIN_STATE;
+				LED_H(); //On Back light when press button.
+				break;
 			//level 1
 			case LCD_MAIN_STATE:
 				//Load all current param
-				memcpy((uint8_t *)&lcd,(uint8_t *)&main_param, sizeof(lcd_inter_t));
+				memcpy((uint8_t *)&lcd,(uint8_t *)&setting, sizeof(lcd_inter_t));
 				//Check operation mode
 				if(lcd.op_mode == OPERATION_MODE_FRIDEGE)
 				{
@@ -302,8 +315,12 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 
 		}else if(evt == BUTTON_HOLD_2_SEC)
 		{
-			has_event  = 1;
-			lcd_turn_off_unit(DISPLAY_UINIT_OFF);
+			if(lcd_state == LCD_MAIN_STATE)
+			{
+				has_event  = 1;
+				lcd_turn_off_unit(DISPLAY_UINIT_NO);
+				lcd_state = LCD_TURN_OFF_UNIT_NO_STATE;
+			}
 		}
 		break;
 	case BTN_UP:
@@ -312,6 +329,13 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			has_event  = 1;
 			switch(lcd_state)
 			{
+			//lcd turn off unit
+			case LCD_TURN_OFF_UNIT_NO_STATE:
+				lcd_state = LCD_TURN_OFF_UNIT_YES_STATE;
+				break;
+			case LCD_TURN_OFF_UNIT_YES_STATE:
+				lcd_state = LCD_TURN_OFF_UNIT_NO_STATE;
+				break;
 			//level 2
 			//Operation
 			case LCD_OPERATION_MODE_STATE:
@@ -538,6 +562,13 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			has_event  = 1;
 			switch(lcd_state)
 			{
+			//lcd turn off unit
+			case LCD_TURN_OFF_UNIT_NO_STATE:
+				lcd_state = LCD_TURN_OFF_UNIT_YES_STATE;
+				break;
+			case LCD_TURN_OFF_UNIT_YES_STATE:
+				lcd_state = LCD_TURN_OFF_UNIT_NO_STATE;
+				break;
 			//level 2
 			//Operation
 			case LCD_OPERATION_MODE_STATE:
@@ -773,8 +804,14 @@ void lcd_interface_show(lcd_state_t state)
 {
 	switch((uint8_t)state)
 	{
+	case LCD_TURN_OFF_UNIT_NO_STATE:
+		lcd_turn_off_unit(DISPLAY_UINIT_NO);
+		break;
+	case LCD_TURN_OFF_UNIT_YES_STATE:
+		lcd_turn_off_unit(DISPLAY_UINIT_YES);
+		break;
 	case LCD_MAIN_STATE:
-		lcd_main_screen_screen(lcd.spk_mode, lcd.temperature, lcd.pwr_mode, lcd.op_mode, lcd.bat_value, lcd.bat_state);
+		lcd_main_screen_screen(lcd.spk_mode, lcd.temperature, lcd.pwr_mode, lcd.op_mode, lcd.bat_value, lcd.bat_state,lcd.bat_signal);
 		break;
 	case LCD_OPERATION_MODE_STATE:
 		lcd_operation_mode_screen(lcd.op_mode);
@@ -1014,7 +1051,7 @@ void lcd_interface_init(void)
 {
 	lcd_ui_clear();
 	//Load all current param
-	memcpy((uint8_t *)&lcd,(uint8_t *)&main_param, sizeof(lcd_inter_t));
+	memcpy((uint8_t *)&lcd,(uint8_t *)&setting, sizeof(lcd_inter_t));
 	lcd_interface_show(LCD_MAIN_STATE);
 	lcd_ui_load_screen();
 	button_init(button_cb);

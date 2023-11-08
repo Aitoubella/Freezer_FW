@@ -105,27 +105,25 @@ int main(void)
   MX_FATFS_Init();
   MX_SPI3_Init();
   MX_RTC_Init();
-  MX_CRC_Init();
   MX_I2C1_Init();
+  MX_CRC_Init();
   /* USER CODE BEGIN 2 */
 //  test_log_init();
   event_init();
   //Buzzer or led use
-  led_init();
+//  led_init();
 //  buzzer_init();
   //Init i2c periph for DS1307
   DS1307_Init(&hi2c2);
-  //RTD temperature sensor
-  rtd_init();
+
   //Board test
   board_test_init();
   //Lcd tft 320x240
   lcd_ui_init();
-  lcd_interface_init();
-  main_app_init();
-//  lcd_ui_clear();
-//  lcd_main_screen_screen(SPEAKER_MODE_ON, -20, POWER_MODE_DC, OPERATION_MODE_FREEZER, 80, BATTERY_STATE_CHARGING);
-//  lcd_ui_refesh();
+//  lcd_interface_init();
+//  main_app_init();
+  //RTD temperature sensor
+  rtd_init();
   /* USER CODE END 2 */
 
   /* Infinite loop */

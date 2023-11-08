@@ -1,7 +1,6 @@
 /*
  * lcd_interface.h
  *
- *  Created on: Oct 30, 2023
  */
 
 #ifndef SRC_LCD_INTERFACE_H_
@@ -16,6 +15,7 @@ typedef struct
 	battery_state_t bat_state;
 	servie_alarms_warning_mode_t servie_alarms_warning_mode;
 	warning_mode_t warning_mode;
+	battery_signal_t bat_signal;
 	datetime_t datetime;
 	int16_t temperature;
 	uint8_t bat_value;
@@ -128,6 +128,10 @@ typedef enum
 
 	LCD_SERVICE_ALARM_MUTE_DURATION_VALUE_SET_STATE,
 
+	//Turn off unit
+	LCD_TURN_OFF_UNIT_NO_STATE,
+	LCD_TURN_OFF_UNIT_YES_STATE,
+	LCD_OFF_DISPLAY_WATING,
 }lcd_state_t;
 
 typedef enum

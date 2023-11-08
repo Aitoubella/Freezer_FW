@@ -1,6 +1,8 @@
 /*
  * lcd_ui.h
  *
+ *  Created on: Oct 18, 2023
+ *      Author: Loc
  */
 
 #ifndef SRC_LCD_UI_H_
@@ -11,15 +13,19 @@ LV_FONT_DECLARE( ui_font_verdana244);
 LV_FONT_DECLARE( ui_font_verdana364);
 LV_FONT_DECLARE( ui_font_verdana404);
 LV_FONT_DECLARE( ui_font_verdana704);
-LV_FONT_DECLARE( ui_font_verdana1404);
 LV_FONT_DECLARE( ui_font_verdana1004);
+LV_FONT_DECLARE( ui_font_verdana1204);
+LV_FONT_DECLARE( ui_font_verdana1404);
+
 
 #define FONT_VERDENA_24 {get_label(),&ui_font_verdana244} //Font verdena
 #define FONT_VERDENA_36 {get_label(),&ui_font_verdana364} //Font verdena
 #define FONT_VERDENA_40 {get_label(),&ui_font_verdana404} //Font verdena
 #define FONT_VERDENA_70 {get_label(),&ui_font_verdana704} //Font verdena
 #define FONT_VERDENA_100 {get_label(),&ui_font_verdana1004} //Font verdena
+#define FONT_VERDENA_120 {get_label(),&ui_font_verdana1204} //Font verdena
 #define FONT_VERDENA_140 {get_label(),&ui_font_verdana1404} //Font verdena
+
 typedef enum
 {
 	OPERATION_MODE_FRIDEGE = 0,
@@ -47,8 +53,15 @@ typedef enum
 
 typedef enum
 {
-	DISPLAY_UINIT_OFF = 0,
-	DISPLAY_UINIT_ON,
+	BATTERY_NORMAL = 0,
+	BATTER_WARNING_LOW,
+	BATTERY_OUT_OF_BAT,
+}battery_signal_t;
+
+typedef enum
+{
+	DISPLAY_UINIT_NO = 0,
+	DISPLAY_UINIT_YES,
 }display_unit_t;
 
 typedef enum
@@ -198,7 +211,7 @@ void lcd_ui_refresh(void);
 void lcd_ui_clear(void);
 void lcd_ui_load_screen(void);
 void lcd_setting(setting_t setting);
-void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_mode_t pwr_mode, operation_mode_t op_mode, uint8_t bat_value, battery_state_t bat_st);
+void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_mode_t pwr_mode, operation_mode_t op_mode, uint8_t bat_value, battery_state_t bat_st, battery_signal_t bat_signal);
 void lcd_operation_mode_screen(uint8_t operation_mode);
 void lcd_turn_off_unit(display_unit_t value);
 void lcd_setting_datetime(setting_datetime_t index, datetime_t* time);

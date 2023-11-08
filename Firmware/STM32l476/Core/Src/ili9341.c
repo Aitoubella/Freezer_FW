@@ -45,7 +45,7 @@ typedef enum {
 	ROTATE_270
 } LCD_Horizontal_t;
 
-extern void Error_Handler(void);
+
 extern SPI_HandleTypeDef hspi3;
 #define TFT_SPI       hspi3
 void ILI9341_Reset(void);
@@ -59,7 +59,6 @@ static void RESET_H(void);
 static void CS_L(void);
 static void DC_L(void);
 static void DC_H(void);
-static void LED_H(void);
 
 
 
@@ -102,9 +101,13 @@ static void DC_H(void)
 	HAL_GPIO_WritePin(TFT_DC_GPIO_Port, TFT_DC_Pin, GPIO_PIN_SET);
 }
 
-static void LED_H(void)
+void LED_H(void)
 {
 	HAL_GPIO_WritePin(TFT_BKLIGHT_GPIO_Port, TFT_BKLIGHT_Pin, GPIO_PIN_SET);
+}
+void LED_L(void)
+{
+	HAL_GPIO_WritePin(TFT_BKLIGHT_GPIO_Port, TFT_BKLIGHT_Pin, GPIO_PIN_RESET);
 }
 
 /*******************************************************************************************************/

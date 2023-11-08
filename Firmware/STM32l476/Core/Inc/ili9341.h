@@ -49,6 +49,8 @@ void ILI9341_WritePixel(uint16_t x, uint16_t y, uint16_t color);
 void ILI9341_EndOfDrawBitmap(void);
 void CS_H(void);
 void LCD_WR_REG(uint8_t data);
+void LED_H(void);
+void LED_L(void);
 
 #ifdef __cplusplus
 }

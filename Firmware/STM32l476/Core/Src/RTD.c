@@ -12,6 +12,16 @@
 #include "quartic.h"
 #define ADC_VREF_mV           3359       //Voltage adc in mV
 #define RTD_MAX_CHANNEL   6
+
+typedef enum
+{
+	RTD5 = 0,
+	RTD6,
+	RTD1,
+	RTD2,
+	RTD3,
+	RTD4,
+}rtd_channel_t;//need to check hardware
 uint32_t adc_buff[RTD_MAX_CHANNEL];
 uint16_t temper[RTD_MAX_CHANNEL];
 event_id rtd_id;
@@ -28,17 +38,7 @@ uint32_t rtd1_adc_total = 0;
 volatile uint32_t rtd1_average = 0;
 uint32_t rtd1_voltage = 0;
 uint32_t rtd1_res = 0;
-#define MAX_TEMPERATURE
 
-uint32_t adc_to_mV(uint32_t input)
-{
-	return input * ADC_VREF_mV/4095;
-}
-
-uint32_t mV_to_ohm(uint32_t input)
-{
-	return input/2;
-}
 
 
 
@@ -59,9 +59,6 @@ R0 = Resistance (Ω) at 0 °C
 T = Temperature (°C)
 A = α + αδ    B = -αδ     CT<0 = -αβ
      100      100^2          100^4
-*/
-
-
 
 double alpha =   0.00375;
 double delta =   1.605;
@@ -69,7 +66,8 @@ double beta =    0.16;
 double A     =   3.81/10000;
 double B     =   -6.02/10000000;
 double C     =   -6/1000000000000;
-double R0    =   1000; //resistance at 0 degree C
+*/
+#define R0       1000 //resistance at 0 degree C
 
 
 //in quartic
@@ -81,6 +79,18 @@ double c = -3.81*1000000000/6;//A/C;
 double d = 0;//(1 -  rtd1_res/R0)*1000000000000/6;
 
 double temp_result = 0;
+
+
+uint32_t adc_to_mV(uint32_t input)
+{
+	return input * ADC_VREF_mV/4095;
+}
+
+uint32_t mV_to_ohm(uint32_t input)
+{
+	return input/2;
+}
+
 void rtd_task(void)
 {
 	d =  ((rtd1_res)/R0 - 1)*1000000000000/6;
@@ -96,8 +106,8 @@ double rtd_get_temperature(void)
 
 void rtd_init(void)
 {
-	event_add(rtd_task, &rtd_id, 100);
-	event_active(&rtd_id);
+//	event_add(rtd_task, &rtd_id, 100);
+//	event_active(&rtd_id);
 
 	HAL_ADC_Start_DMA(&hadc1, adc_buff, 6);
 }
@@ -108,7 +118,7 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
 	adc_tick = HAL_GetTick() - adc_current_tick;
 	adc_current_tick = HAL_GetTick();
-	rtd1_adc_total += adc_buff[2];
+	rtd1_adc_total += adc_buff[RTD6];
 	rtd1_count++;
 	if(rtd1_count >= SAMPLE_MAX_COUNT)
 	{

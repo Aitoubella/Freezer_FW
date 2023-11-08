@@ -1,6 +1,8 @@
 /*
  * lcd_ui.c
  *
+ *  Created on: Oct 18, 2023
+ *      Author: Loc
  */
 
 
@@ -14,13 +16,14 @@
 #define WHITE_COLOR             0xFFFFFF
 #define RED_COLOR               0xFF0000
 #define YELLOW_COLOR            0xFFFF00
-
+#define COLOR_WARNING           0xFF8F00
 #define MAX_LABEL              10
 #define MAX_TEMP_CHAR          30
 static char temp_buff[MAX_TEMP_CHAR] = {0};
 
 lv_obj_t* screen;
 lv_obj_t* label_list[MAX_LABEL];
+lv_obj_t* btn_bat;
 uint8_t label_count;
 
 event_id lcd_tick_id;
@@ -51,19 +54,21 @@ void lcd_ui_init(void)
 	//Init brigde port use SPI
 	lv_port_disp_init();
 
-	screen = lv_obj_create(NULL);
-	lv_obj_clear_flag( screen, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-	lv_obj_set_style_bg_color(screen, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
-	lv_obj_set_style_bg_opa(screen, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-	//Create label in to main
-	for(uint8_t i = 0; i < MAX_LABEL; i ++)
-	{
-		label_list[i] = lv_label_create(screen);
-	}
-
-
-	event_add(lcd_lgvl_tick_handler, &lcd_tick_id, 5);
-	event_active(&lcd_tick_id);
+//	screen = lv_obj_create(NULL);
+//	lv_obj_clear_flag( screen, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+//	lv_obj_set_style_bg_color(screen, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
+//	lv_obj_set_style_bg_opa(screen, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+//	//Create label in to main
+//	btn_bat = lv_btn_create(screen);
+//	for(uint8_t i = 0; i < MAX_LABEL; i ++)
+//	{
+//		label_list[i] = lv_label_create(screen);
+//	}
+//
+//
+//
+//	event_add(lcd_lgvl_tick_handler, &lcd_tick_id, 5);
+//	event_active(&lcd_tick_id);
 }
 
 void lcd_set_background_color(lv_obj_t* obj, uint32_t color)
@@ -73,15 +78,16 @@ void lcd_set_background_color(lv_obj_t* obj, uint32_t color)
 
 void lcd_ui_clear(void)
 {
+	lv_obj_add_flag(btn_bat,LV_OBJ_FLAG_HIDDEN);
 	for(uint8_t i = 0; i < MAX_LABEL; i ++)
 	{
 		lv_obj_add_flag(label_list[i],LV_OBJ_FLAG_HIDDEN);
 	}
+
 	label_count = 0;
 }
 void lcd_ui_load_screen(void)
 {
-
 	lv_disp_load_scr(screen);
 }
 
@@ -110,17 +116,19 @@ void lcd_label_set_param(lv_obj_t* label, const char* txt, lv_coord_t x, lv_coor
 	lv_obj_set_style_text_font(label, font, LV_PART_MAIN| LV_STATE_DEFAULT);
 }
 
-void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_mode_t pwr_mode, operation_mode_t op_mode, uint8_t bat_value, battery_state_t bat_st)
+void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_mode_t pwr_mode, operation_mode_t op_mode, uint8_t bat_value, battery_state_t bat_st, battery_signal_t bat_signal)
 {
 	lcd_ui_t speaker_symbol = FONT_VERDENA_24;
 	lcd_ui_t temper = FONT_VERDENA_24;
 	lcd_ui_t operation_mode = FONT_VERDENA_40;
 	lcd_ui_t power_mode = FONT_VERDENA_40;
 	lcd_ui_t bat_state = FONT_VERDENA_36;
-	lcd_ui_t bat_symbol = FONT_VERDENA_100;
+	lcd_ui_t bat_symbol = FONT_VERDENA_120;
 	if(sp_mode ==  SPEAKER_MODE_ON)
 	{
-
+		lcd_label_set_param(speaker_symbol.obj, LV_SYMBOL_VOLUME_MAX, -126, -89, speaker_symbol.font, WHITE_COLOR);
+	}else
+	{
 		lcd_label_set_param(speaker_symbol.obj, LV_SYMBOL_MUTE, -126, -89, speaker_symbol.font, WHITE_COLOR);
 	}
 
@@ -144,6 +152,28 @@ void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_m
 	}
 
 
+	//Bat color
+	lv_obj_set_width( btn_bat, 120);
+	lv_obj_set_height( btn_bat, 70);
+	lv_obj_set_x( btn_bat, 55 );
+	lv_obj_set_y( btn_bat, 62 );
+	lv_obj_set_align( btn_bat, LV_ALIGN_CENTER );
+	lv_obj_add_flag( btn_bat, LV_OBJ_FLAG_SCROLL_ON_FOCUS );   /// Flags
+	lv_obj_clear_flag( btn_bat, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+	lv_obj_set_style_radius(btn_bat, 15, LV_PART_MAIN| LV_STATE_DEFAULT);
+    if(bat_signal == BATTERY_NORMAL)
+    {
+    	lv_obj_set_style_bg_color(btn_bat, lv_color_hex(WHITE_COLOR), LV_PART_MAIN | LV_STATE_DEFAULT );
+    }else if(bat_signal == BATTER_WARNING_LOW)
+    {
+    	lv_obj_set_style_bg_color(btn_bat, lv_color_hex(COLOR_WARNING), LV_PART_MAIN | LV_STATE_DEFAULT );
+    }else if(bat_signal == BATTERY_OUT_OF_BAT)
+    {
+    	lv_obj_set_style_bg_color(btn_bat, lv_color_hex(0xFF0000), LV_PART_MAIN | LV_STATE_DEFAULT );
+    }
+
+	lv_obj_set_style_bg_opa(btn_bat, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+	lv_obj_clear_flag(btn_bat, LV_OBJ_FLAG_HIDDEN);
 
 
 	lcd_label_set_param(bat_symbol.obj,  LV_SYMBOL_BATTERY_EMPTY, 60, 62, bat_symbol.font, WHITE_COLOR);
@@ -156,8 +186,8 @@ void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_m
 	{
 		snprintf(temp_buff, MAX_TEMP_CHAR, "%d%%",bat_value);
 	}
-	lcd_label_set_param(bat_state.obj,temp_buff , 65, 62, bat_state.font, WHITE_COLOR);
-	lcd_set_background_color(bat_state.obj, YELLOW_COLOR);
+	lcd_label_set_param(bat_state.obj,temp_buff , 58, 62, bat_state.font, WHITE_COLOR);
+	lcd_set_background_color(bat_symbol.obj, YELLOW_COLOR);
 }
 
 void lcd_operation_mode_screen(operation_mode_t index)
@@ -191,7 +221,7 @@ void lcd_turn_off_unit(display_unit_t value)
 	lcd_label_set_param(turn_unit_obj, "Turn off unit?", 0, -96, &ui_font_verdana364, WHITE_COLOR);
 	lv_obj_t* yes_obj = get_label();
 	lv_obj_t* no_obj = get_label();
-	if(value == DISPLAY_UINIT_ON)
+	if(value == DISPLAY_UINIT_YES)
 	{
 		lcd_label_set_param(yes_obj, "YES", 0, -11, &ui_font_verdana404, WHITE_COLOR);
 		lcd_label_set_param(no_obj, "NO", 0, 28, &ui_font_verdana244, WHITE_COLOR);
