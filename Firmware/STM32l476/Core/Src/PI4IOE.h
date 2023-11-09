@@ -3,6 +3,7 @@
  *
  */
 
+
 #ifndef SRC_PI4IOE_H_
 #define SRC_PI4IOE_H_
 #include <stdint.h>
@@ -17,6 +18,20 @@
 #define PI4IO_GPIO_PIN_6                 ((uint8_t)0x40)  /* Pin 6 selected    */
 #define PI4IO_GPIO_PIN_7                 ((uint8_t)0x80)  /* Pin 7 selected    */
 #define PI4IO_GPIO_PIN_All               ((uint8_t)0xFF)  /* All pins selected */
+
+#include "main.h"
+
+
+extern PI4IO_GPIO_Typedef_t PI4IO_GPIO0;
+extern PI4IO_GPIO_Typedef_t PI4IO_GPIO1;
+
+HAL_StatusTypeDef PI4IOE_GPIO_Mode_Input(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin);
+HAL_StatusTypeDef PI4IOE_GPIO_Mode_Ouput(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin);
+HAL_StatusTypeDef PI4IOE_GPIO_Write(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin, PI4IO_State_t state);
+HAL_StatusTypeDef PI4IOE_GPIO_Gpio_Ouput_Mode(PI4IO_GPIO_Typedef_t* gpio, PI4IO_Gpio_Ouput_Mode_t mode);
+HAL_StatusTypeDef PI4IOE_GPIO_Togle(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin);
+HAL_StatusTypeDef PI4IOE_GPIO_Set_Input_Invert(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin);
+HAL_StatusTypeDef PI4IOE_GPIO_Read_Input(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin, PI4IO_State_t* state);
 
 
 typedef struct
