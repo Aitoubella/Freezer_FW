@@ -7,7 +7,7 @@
 #include <string.h>
 
 event_t event[MAX_EVENT_NUMBER] = {0};
-
+static uint8_t total_event = 0;
 
 
 /**
@@ -63,6 +63,7 @@ uint8_t event_add(void (* func)(void),event_id *id, uint32_t ms)
 			event[index].func = func;                     //Set callback function
 			event[index].delay = ms;                      //Set delay for callback to call
 			*id = index;                                  //Set id
+			total_event = index;
 			event_resume();
 			return EVENT_ERR_NONE;
 		}
@@ -132,7 +133,7 @@ void event_run_task(void)
 {
 	static uint8_t event_index = 0;
     event_index++;
-    if(event_index >= MAX_EVENT_NUMBER) 
+    if(event_index > total_event)
 	{
 		event_index = 0;
 	}

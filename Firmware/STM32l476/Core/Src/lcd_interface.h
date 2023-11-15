@@ -13,8 +13,6 @@ typedef struct
 	power_mode_t pwr_mode;
 	speaker_mode_t spk_mode;
 	battery_state_t bat_state;
-	servie_alarms_warning_mode_t servie_alarms_warning_mode;
-	warning_mode_t warning_mode;
 	battery_signal_t bat_signal;
 	datetime_t datetime;
 	int16_t temperature;
@@ -132,6 +130,11 @@ typedef enum
 	LCD_TURN_OFF_UNIT_NO_STATE,
 	LCD_TURN_OFF_UNIT_YES_STATE,
 	LCD_OFF_DISPLAY_WATING,
+
+	//Warning
+	LCD_WARNING_TYPE_UNDER_MIN_TEMP_STATE,
+	LCD_WARNING_TYPE_OVER_MAX_TEMP_STATE,
+	LCD_WARNING_TYPE_LID_OPEN_STATE,
 }lcd_state_t;
 
 typedef enum
@@ -172,9 +175,11 @@ typedef enum
 	LCD_SET_LARM_MUTE_DURATION_EVT,
 
 	LCD_USB_INSERT_DOWNLOAD_EVT,
+
+	LCD_MAIN_FRAME_EVT,
 }lcd_get_set_evt_t;
 
-
+void lcd_interface_init(void);
 void lcd_interface_show(lcd_state_t state);
 uint8_t lcd_get_set_cb(lcd_get_set_evt_t evt, void* value);
 

@@ -170,24 +170,13 @@ typedef enum
 	SERVICE_ALARM_MUTE_DURATION_BACK
 }service_alarms_mute_duration_t;
 
-typedef enum
-{
-	WARNING_FRIDGE = 0,
-	WARNING_FREEZER
-}servie_alarms_warning_mode_t;
 
-typedef enum
-{
-	WARNING_MODE_FRIDGE = 0,
-	WARNING_MODE_FREEZER
-}warning_mode_t;
 
 typedef enum
 {
 	WARNING_TYPE_UNDER_MIN_TEMP = 0,
 	WARNING_TYPE_OVER_MAX_TEMP,
 	WARNING_TYPE_LID_OPEN,
-	WARNING_TYPE_LID_CLOSE
 }warning_type_t;
 
 typedef struct
@@ -243,7 +232,7 @@ void lcd_service_alarm_lid(service_alarms_lid_t index, uint8_t value);
 void lcd_service_alarm_lid_set(uint8_t value);
 void lcd_service_alarms_mute_duration(service_alarms_mute_duration_t index, uint8_t value);
 void lcd_service_alarms_mute_duration_set(uint8_t value);
-void lcd_service_alarms_warning(warning_mode_t mode, warning_type_t type);
+void lcd_service_alarms_warning(operation_mode_t mode, warning_type_t type);
 
 
 #endif /* SRC_LCD_UI_H_ */

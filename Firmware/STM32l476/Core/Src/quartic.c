@@ -31,9 +31,9 @@ const double eps=1e-12;
 //         1 real root : x[0], x[1] ± i*x[2], return 1
 unsigned int solveP3(double *x,double a,double b,double c) {
 	double a2 = a*a;
-    	double q  = (a2 - 3*b)/9;
+	double q  = (a2 - 3*b)/9;
 	double r  = (a*(2*a2-9*b) + 27*c)/54;
-    	double r2 = r*r;
+	double r2 = r*r;
 	double q3 = q*q*q;
 	double A,B;
     	if(r2<q3)
@@ -66,6 +66,7 @@ unsigned int solveP3(double *x,double a,double b,double c) {
 
 //---------------------------------------------------------------------------
 // Solve quartic equation x^4 + a*x^3 + b*x^2 + c*x + d
+// (attention - this function returns dynamically allocated array. It has to be released afterwards)
 DComplex* solve_quartic(double a, double b, double c, double d)
 {
 	double a3 = -b;

@@ -14,6 +14,7 @@
 #include <stdbool.h>
 
 #define WHITE_COLOR             0xFFFFFF
+#define BLACK_COLOR             0x000000
 #define RED_COLOR               0xFF0000
 #define YELLOW_COLOR            0xFFFF00
 #define COLOR_WARNING           0xFF8F00
@@ -54,24 +55,24 @@ void lcd_ui_init(void)
 	//Init brigde port use SPI
 	lv_port_disp_init();
 
-//	screen = lv_obj_create(NULL);
-//	lv_obj_clear_flag( screen, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
-//	lv_obj_set_style_bg_color(screen, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
-//	lv_obj_set_style_bg_opa(screen, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
-//	//Create label in to main
-//	btn_bat = lv_btn_create(screen);
-//	for(uint8_t i = 0; i < MAX_LABEL; i ++)
-//	{
-//		label_list[i] = lv_label_create(screen);
-//	}
-//
-//
-//
-//	event_add(lcd_lgvl_tick_handler, &lcd_tick_id, 5);
-//	event_active(&lcd_tick_id);
+	screen = lv_obj_create(NULL);
+	lv_obj_clear_flag( screen, LV_OBJ_FLAG_SCROLLABLE );    /// Flags
+	lv_obj_set_style_bg_color(screen, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT );
+	lv_obj_set_style_bg_opa(screen, 255, LV_PART_MAIN| LV_STATE_DEFAULT);
+	//Create label in to main
+	btn_bat = lv_btn_create(screen);
+	for(uint8_t i = 0; i < MAX_LABEL; i ++)
+	{
+		label_list[i] = lv_label_create(screen);
+	}
+
+
+
+	event_add(lcd_lgvl_tick_handler, &lcd_tick_id, 5);
+	event_active(&lcd_tick_id);
 }
 
-void lcd_set_background_color(lv_obj_t* obj, uint32_t color)
+void lcd_set_background_color(lv_obj_t* obj,uint32_t color)
 {
 	lv_obj_set_style_bg_color(obj, lv_color_hex(color), LV_PART_MAIN | LV_STATE_DEFAULT );
 }
@@ -118,12 +119,16 @@ void lcd_label_set_param(lv_obj_t* label, const char* txt, lv_coord_t x, lv_coor
 
 void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_mode_t pwr_mode, operation_mode_t op_mode, uint8_t bat_value, battery_state_t bat_st, battery_signal_t bat_signal)
 {
+
 	lcd_ui_t speaker_symbol = FONT_VERDENA_24;
 	lcd_ui_t temper = FONT_VERDENA_24;
 	lcd_ui_t operation_mode = FONT_VERDENA_40;
 	lcd_ui_t power_mode = FONT_VERDENA_40;
 	lcd_ui_t bat_state = FONT_VERDENA_36;
 	lcd_ui_t bat_symbol = FONT_VERDENA_120;
+
+	lcd_set_background_color(screen, BLACK_COLOR);
+
 	if(sp_mode ==  SPEAKER_MODE_ON)
 	{
 		lcd_label_set_param(speaker_symbol.obj, LV_SYMBOL_VOLUME_MAX, -126, -89, speaker_symbol.font, WHITE_COLOR);
@@ -163,7 +168,7 @@ void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_m
 	lv_obj_set_style_radius(btn_bat, 15, LV_PART_MAIN| LV_STATE_DEFAULT);
     if(bat_signal == BATTERY_NORMAL)
     {
-    	lv_obj_set_style_bg_color(btn_bat, lv_color_hex(WHITE_COLOR), LV_PART_MAIN | LV_STATE_DEFAULT );
+    	lv_obj_set_style_bg_color(btn_bat, lv_color_hex(BLACK_COLOR), LV_PART_MAIN | LV_STATE_DEFAULT );
     }else if(bat_signal == BATTER_WARNING_LOW)
     {
     	lv_obj_set_style_bg_color(btn_bat, lv_color_hex(COLOR_WARNING), LV_PART_MAIN | LV_STATE_DEFAULT );
@@ -197,6 +202,8 @@ void lcd_operation_mode_screen(operation_mode_t index)
 	lcd_ui_t freezer = FONT_VERDENA_24;
 	lcd_ui_t back = FONT_VERDENA_24;
 
+	lcd_set_background_color(screen,BLACK_COLOR);
+
 	if(index == OPERATION_MODE_FREEZER)
 	{
 		freezer.font = &ui_font_verdana364;
@@ -221,6 +228,7 @@ void lcd_turn_off_unit(display_unit_t value)
 	lcd_label_set_param(turn_unit_obj, "Turn off unit?", 0, -96, &ui_font_verdana364, WHITE_COLOR);
 	lv_obj_t* yes_obj = get_label();
 	lv_obj_t* no_obj = get_label();
+	lcd_set_background_color(screen,BLACK_COLOR);
 	if(value == DISPLAY_UINIT_YES)
 	{
 		lcd_label_set_param(yes_obj, "YES", 0, -11, &ui_font_verdana404, WHITE_COLOR);
@@ -240,7 +248,7 @@ void lcd_setting(setting_t st)
 	lcd_ui_t download_data = FONT_VERDENA_24;
 	lcd_ui_t back = FONT_VERDENA_24;
 
-
+	lcd_set_background_color(screen,BLACK_COLOR);
 	if(st == SETTING_DATETIME)
 	{
 		datetime.font = &ui_font_verdana404;
@@ -297,7 +305,7 @@ void lcd_setting_datetime(setting_datetime_t index, datetime_t* time)
 	}
 
 
-	snprintf(temp_buff,MAX_TEMP_CHAR,"Set Year: %2d", 2000 + time->year);
+	snprintf(temp_buff,MAX_TEMP_CHAR,"Set Year: %2d", time->year);
 	lcd_label_set_param(year_obj, temp_buff, 0, -85, year_font, WHITE_COLOR);
 	snprintf(temp_buff,MAX_TEMP_CHAR,"Set Month: %2d", time->month);
 	lcd_label_set_param(month_obj, temp_buff, 0, -46, month_font, WHITE_COLOR);
@@ -480,6 +488,7 @@ void lcd_service(service_t index)
 	lcd_ui_t calibration = FONT_VERDENA_24;
 	lcd_ui_t back = FONT_VERDENA_24;
 
+	lcd_set_background_color(screen,BLACK_COLOR);
 
 	if(index == SERVICE_TEMPERATURE)
 	{
@@ -904,14 +913,14 @@ void lcd_service_alarms_mute_duration_set(uint8_t value)
 }
 
 
-void lcd_service_alarms_warning(warning_mode_t mode, warning_type_t type)
+void lcd_service_alarms_warning(operation_mode_t mode, warning_type_t type)
 {
 
 	lcd_ui_t mode_obj = FONT_VERDENA_40;
 	lcd_ui_t type_obj = FONT_VERDENA_36;
 	lcd_ui_t warning_symbol = FONT_VERDENA_40;
-	lcd_set_background_color(screen, RED_COLOR);
-	if(mode == WARNING_MODE_FRIDGE)
+	lcd_set_background_color(screen,RED_COLOR);
+	if(mode == OPERATION_MODE_FRIDEGE)
 	{
 		lcd_label_set_param(mode_obj.obj, "Fridge", 0, -70, mode_obj.font, WHITE_COLOR);
 	}else

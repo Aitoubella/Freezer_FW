@@ -24,8 +24,8 @@ void test_task(void)
 void board_test_init(void)
 {
 	//Test DS1307
-	DS1307_SetDate(23, 10, 2023);
-	DS1307_SetTime(20, 39, 0);
+//	DS1307_SetDate(23, 10, 2023);
+//	DS1307_SetTime(20, 39, 0);
 	event_add(test_task, &test_id, 1000);
 	event_active(&test_id);
 

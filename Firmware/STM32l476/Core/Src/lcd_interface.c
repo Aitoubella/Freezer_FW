@@ -10,32 +10,11 @@
 #include "buzzer.h"
 #include "DS1307.h"
 #include "ili9341.h"
-lcd_inter_t setting = {
-	.op_mode = OPERATION_MODE_FREEZER,
-	.pwr_mode = POWER_MODE_AC,
-	.spk_mode = SPEAKER_MODE_ON,
-	.bat_value = 100, //%
-	.bat_state = BATTERY_STATE_NOT_CHARGE,
-	.bat_signal = BATTER_WARNING_LOW,
-	.alarm_bat = 15, //%
-	.alarm_lid = 2,  //mins
-	.alarm_temperature_delay = 3, //mins
-	.alarm_temperature_deviation = 3, // Celcius
-	.servie_alarms_warning_mode = WARNING_FREEZER,
-	.warning_mode = WARNING_MODE_FREEZER,
-	.temperature = 5,//Celcius
-	.logging_interval = 5,//Mins
-	.temperature_fridge = 10,//Celcius
-	.temperature_freezer = 9,//Celcius
-	.temp_offset = 3, //Celcisu
-	.datetime.year = 2023,
-	.datetime.month = 11,
-	.datetime.day = 3,
-};
+extern lcd_inter_t setting;
 
 static uint8_t lcd_state = LCD_MAIN_STATE;
 
-static lcd_inter_t lcd =
+lcd_inter_t lcd =
 {
 	.bat_state = BATTERY_STATE_NOT_CHARGE,
 };
@@ -79,7 +58,6 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 //				lcd_state = LCD_OPERATION_MODE_STATE;
 				break;
 			case LCD_OPERATION_MODE_STATE:
-
 				lcd_state = LCD_SETTING_STATE;
 				break;
 			case LCD_SETTING_STATE:
@@ -87,6 +65,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			case LCD_SERVICE_STATE:
 				lcd_state = LCD_MAIN_STATE;
+				lcd_get_set_cb(LCD_MAIN_FRAME_EVT, NULL); //Callback event for save to flash logic in main app
 				break;
 			//level 2 enter to level 3
 			//Operation mode
@@ -220,7 +199,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			//Temperature back to previous
 			case LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_SET_STATE:
-				lcd_get_set_cb(LCD_SET_TEMPERATURE_FREEZER_EVT, &lcd.temperature_fridge);
+				lcd_get_set_cb(LCD_SET_TEMPERATURE_FRIDGE_EVT, &lcd.temperature_fridge);
 				lcd_state = LCD_SERVICE_TEMPERATURE_FRIDGE_VALUE_STATE;
 				break;
 			case LCD_SERVICE_TEMPERATURE_FRIDGE_BACK_STATE:
@@ -792,6 +771,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 	}
 	if(has_event)
 	{
+
 		lcd_ui_clear();
 		lcd_interface_show(lcd_state);
 		lcd_ui_refresh();
@@ -1034,6 +1014,15 @@ void lcd_interface_show(lcd_state_t state)
 	case LCD_SERVICE_CALIBRATION_TEMP_OFFSET_SET_STATE:
 		lcd_service_calibration_set(lcd.temp_offset);
 		break;
+	case LCD_WARNING_TYPE_UNDER_MIN_TEMP_STATE:
+		lcd_service_alarms_warning(lcd.op_mode, WARNING_TYPE_UNDER_MIN_TEMP);
+		break;
+	case LCD_WARNING_TYPE_OVER_MAX_TEMP_STATE:
+		lcd_service_alarms_warning(lcd.op_mode, WARNING_TYPE_OVER_MAX_TEMP);
+		break;
+	case LCD_WARNING_TYPE_LID_OPEN_STATE:
+		lcd_service_alarms_warning(lcd.op_mode, WARNING_TYPE_LID_OPEN);
+		break;
 	}
 }
 
@@ -1050,8 +1039,6 @@ lcd_inter_t* lcd_interface_get_param(void)
 void lcd_interface_init(void)
 {
 	lcd_ui_clear();
-	//Load all current param
-	memcpy((uint8_t *)&lcd,(uint8_t *)&setting, sizeof(lcd_inter_t));
 	lcd_interface_show(LCD_MAIN_STATE);
 	lcd_ui_load_screen();
 	button_init(button_cb);

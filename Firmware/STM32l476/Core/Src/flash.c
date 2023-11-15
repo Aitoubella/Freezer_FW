@@ -5,95 +5,106 @@
 
 
 #include "flash.h"
-#include "crc.h"
 #include "stm32l4xx_hal_flash.h"
 #include <string.h>
 #include <stdlib.h>
-#include "flash_if.h"
-/* Private typedef -----------------------------------------------------------*/
-CRC_HandleTypeDef   CrcHandle;
-
-
-enum
-{
-	USER_FLASH_ERROR_NONE = 0,
-	USER_FLASH_WRITE_ERROR,
-	USER_FLASH_ERASE_ERROR,
-	USER_FLASH_EXIST_ERROR,
-	USER_FLASH_INVALID_PARAM_ERROR,
-	USER_FLASH_ALLOC_MEM_ERROR,
-	USER_FLASH_FULL_ERROR,
-	USER_FLASH_READ_ERROR,
-	USE_FLASH_ERROR_OTHER,
-};
-/* Private define ------------------------------------------------------------*/
-
-
-
-flash_managerment_t* f = NULL;
-
-
 
 /**
-  * @brief  Flash managerment init: read flash
+  * @brief  Gets the page of a given address
   * @param  Addr: Address of the FLASH Memory
-  * @retval The bank of a given address
+  * @retval The page of a given address
   */
-uint8_t flash_mgt_init(void)
+static uint32_t GetPage(uint32_t Addr)
 {
-	if(f == NULL)
-	{
-		f = calloc(1, sizeof(flash_managerment_t));
-		memset((uint8_t *)f,0,sizeof(flash_managerment_t));
-	}
-	if(f == NULL) return USER_FLASH_ALLOC_MEM_ERROR; //Memory error
+  uint32_t page = 0;
 
-	FLASH_If_Init();
-	if(*(__IO uint64_t *)FLASH_USER_START_ADDR == 0xFFFFFFFFFFFFFFFF)//First time need to
-	{
+  if (Addr < (FLASH_BASE + FLASH_BANK_SIZE))
+  {
+    /* Bank 1 */
+    page = (Addr - FLASH_BASE) / FLASH_PAGE_SIZE;
+  }
+  else
+  {
+    /* Bank 2 */
+    page = (Addr - (FLASH_BASE + FLASH_BANK_SIZE)) / FLASH_PAGE_SIZE;
+  }
 
-		return USER_FLASH_ERASE_ERROR;
-	}
-
-  /* The 16-bit long CRC of the 9-byte buffer is computed. After peripheral initialization,
-	 the CRC calculator is initialized with the user-defined value that is 0x5ABE.
-
-	The computed CRC is stored in uint32_t uwCRCValue. The 16-bit long CRC is made of
-	uwCRCValue 16 LSB bits. */
-
-   f->crc16 = HAL_CRC_Accumulate(&CrcHandle, (uint32_t *)f, sizeof(flash_managerment_t) - 2);
-
-
-	return USER_FLASH_ERROR_NONE;
+  return page;
 }
 
 /**
- * @brief Check data write correctly
- * @pram data: pointer to data
- * @param len: length of data
- * @param address address flash storage data
- * @return 0: Data input is the same with data from flash
- *         1: Different between data and flash
- * */
-uint8_t flash_write_verify(uint32_t address, uint32_t* data, uint32_t len)
+  * @brief  Gets the bank of a given address
+  * @param  Addr: Address of the FLASH Memory
+  * @retval The bank of a given address
+  */
+static uint32_t GetBank(uint32_t Addr)
 {
-	if(data == NULL || address < 0x08000000) return USER_FLASH_INVALID_PARAM_ERROR;
+  uint32_t bank = 0;
+
+  if (READ_BIT(SYSCFG->MEMRMP, SYSCFG_MEMRMP_FB_MODE) == 0)
+  {
+  	/* No Bank swap */
+    if (Addr < (FLASH_BASE + FLASH_BANK_SIZE))
+    {
+      bank = FLASH_BANK_1;
+    }
+    else
+    {
+      bank = FLASH_BANK_2;
+    }
+  }
+  else
+  {
+  	/* Bank swap */
+    if (Addr < (FLASH_BASE + FLASH_BANK_SIZE))
+    {
+      bank = FLASH_BANK_2;
+    }
+    else
+    {
+      bank = FLASH_BANK_1;
+    }
+  }
+
+  return bank;
+}
+
+/* Private typedef -----------------------------------------------------------*/
+static HAL_StatusTypeDef flash_write_array(uint32_t start_addr, uint64_t* data, uint32_t length)
+{
+	uint32_t PAGEError;
+	uint32_t i = 0;
+	uint32_t addr = start_addr;
+	static FLASH_EraseInitTypeDef EraseInitStruct;
 	/* Unlock the Flash to enable the flash control register access *************/
 	HAL_FLASH_Unlock();
-	uint32_t* ptr = data;
-	uint32_t data_r;
-	while(ptr < (ptr + len/sizeof(uint32_t)))
+	while(addr < (start_addr + length))
 	{
-		data_r = *(__IO uint32_t *)address;
-		if(data_r != *(ptr))
-			return 1;
-		address += sizeof(uint32_t); //Move to next address flash
-		ptr += sizeof(uint32_t);     //Move to next address ram
-	 }
+		if((addr - 0x8000000) % FLASH_PAGE_SIZE == 0)
+		{
+			/* Fill EraseInit structure*/
+			EraseInitStruct.TypeErase   = FLASH_TYPEERASE_PAGES;
+			EraseInitStruct.Page = GetPage(start_addr);
+			EraseInitStruct.Banks = GetBank(start_addr);
+			EraseInitStruct.NbPages     = 1; //number of page to erase
+			if (HAL_FLASHEx_Erase(&EraseInitStruct, &PAGEError) != HAL_OK)
+			{
+				return HAL_ERROR;
+			}
+		}
+		if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, addr, data[i]) != HAL_OK) //Each element take 4 bytes to write
+		{
+			HAL_FLASH_Lock();
+			return HAL_ERROR;
+		}
+		addr += 8;
+		i += 1;
+	}
 	/* Lock the Flash to disable the flash control register access (recommended
-	 to protect the FLASH memory against possible unwanted operation) */
+	 to protect the FLASH memory against possible unwanted operation) *********/
 	HAL_FLASH_Lock();
-	return 0;
+
+	return HAL_OK;
 }
 
 /**
@@ -102,83 +113,64 @@ uint8_t flash_write_verify(uint32_t address, uint32_t* data, uint32_t len)
  * 		   1: Error in write progress
  * */
 
-uint8_t flash_mgt_update(void)
+HAL_StatusTypeDef flash_mgt_save(uint32_t *data, uint32_t length)
 {
-	//Erase page
-	if(FLASH_If_Erase_Pages(FLASH_USER_START_ADDR, USER_FLASH_SIZE))
-		return USER_FLASH_ERASE_ERROR;
 	//write current flash
-	if(FLASH_If_Write_Bytes(FLASH_USER_START_ADDR, (uint32_t *)f, sizeof(flash_managerment_t)) != FLASHIF_OK)
-		return USER_FLASH_WRITE_ERROR;
-//	if(flash_write_verify(FLASH_USER_START_ADDR, (uint32_t *)f, sizeof(flash_managerment_t)))
-//		return USER_FLASH_WRITE_ERROR;
-	return USER_FLASH_ERROR_NONE;
+	if(flash_write_array(FLASH_USER_START_ADDR, (uint64_t *)data, length) != HAL_OK)
+		return HAL_ERROR;
+
+	return HAL_OK;
 }
 
 
-/**
- * @brief Create new user and save to flash
- * @param username: user name
- * @param password: password
- * @return 0: create success
- *         1: Error: flash full or invalid param
- * */
-uint8_t flash_mgt_create_user(const char* username,const char* password)
+static void flash_mgt_read_array(uint32_t start_addr, uint32_t* data, uint32_t length)
 {
-	if(username == NULL || password == NULL) return 1;
-	if((strlen(username) > USERNAME_MAX_LEN) || (strlen(password) > PASSWORD_MAX_LEN))
+	if(*(__IO uint32_t *)start_addr == 0xFFFFFFFF)
 	{
-		return USER_FLASH_EXIST_ERROR;
+		//Data in flash is empty
+		return;
 	}
-
-	for(uint32_t u = 0; u < f->user_count; u++)
+	uint32_t addr = start_addr;
+	while(addr < (start_addr + length))
 	{
-		if(strstr(username,f->acc[u].username) == 0) return USER_FLASH_INVALID_PARAM_ERROR;// user exist
-	}
-
-
-	if(f->user_count >= MAX_ACCOUNT) return USER_FLASH_FULL_ERROR; //Reach max user
-
-	strncpy(f->acc[f->user_count].username, username, strlen(username));
-	strncpy(f->acc[f->user_count].password, password, strlen(password));
-	f->user_count++;
-	//Calculate crc16 befor update to flash
-	f->crc16 = HAL_CRC_Accumulate(&CrcHandle, (uint32_t *)f, sizeof(flash_managerment_t) - 2);
-	uint8_t status = flash_mgt_update();
-	return status;
-}
-
-uint8_t flash_mgt_save_device_id(const char* devId)
-{
-	if(devId == NULL) return 1;
-	strncpy(f->devId,devId,strlen(devId));
-	//Calculate crc16 befor update to flash
-	f->crc16 = HAL_CRC_Accumulate(&CrcHandle, (uint32_t *)f, sizeof(flash_managerment_t) - 2);
-	uint8_t status = flash_mgt_update();
-	return status;
+		*(data) = *(__IO uint32_t *)addr;
+		addr += sizeof(uint32_t); //Move to next address flash
+		data ++;                  //Move to next address ram
+	 }
 }
 
 /**
  * @brief Read data from flash
- * @return 0: No error
- *         x: Error readew
+ * @param data uint32 pointer read
+ * @lenth number of byte data
+ * @return None
  * */
-uint8_t flash_mgt_read(void)
+void flash_mgt_read(uint32_t* data, uint32_t length)
 {
-	uint64_t* ptr = (uint64_t *)f;
-	uint32_t len = sizeof(flash_managerment_t);
-	uint32_t address = FLASH_USER_START_ADDR;
-	while(ptr < (ptr + len/sizeof(uint64_t)))
-	{
-		*(ptr) = *(__IO uint64_t *)address;
-		address += sizeof(uint64_t); //Move to next address flash
-		ptr ++;     //Move to next address ram
-	 }
-	uint16_t crc16 = HAL_CRC_Accumulate(&CrcHandle, (uint32_t *)f, sizeof(flash_managerment_t) - 2);
-	if(crc16 != f->crc16) return USER_FLASH_READ_ERROR;
-	return USER_FLASH_ERROR_NONE;
+	flash_mgt_read_array(FLASH_USER_START_ADDR, data, length);
 }
 
-
+/**
+ * @brief Erase flash page
+ * @return HAL_StatusTypeDef
+ * */
+HAL_StatusTypeDef flash_erase_page(uint32_t addr)
+{
+	uint32_t PAGEError;
+	static FLASH_EraseInitTypeDef EraseInitStruct;
+	if((addr - 0x8000000) % FLASH_PAGE_SIZE == 0)
+	{
+		/* Fill EraseInit structure*/
+		EraseInitStruct.TypeErase   = FLASH_TYPEERASE_PAGES;
+		EraseInitStruct.Page = GetPage(addr);
+		EraseInitStruct.Banks = GetBank(addr);
+		EraseInitStruct.NbPages     = 1; //number of page to erase
+		if (HAL_FLASHEx_Erase(&EraseInitStruct, &PAGEError) != HAL_OK)
+		{
+			return HAL_ERROR;
+		}
+	}
+	return HAL_OK;
+}
 
 
