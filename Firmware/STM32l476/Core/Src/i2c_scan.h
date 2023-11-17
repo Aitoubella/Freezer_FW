@@ -1,6 +1,7 @@
 /*
  * i2c_scan.h
  *
+
  */
 
 #ifndef SRC_I2C_SCAN_H_
