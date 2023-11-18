@@ -134,3 +134,146 @@ HAL_StatusTypeDef bq25731_get_charge_discharge_current(bq25731_t* bq, uint16_t *
 	return result;
 }
 
+
+//Get Bus voltage and power system
+HAL_StatusTypeDef bq25731_get_vbus_psys(bq25731_t* bq, uint16_t *vbus, uint16_t *psys)
+{
+	HAL_StatusTypeDef result = bq25731_read_reg(ADC_VBUS_PSYS_REG, (uint8_t *)&bq->ADCVBUS_PSYS, 2);
+	*vbus = bq->ADCVBUS_PSYS.VBUS * 96;
+	if(bq->ADCOption.ADC_FULLSCALE)
+	{
+		*psys =  bq->ADCVBUS_PSYS.PSYS * 12;
+	}else
+	{
+		*psys =  bq->ADCVBUS_PSYS.PSYS * 8;
+	}
+	return result;
+}
+
+HAL_StatusTypeDef bq25731_get_input_current(uint8_t* data)
+{
+	return bq25731_read_reg(ADC_INPUT_CURRENT_CMPIN_VOLTAGE_REG, data, 2);
+}
+
+
+HAL_StatusTypeDef bq25731_get_charge_status(bq25731_t* bq)
+{
+	return bq25731_read_reg(CHARGE_STATUS_REG, (uint8_t *)&bq->ChargerStatus, 2);
+}
+
+HAL_StatusTypeDef bq25731_get_prochot_status(bq25731_t* bq)
+{
+	return bq25731_read_reg(PROCHOT_STATUS_REG, (uint8_t *)&bq->ProchotStatus, 2);
+}
+
+HAL_StatusTypeDef bq25731_charge_option_0(uint8_t lsb, uint8_t msb)
+{
+	uint8_t data[2] = {0};
+	HAL_StatusTypeDef status = bq25731_read_reg(CHARGE_OPTION_0_REG, data, 2);
+	if(status != HAL_OK) return status;
+	data[0] |= lsb;
+	data[1] |= msb;
+	return bq25731_write_reg(CHARGE_OPTION_0_REG, data, 2);
+}
+
+HAL_StatusTypeDef bq25731_charge_option_0_clear_bit(uint8_t lsb, uint8_t msb)
+{
+	uint8_t data[2] = {0};
+	HAL_StatusTypeDef status = bq25731_read_reg(CHARGE_OPTION_0_REG, data, 2);
+	if(status != HAL_OK) return status;
+	data[0] &=~ lsb;
+	data[1] &=~ msb;
+	return bq25731_write_reg(CHARGE_OPTION_0_REG, data, 2);
+}
+
+HAL_StatusTypeDef bq25731_read_charge_option_0(bq25731_t* bq)
+{
+	return bq25731_read_reg(CHARGE_OPTION_0_REG, (uint8_t*)&bq->ChargeOption0, 2);
+}
+
+HAL_StatusTypeDef bq25731_charge_option_1(uint8_t lsb,uint8_t msb)
+{
+	uint8_t data[2] = {0};
+	HAL_StatusTypeDef status = bq25731_read_reg(CHARGE_OPTION_1_REG, data, 2);
+	if(status != HAL_OK) return status;
+	data[0] |= lsb;
+	data[1] |= msb;
+	return bq25731_write_reg(CHARGE_OPTION_1_REG, data, 2);
+}
+
+HAL_StatusTypeDef bq25731_charge_option_3(uint8_t lsb,uint8_t msb)
+{
+	uint8_t data[2] = {0};
+	HAL_StatusTypeDef status = bq25731_read_reg(CHARGE_OPTION_3_REG, data, 2);
+	if(status != HAL_OK) return status;
+	data[0] |= lsb;
+	data[1] |= msb;
+	return bq25731_write_reg(CHARGE_OPTION_3_REG, data, 2);
+}
+
+HAL_StatusTypeDef bq25731_read_charge_option_1(bq25731_t* bq)
+{
+	return bq25731_read_reg(CHARGE_OPTION_1_REG, (uint8_t*)&bq->ChargeOption1, 2);
+}
+HAL_StatusTypeDef bq25731_read_charge_option_2(bq25731_t* bq)
+{
+	return bq25731_read_reg(CHARGE_OPTION_2_REG, (uint8_t*)&bq->ChargeOption2, 2);
+}
+
+HAL_StatusTypeDef bq25731_read_charge_option_3(bq25731_t* bq)
+{
+	return bq25731_read_reg(CHARGE_OPTION_3_REG, (uint8_t*)&bq->ChargeOption3, 2);
+}
+
+HAL_StatusTypeDef bq25731_set_adc_option(uint8_t lsb, uint8_t msb)
+{
+	uint8_t data[2] = {0};
+	HAL_StatusTypeDef status = bq25731_read_reg(ADC_OPTION_REG, data, 2);
+	if(status != HAL_OK) return status;
+	data[0] |= lsb;
+	data[1] |= msb;
+	return bq25731_write_reg(ADC_OPTION_REG, data, 2);
+}
+
+HAL_StatusTypeDef bq25731_read_adc_option(uint8_t* data)
+{
+	return bq25731_read_reg(ADC_OPTION_REG, data, 2);
+}
+
+HAL_StatusTypeDef bq25731_init(bq25731_t* bq)
+{
+	HAL_StatusTypeDef status = 0;
+	status = bq25731_charge_option_0_clear_bit(0, EN_LPWR_BIT); //Disable lowpower function for ADC convert block work
+	if(status != HAL_OK) return status;
+	status = bq25731_charge_option_1(0, EN_IBAT_BIT);   //Enable Ibat buffer
+	if(status != HAL_OK) return status;
+	status = bq25731_charge_option_3(0,EN_ICO_MODE_BIT); //Enable Auto mode
+	if(status != HAL_OK) return status;
+	status = bq25731_set_charge_voltage(VOLTAGE_BATTERY); //Set charge voltage
+	if(status != HAL_OK) return status;
+	status = bq25731_set_bit_reg(INPUT_CURRENT_LIMIT_USE_REG, 0,INPUT_CURRENT_6400_MA_BIT); //Set max current input of power source
+	if(status != HAL_OK) return status;
+	status = bq25731_set_bit_reg(INPUT_VOLTAGE_REG,0 ,INPUT_VOLTAGE_8192_MV_BIT|INPUT_VOLTAGE_1024_MV_BIT); //Set min input voltage to 12.2V
+	if(status != HAL_OK) return status;
+	status = bq25731_clear_bit_reg(CHARGE_OPTION_2_REG, EN_EXTILIM_BIT, 0); //Disable external limit current circuit pin
+	if(status != HAL_OK) return status;
+	status = bq25731_set_bit_reg(CHARGE_OPTION_2_REG,EN_ICHG_IDCHG_BIT,0); //Enable IBAT is charge current
+	if(status != HAL_OK) return status;
+	status = bq25731_clear_bit_reg(CHARGE_OPTION_3_REG, OTG_VAP_MODE_BIT, 0); //Disable control OTG/VAP use by external pin
+	if(status != HAL_OK) return status;
+	status = bq25731_clear_bit_reg(CHARGE_OPTION_0_REG,0,WDTMR_ADJ_ENABLE_175S_BIT);//Clear 2 bit  to disable watdog
+	if(status != HAL_OK) return status;
+	//Enable ADC VSYS,VBUS, VBAT ,I charge,I discharge and start ADC with continuous mode
+	status = bq25731_set_adc_option(EN_ADC_IIN_BIT|EN_ADC_VBUS_BIT|EN_ADC_VSYS_BIT|EN_ADC_VBAT_BIT|EN_ADC_IDCHG_BIT|EN_ADC_ICHG_BIT, ADC_START_BIT|ADC_CONV_BIT);
+	if(status != HAL_OK) return status;
+
+	status = bq25731_read_charge_option_0(bq);
+	status = bq25731_read_charge_option_1(bq);
+	status = bq25731_read_charge_option_2(bq);
+	status = bq25731_read_charge_option_3(bq);
+
+	status = bq25731_read_reg(ADC_OPTION_REG, (uint8_t *)&bq->ADCOption, 2); //Read back ADC option
+
+	status = bq25731_set_charge_current();
+	return status;
+}
