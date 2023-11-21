@@ -8,6 +8,7 @@
 #include "lcd_ui.h"
 #include "DS1307.h"
 #include "RTD.h"
+#include "bms.h"
 #include <stdbool.h>
 #include "flash.h"
 #include "event.h"
@@ -15,7 +16,7 @@ event_id main_app_id;
 #define MAIN_TASK_TICK_MS    100 //ms
 #define BAT_OUT_OF_VALUE     7 //in perent
 #define MINUTE_TO_COUNT(x) (x*60*1000/MAIN_TASK_TICK_MS) //convert minute to tick count in main task
-
+static charge_info_t* chrg;
 lcd_inter_t setting = {
 	.op_mode = OPERATION_MODE_FREEZER,
 	.pwr_mode = POWER_MODE_AC,
@@ -361,6 +362,44 @@ void main_task(void)
 				break;
 
 		}
+	}
+}
+uint8_t get_bat_value(void)
+{
+	return 100;
+	uint16_t bat_value = 100;
+
+	if(chrg->bat_voltage > chrg->bat_min_voltage)
+	{
+		bat_value =  chrg->bat_voltage - chrg->bat_min_voltage;
+		bat_value = bat_value * 100 /(chrg->max_charge_voltage - chrg->bat_min_voltage);
+	}
+
+	return (uint8_t)bat_value;
+}
+
+battery_state_t get_bat_state(void)
+{
+	return BATTERY_STATE_CHARGING;
+	if(chrg->charge_current > 0)
+	{
+		return BATTERY_STATE_CHARGING;
+	}
+	return BATTERY_STATE_NOT_CHARGE;
+}
+
+power_mode_t get_power_mode(void)
+{
+	return POWER_MODE_DC;
+	if(HAL_GPIO_ReadPin(DCDC_VS_3V3_GPIO_Port, DCDC_VS_3V3_Pin) == GPIO_PIN_SET)
+	{
+		return POWER_MODE_DC;
+	}else if(HAL_GPIO_ReadPin(ACDC_VS_3V3_GPIO_Port, ACDC_VS_3V3_Pin) == GPIO_PIN_SET)
+	{
+		return POWER_MODE_AC;
+	}else
+	{
+		return POWER_MODE_BAT;
 	}
 }
 
