@@ -4,11 +4,11 @@
  *
  */
 
-
 #include "lcd_interface.h"
 #include "lcd_ui.h"
 #include "DS1307.h"
 #include "RTD.h"
+#include "bms.h"
 #include <stdbool.h>
 #include "flash.h"
 #include "event.h"
@@ -16,7 +16,7 @@ event_id main_app_id;
 #define MAIN_TASK_TICK_MS    100 //ms
 #define BAT_OUT_OF_VALUE     7 //in perent
 #define MINUTE_TO_COUNT(x) (x*60*1000/MAIN_TASK_TICK_MS) //convert minute to tick count in main task
-
+static charge_info_t* chrg;
 lcd_inter_t setting = {
 	.op_mode = OPERATION_MODE_FREEZER,
 	.pwr_mode = POWER_MODE_AC,
@@ -291,6 +291,19 @@ void main_task(void)
 			case MAIN_NORMAL_STATE:
 			    //Check current value is differ from lcd value -> update lcd
 				lcd_param =  lcd_interface_get_param();
+								if(lcd_param->op_mode != setting.op_mode)
+				{
+					lcd_param->op_mode = setting.op_mode;
+					if(lcd_param->op_mode == OPERATION_MODE_FREEZER)
+					{
+						cmprsr_power_on();
+					}else
+					{
+						cmprsr_power_off();
+					}
+
+					lcd_interface_show(lcd_state);
+				}
 				if(lcd_param->op_mode != setting.op_mode || lcd_param->pwr_mode != setting.pwr_mode
 				  || lcd_param->temperature != setting.temperature || lcd_param->bat_state != setting.bat_state
 				  || lcd_param->bat_value != setting.bat_value || lcd_param->spk_mode != setting.spk_mode
@@ -309,7 +322,7 @@ void main_task(void)
 					lcd_interface_show(lcd_state);
 					lcd_ui_refresh();
 				}
-				//Change state warning
+								//Change state warning
 				if(alarm_count.lid_open >= MINUTE_TO_COUNT(setting.alarm_lid)) //Warning lid higher priority
 				{
 					main_state = MAIN_WARNING_LID_OPEN_STATE;
@@ -349,6 +362,44 @@ void main_task(void)
 				break;
 
 		}
+	}
+}
+uint8_t get_bat_value(void)
+{
+	return 100;
+	uint16_t bat_value = 100;
+
+	if(chrg->bat_voltage > chrg->bat_min_voltage)
+	{
+		bat_value =  chrg->bat_voltage - chrg->bat_min_voltage;
+		bat_value = bat_value * 100 /(chrg->max_charge_voltage - chrg->bat_min_voltage);
+	}
+
+	return (uint8_t)bat_value;
+}
+
+battery_state_t get_bat_state(void)
+{
+	return BATTERY_STATE_CHARGING;
+	if(chrg->charge_current > 0)
+	{
+		return BATTERY_STATE_CHARGING;
+	}
+	return BATTERY_STATE_NOT_CHARGE;
+}
+
+power_mode_t get_power_mode(void)
+{
+	return POWER_MODE_DC;
+	if(HAL_GPIO_ReadPin(DCDC_VS_3V3_GPIO_Port, DCDC_VS_3V3_Pin) == GPIO_PIN_SET)
+	{
+		return POWER_MODE_DC;
+	}else if(HAL_GPIO_ReadPin(ACDC_VS_3V3_GPIO_Port, ACDC_VS_3V3_Pin) == GPIO_PIN_SET)
+	{
+		return POWER_MODE_AC;
+	}else
+	{
+		return POWER_MODE_BAT;
 	}
 }
 

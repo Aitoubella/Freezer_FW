@@ -97,13 +97,15 @@ HAL_StatusTypeDef bq25731_get_charge_current_reg(uint8_t* data)
 	return bq25731_read_reg(CHARGE_CURRENT_REG, data, 2);
 }
 
-HAL_StatusTypeDef bq25731_get_sys_and_bat_voltage(bq25731_t* bq, uint16_t *vbat, uint16_t *vsys)
+HAL_StatusTypeDef bq25731_set_charge_voltage(charge_voltage_t vol)
 {
-	HAL_StatusTypeDef result = bq25731_read_reg(ADC_SYS_AND_BAT_VOLTAGE_REG, (uint8_t *)&bq->ADCVSYS_VBAT, 2);
-	if(result != HAL_OK) return result;
-	uint32_t charge_voltage = 8*(BIT_TO_DEC(bq->ChargeVoltage.BIT,0) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,1) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,2) + BIT_TO_DEC(bq->ChargeVoltage.BIT,3) + \
-			  BIT_TO_DEC(bq->ChargeVoltage.BIT,4) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,5) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,6) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,7) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,8) +
-			  BIT_TO_DEC(bq->ChargeVoltage.BIT,9) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,10) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,10) +  BIT_TO_DEC(bq->ChargeVoltage.BIT,11));
+	uint8_t data[2] = {0};
+	switch((uint8_t)vol)
+	switch((uint16_t)vol)
+	{
+		case CHARGE_VOLTAGE_4200MV:
+			data[0] =  CHARGE_VOLTAGE_8_MV_BIT | CHARGE_VOLTAGE_32_MV_BIT | CHARGE_VOLTAGE_64_MV_BIT;
+@@ -113,12 +113,38 @@ HAL_StatusTypeDef bq25731_get_sys_and_bat_voltage(bq25731_t* bq, uint16_t *vbat,
 
 	if(charge_voltage <= 16800) //4cell bat
 	{
@@ -113,6 +115,38 @@ HAL_StatusTypeDef bq25731_get_sys_and_bat_voltage(bq25731_t* bq, uint16_t *vbat,
 	{
 		*vbat = bq->ADCVSYS_VBAT.VBAT * 64 + 8160;
 		*vsys = bq->ADCVSYS_VBAT.VSYS * 64 + 8160;
+		if(bq->ADCVSYS_VBAT.VBAT == 0)
+		{
+			*vbat = 0;
+		}else
+		{
+			*vbat = bq->ADCVSYS_VBAT.VBAT * 64 + 2880;
+		}
+		if(bq->ADCVSYS_VBAT.VSYS == 0)
+		{
+			*vsys = 0;
+		}else
+		{
+			*vsys = bq->ADCVSYS_VBAT.VSYS * 64 + 2880;
+		}
+	}else
+	{ //5cels
+		if(bq->ADCVSYS_VBAT.VBAT == 0)
+		{
+			*vbat = 0;
+		}else
+		{
+			*vbat = bq->ADCVSYS_VBAT.VBAT * 64 + 8160;
+		}
+		if(bq->ADCVSYS_VBAT.VSYS == 0)
+		{
+			*vsys = 0;
+		}else
+		{
+			*vsys = bq->ADCVSYS_VBAT.VSYS * 64 + 8160;
+		}
+
+
 	}
 	return result;
 }

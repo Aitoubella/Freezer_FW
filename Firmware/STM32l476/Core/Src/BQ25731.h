@@ -939,8 +939,31 @@ typedef enum
 	CHARGE_VOLTAGE_8400MV,
 	CHARGE_VOLTAGE_12600MV,
 	CHARGE_VOLTAGE_16800MV,
+	CHARGE_VOLTAGE_4200MV = 4200,
+	CHARGE_VOLTAGE_8400MV = 8400,
+	CHARGE_VOLTAGE_12600MV = 12600,
+	CHARGE_VOLTAGE_16800MV = 16800,
 }charge_voltage_t;
 
+typedef struct //21/20h
+{
+	uint8_t Fault_OTG_UVP:1;
+	uint8_t Fault_OTG_OVP:1;
+	uint8_t Fault_Force_Converter_Off:1;
+	uint8_t Fault_VSYS_UVP:1;
+	uint8_t Fault_SYSOVP:1;
+	uint8_t Fault_ACOC:1;
+	uint8_t Fault_BATOC:1;
+	uint8_t Fault_ACOV:1;
+	uint8_t IN_OTG:1;
+	uint8_t Reserved:1;
+	uint8_t IN_FCHRG:1;
+	uint8_t IN_IIN_DPM:1;
+	uint8_t IN_VINDPM:1;
+	uint8_t IN_VAP:1;
+	uint8_t ICO_DONE:1;
+	uint8_t STAT_AC:1;
+}ChargerStatus_t ;
 
 typedef struct
 {
@@ -1240,7 +1263,10 @@ typedef struct
 	}Vmin_Active_Protection;
 }bq25731_t;
 
+HAL_StatusTypeDef bq25731_read_reg(uint8_t reg, uint8_t *data, uint16_t len);
 
+HAL_StatusTypeDef bq25731_set_bit_reg(uint8_t reg, uint8_t lsb, uint8_t msb);
+HAL_StatusTypeDef bq25731_clear_bit_reg(uint8_t reg, uint8_t lsb, uint8_t msb);
 HAL_StatusTypeDef bq2573_set_charge_current(void);
 HAL_StatusTypeDef bq25731_get_device_id(uint8_t* dev_id);
 HAL_StatusTypeDef bq25731_get_manufacture_id(uint8_t* man_id);
@@ -1255,3 +1281,10 @@ HAL_StatusTypeDef bq25731_charge_option_0(uint8_t data1,uint8_t data2);
 HAL_StatusTypeDef bq25731_charge_option_1(uint8_t data1,uint8_t data2);
 HAL_StatusTypeDef bq25731_charge_option_3(uint8_t data1,uint8_t data2);
 HAL_StatusTypeDef bq25731_init(bq25731_t* bq);
+HAL_StatusTypeDef bq25731_read_charge_option_0(bq25731_t* bq);
+HAL_StatusTypeDef bq25731_read_charge_option_1(bq25731_t* bq);
+HAL_StatusTypeDef bq25731_read_charge_option_2(bq25731_t* bq);
+HAL_StatusTypeDef bq25731_read_charge_option_3(bq25731_t* bq);
+HAL_StatusTypeDef bq25731_set_adc_option(uint8_t lsb, uint8_t msb);
+HAL_StatusTypeDef bq25731_charge_option_0_clear_bit(uint8_t lsb, uint8_t msb);
+HAL_StatusTypeDef bq25731_set_charge_current(void);

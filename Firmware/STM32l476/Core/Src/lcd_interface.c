@@ -1026,6 +1026,28 @@ void lcd_interface_show(lcd_state_t state)
 	}
 }
 
+void button_cb(uint8_t btn_num, btn_evt_t evt)
+{
+	switch(btn_num)
+	{
+	case BTN_UP:
+		if(evt == BUTTON_HOLD_3_SEC)
+		{
+			operation_mode_t op_mode = OPERATION_MODE_FREEZER;
+			lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &op_mode);
+		}
+	break;
+	case BTN_DOWN:
+		if(evt == BUTTON_HOLD_3_SEC)
+		{
+			operation_mode_t op_mode = OPERATION_MODE_FRIDEGE;
+			lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &op_mode);
+		}
+	break;
+	}
+
+}
+
 lcd_state_t lcd_interface_get_state(void)
 {
 	return lcd_state;
