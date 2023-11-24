@@ -34,6 +34,11 @@ HAL_StatusTypeDef bq25731_write_reg(uint8_t reg, uint8_t *data, uint8_t len)
 HAL_StatusTypeDef bq25731_set_bit_reg(uint8_t reg, uint8_t lsb, uint8_t msb)
 {
 	uint8_t data[2] = {lsb,msb};
+	uint8_t data[2] = {0};
+	HAL_StatusTypeDef status = bq25731_read_reg(reg, data, 2);
+	if(status != HAL_OK) return status;
+	data[0] |= lsb;
+	data[1] |= msb;
 	return bq25731_write_reg(reg, data, 2);
 }
 HAL_StatusTypeDef bq25731_clear_bit_reg(uint8_t reg, uint8_t lsb, uint8_t msb)
@@ -272,6 +277,11 @@ HAL_StatusTypeDef bq25731_set_adc_option(uint8_t lsb, uint8_t msb)
 HAL_StatusTypeDef bq25731_read_adc_option(uint8_t* data)
 {
 	return bq25731_read_reg(ADC_OPTION_REG, data, 2);
+	return bq25731_read_reg(ADC_OPTION_REG, (uint8_t*)&bq->ADCOption, 2);
+}
+HAL_StatusTypeDef bq25731_disable_charge(bq25731_t* bq)
+{
+	return bq25731_clear_bit_reg(CHARGE_OPTION_0_REG, CHRG_INHIBIT_BIT , 0);
 }
 
 HAL_StatusTypeDef bq25731_init(bq25731_t* bq)

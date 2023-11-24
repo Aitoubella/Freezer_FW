@@ -1,3 +1,4 @@
+
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -25,6 +26,7 @@
 #include "i2c.h"
 #include "spi.h"
 #include "gpio.h"
+#include "bms.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -121,7 +123,9 @@ int main(void)
   //Board test
 //  board_test_init();
   //Lcd tft 320x240
-
+  //Battery managerment
+  ext_pwr_enable(); // On power for BQ25731
+  HAL_Delay(10);
   main_app_init();
 
   /* USER CODE END 2 */

@@ -132,6 +132,7 @@ ChargeVoltage() register and the ChargeCurrent register.
 #define CHARGE_CURRENT_2048_MA_BIT             2
 #define CHARGE_CURRENT_1024_MA_BIT             1
 #define CHARGE_CURRENT_500_MA_BIT              0
+#define CHARGE_CURRENT_512_MA_BIT              0x01
 #define CHARGE_CURRENT_8192_MA_BIT             0x10
 #define CHARGE_CURRENT_4096_MA_BIT             0x08
 #define CHARGE_CURRENT_2048_MA_BIT             0x04
@@ -1270,7 +1271,6 @@ HAL_StatusTypeDef bq25731_clear_bit_reg(uint8_t reg, uint8_t lsb, uint8_t msb);
 HAL_StatusTypeDef bq2573_set_charge_current(void);
 HAL_StatusTypeDef bq25731_get_device_id(uint8_t* dev_id);
 HAL_StatusTypeDef bq25731_get_manufacture_id(uint8_t* man_id);
-HAL_StatusTypeDef bq25731_set_charge_voltage(charge_voltage_t vol);
 HAL_StatusTypeDef bq25731_get_charge_voltage(bq25731_t* bq);
 HAL_StatusTypeDef bq25731_get_charge_status(bq25731_t* bq);
 HAL_StatusTypeDef bq25731_get_prochot_status(bq25731_t* bq);
@@ -1288,3 +1288,5 @@ HAL_StatusTypeDef bq25731_read_charge_option_3(bq25731_t* bq);
 HAL_StatusTypeDef bq25731_set_adc_option(uint8_t lsb, uint8_t msb);
 HAL_StatusTypeDef bq25731_charge_option_0_clear_bit(uint8_t lsb, uint8_t msb);
 HAL_StatusTypeDef bq25731_set_charge_current(void);
+HAL_StatusTypeDef bq25731_disable_charge(bq25731_t* bq);
+HAL_StatusTypeDef bq25731_set_charge_voltage(uint16_t mV);

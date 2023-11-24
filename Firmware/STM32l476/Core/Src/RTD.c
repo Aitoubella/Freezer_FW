@@ -43,7 +43,8 @@ event_id rtd_id;
 
 #define SAMPLE_MAX_COUNT    100
 uint8_t sample_count = 0;
-
+#define SAMPLE_MAX_COUNT    500
+uint32_t sample_count = 0;
 
 
 

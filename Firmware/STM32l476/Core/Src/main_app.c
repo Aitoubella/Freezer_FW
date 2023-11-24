@@ -367,7 +367,8 @@ void main_task(void)
 uint8_t get_bat_value(void)
 {
 	return 100;
-	uint16_t bat_value = 100;
+	//uint16_t bat_value = 100;
+	uint16_t bat_value = 0;
 
 	if(chrg->bat_voltage > chrg->bat_min_voltage)
 	{
@@ -375,7 +376,8 @@ uint8_t get_bat_value(void)
 		bat_value = bat_value * 100 /(chrg->max_charge_voltage - chrg->bat_min_voltage);
 	}
 
-	return (uint8_t)bat_value;
+    if(bat_value > 100) bat_value = 100;
+ 	return (uint8_t)bat_value;
 }
 
 battery_state_t get_bat_state(void)
@@ -413,4 +415,9 @@ void main_app_init(void)
 	lcd_interface_init();
 	event_add(main_task, &main_app_id, MAIN_TASK_TICK_MS);
 	event_active(&main_app_id);
+	power_board_init();
+	//Bms get charger infomation
+	chrg = bms_get_charge_info();
+	//Read setting from storage
+	flash_mgt_read((uint32_t *)&setting, sizeof(lcd_inter_t));
 }

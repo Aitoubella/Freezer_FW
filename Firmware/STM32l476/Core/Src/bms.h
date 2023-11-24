@@ -18,6 +18,7 @@ typedef struct
 	uint16_t sys_voltage;
 	uint16_t bus_voltage;
 	uint16_t power_sys;
+	uint16_t bat_max_discharg_voltage;
 	ChargerStatus_t* status;
 }charge_info_t;
 
