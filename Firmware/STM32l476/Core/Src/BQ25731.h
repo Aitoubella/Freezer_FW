@@ -1,4 +1,5 @@
 
+
 #ifndef INC_BQ25731_H_
 #define INC_BQ25731_H_
 #include "main.h"

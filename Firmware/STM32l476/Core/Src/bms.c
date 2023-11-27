@@ -8,8 +8,17 @@
 #include "main.h"
 #include "event.h"
 #include "bms.h"
+#include "lcd_ui.h"
 event_id bms_id;
 #define BATTERY_CELL         1
+#define USE_TEST               1
+#ifdef USE_TEST
+#define BATTERY_CELL                  1
+#define POWER_SUPPLY_VOLTAGE_MIN      11000 //mV
+#else
+#define BATTERY_CELL                  4
+#define POWER_SUPPLY_VOLTAGE_MIN      22000 //mV
+#endif
 
 
 #define VOLTAGE_BATTERY     (CHARGE_VOLTAGE_4200MV*BATTERY_CELL)
@@ -17,6 +26,7 @@ event_id bms_id;
 #define MIN_VOLTATE         (2700*BATTERY_CELL)
 #define BATTERRY_VOLTAGE_MV       (4200*BATTERY_CELL)
 #define START_CHARGING_VOLTAGE    (BATTERRY_VOLTAGE_MV - BATTERY_CELL * 200)
+#define MAX_CHARGE_CURRENT        2000//mA
 static bq25731_t bq25731;
 
 static charge_info_t charge =
@@ -37,14 +47,18 @@ typedef enum
 typedef enum
 {
 	BMS_CHARGING_STATE = 0,
+    BMS_START_STATE = 0,
+	BMS_CHARGING_STATE,
 	BMS_CHARGING_WAITING_STATE,
 	BMS_CHARGE_FULL_STATE,
 	BMS_CHARGE_FULL_WATING_STATE,
 	BMS_DISCHARGE_STATE,
 	BMS_DISCHARGE_WAITING_STATE,
+	BMS_BAT_SHUTDOWN_STATE,
 }bms_state_t;
 
-bms_state_t bms_state = BMS_CHARGING_STATE;
+//bms_state_t bms_state = BMS_CHARGING_STATE;
+bms_state_t bms_state = BMS_START_STATE;
 
 charge_stage_t charge_state = CHARGE_STAGE_1;
 
@@ -69,8 +83,25 @@ void bms_task(void)
 	}else
 	{
 		full_charge_count = 0;
+		case BMS_START_STATE:
+			bq25731_set_charge_current(0); //Change voltage and current to 0 for detect bat
+			if(charge.bus_voltage > 12000) //Check bat voltage and sys voltage ok -> charge
+			{
+				if(charge.bat_voltage > 2300)
+				{
+					bms_state = BMS_CHARGING_STATE;
+				}else
+				{
+					bms_state = BMS_BAT_SHUTDOWN_STATE;
+				}
+			}else
+			{
+				bms_state = BMS_DISCHARGE_STATE;
+			}
+			break;
 		case BMS_CHARGING_STATE:
 			bq25731_set_charge_current(2000); //Turn on charge
+			bq25731_set_charge_current(MAX_CHARGE_CURRENT); //Turn on charge
 			charge.is_charging = 1;
 			full_charge_count = 0;
 			bms_state = BMS_CHARGING_WAITING_STATE;
@@ -88,7 +119,8 @@ void bms_task(void)
 					bms_state = BMS_CHARGE_FULL_STATE;
 				}
 			}
-			if(charge.discharge_current > 128 && charge.charge_current == 0) //Power for charging is off
+			//if(charge.discharge_current > 128 && charge.charge_current == 0) //Power for charging is off
+			if(charge.bus_voltage < POWER_SUPPLY_VOLTAGE_MIN) //If power off
 			{
 				bms_state = BMS_DISCHARGE_STATE;
 			}
@@ -99,23 +131,36 @@ void bms_task(void)
 			bms_state = BMS_CHARGE_FULL_WATING_STATE;
 			break;
 		case BMS_CHARGE_FULL_WATING_STATE:
-			if(charge.discharge_current > 128 && charge.charge_current == 0) //Power for charging is off
+			//if(charge.discharge_current > 128 && charge.charge_current == 0) //Power for charging is off
+			if(charge.bat_voltage <= START_CHARGING_VOLTAGE) //If bat voltage is go down minimum -> need to charge again
 			{
-				bms_state = BMS_DISCHARGE_STATE;
+				//bms_state = BMS_DISCHARGE_STATE;
+				bms_state = BMS_START_STATE;
 			}
-			if(charge.bat_voltage <= START_CHARGING_VOLTAGE && charge.bat_voltage > 0) //If bat voltage is go down minimum -> need to charge again
+			//if(charge.bat_voltage <= START_CHARGING_VOLTAGE && charge.bat_voltage > 0) //If bat voltage is go down minimum -> need to charge again
+			if(charge.bus_voltage < POWER_SUPPLY_VOLTAGE_MIN) //If power off
 			{
-				bms_state = BMS_CHARGING_STATE;
+			//	bms_state = BMS_CHARGING_STATE;
+				bms_state = BMS_DISCHARGE_STATE;
 			}
 			break;
 		case BMS_DISCHARGE_STATE:
-			charge.is_charging = 0;
-			bms_state = BMS_DISCHARGE_WAITING_STATE;
+			//if(charge.discharge_current == 0) //Power on
+			if(charge.bus_voltage > POWER_SUPPLY_VOLTAGE_MIN) //Check power back on
+			{
+				bms_state = BMS_START_STATE;
+			}
+			if(charge.bat_voltage < charge.bat_min_voltage) //Shut down power to protect bat
+			{
+				bq25731_set_charge_current(0);
+				bms_state = BMS_BAT_SHUTDOWN_STATE;
+			}
 			break;
 		case BMS_DISCHARGE_WAITING_STATE:
 			if(charge.discharge_current == 0) //Power on
 			{
-				bms_state = BMS_CHARGING_STATE;
+				//bms_state = BMS_CHARGING_STATE;
+				bms_state = BMS_START_STATE;
 			}
 			break;
 

@@ -1,4 +1,5 @@
 
+
 #include "BQ25731.h"
 #include "i2c.h"
 #include "main.h"
@@ -88,15 +89,16 @@ HAL_StatusTypeDef bq25731_set_charge_voltage(charge_voltage_t vol)
 }
 
 
-
-HAL_StatusTypeDef bq25731_set_charge_current(void)
+HAL_StatusTypeDef bq25731_set_charge_current(uint16_t mA)
 {
+	mA /= 128;
 	uint8_t data[2] = {0};
 	data[0] = CHARGE_CURRENT_256_MA_BIT;
 	data[1] = CHARGE_CURRENT_8192_MA_BIT;
+	data[0] = (mA & 0b11) << 6; //Get bit 0,1  to fit bit 6,7
+	data[1] = mA >> 2; //Get bit 2->6 fit bit 0->5
 	return bq25731_write_reg(CHARGE_CURRENT_REG, data, 2);
 }
-
 HAL_StatusTypeDef bq25731_get_charge_current_reg(uint8_t* data)
 {
 	return bq25731_read_reg(CHARGE_CURRENT_REG, data, 2);
@@ -150,9 +152,11 @@ HAL_StatusTypeDef bq25731_set_charge_voltage(charge_voltage_t vol)
 		{
 			*vsys = bq->ADCVSYS_VBAT.VSYS * 64 + 8160;
 		}
-
-
+		mv /= 8; //Each bit is 8mV
+		data[0] = (mv & 0b11111) << 3; //Get bit 0->4  and fit bit 3->7 reg
+		data[1] = mv >> 5; //Get bit 5->11 fit 0->6 reg
 	}
+	
 	return result;
 }
 
