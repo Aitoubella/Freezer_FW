@@ -365,17 +365,23 @@ void main_task(void)
 }
 uint8_t get_bat_value(void)
 {
-	return 100;
-	//uint16_t bat_value = 100;
-	uint16_t bat_value = 0;
+//	uint16_t bat_value = 0;
 
-	if(chrg->bat_voltage > chrg->bat_min_voltage)
-	{
-		bat_value =  chrg->bat_voltage - chrg->bat_min_voltage;
-		bat_value = bat_value * 100 /(chrg->max_charge_voltage - chrg->bat_min_voltage);
-	}
+//	if(chrg->bat_voltage > chrg->bat_min_voltage)
+//	{
+//		bat_value =  chrg->bat_voltage - chrg->bat_min_voltage;
+//		bat_value = bat_value * 100 /(chrg->max_charge_voltage - chrg->bat_min_voltage);
+//	}
+//	if(bat_value > 100) bat_value = 100;
+	uint32_t bat_value = 0;
 
-    if(bat_value > 100) bat_value = 100;
+//	if(chrg->bat_voltage > chrg->bat_min_voltage)
+//	{
+//		bat_value =  chrg->bat_voltage - chrg->bat_min_voltage;
+//		bat_value = bat_value * 100 /(chrg->max_charge_voltage - chrg->bat_min_voltage);
+//	}
+//	if(bat_value > 100) bat_value = 100;
+	bat_value = bms_voltage_to_percent(chrg->bat_voltage);
  	return (uint8_t)bat_value;
 }
 
