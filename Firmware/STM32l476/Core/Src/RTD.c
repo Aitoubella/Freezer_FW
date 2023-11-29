@@ -1,5 +1,6 @@
 /*
  * RTD.c
+ *
  */
 
 
@@ -10,10 +11,11 @@
 #include "stm32l4xx_hal.h"
 #include "quartic.h"
 #include <string.h>
+
 #define ADC_VREF_mV           3359       //Voltage adc in mV
 #define RTD_MAX_CHANNEL   6
 
-
+bool rtd_init_done = false;
 
 #define RTD_ADC_USE_DMA  1
 
@@ -24,8 +26,7 @@
 #define RTD2_ADC 	 {ADC_CHANNEL_7,ADC_REGULAR_RANK_1,ADC_SAMPLETIME_640CYCLES_5}
 #define RTD3_ADC  	 {ADC_CHANNEL_13,ADC_REGULAR_RANK_1,ADC_SAMPLETIME_640CYCLES_5}
 #define RTD4_ADC  	 {ADC_CHANNEL_14,ADC_REGULAR_RANK_1,ADC_SAMPLETIME_640CYCLES_5}
-#define SAMPLE_MAX_COUNT    500
-uint32_t sample_count = 0;
+
 
 ADC_ChannelConfTypeDef RTD_ADC_LIST[] = {RTD5_ADC,RTD6_ADC, RTD1_ADC, RTD2_ADC, RTD3_ADC, RTD4_ADC};
 #endif
@@ -41,10 +42,9 @@ event_id rtd_id;
 //0.00375 ±0.000029 ohm -> 1 kohm  0c
 //
 
-#define SAMPLE_MAX_COUNT    100
-uint8_t sample_count = 0;
 #define SAMPLE_MAX_COUNT    500
 uint32_t sample_count = 0;
+
 
 
 
@@ -149,6 +149,7 @@ void rtd_task(void)
 
 		temperature_result[i] = creal(result[3]);
 	}
+	rtd_init_done = true;
 	event_inactive(&rtd_id);
 #endif
 }
@@ -159,6 +160,10 @@ double rtd_get_temperature(rtd_t rtd)
 }
 
 
+bool is_rtd_started(void)
+{
+	return rtd_init_done;
+}
 
 
 

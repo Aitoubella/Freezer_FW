@@ -35,7 +35,8 @@ typedef enum
 
 typedef enum
 {
-	POWER_MODE_DC = 0,
+	POWER_MODE_BAT = 0,
+	POWER_MODE_DC,
 	POWER_MODE_AC,
 }power_mode_t;
 
@@ -174,11 +175,17 @@ typedef enum
 
 typedef enum
 {
-	WARNING_TYPE_UNDER_MIN_TEMP = 0,
+	WARNING_TYPE_NONE = 0,
+	WARNING_TYPE_UNDER_MIN_TEMP,
 	WARNING_TYPE_OVER_MAX_TEMP,
 	WARNING_TYPE_LID_OPEN,
 }warning_type_t;
 
+typedef enum
+{
+	LID_CLOSE = 0,
+	LID_OPEN,
+}lid_state_t;
 typedef struct
 {
 	uint16_t year;

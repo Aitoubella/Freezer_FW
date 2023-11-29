@@ -1,4 +1,3 @@
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -26,7 +25,6 @@
 #include "i2c.h"
 #include "spi.h"
 #include "gpio.h"
-#include "bms.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -39,6 +37,8 @@
 #include "board.h"
 #include "lcd_interface.h"
 #include "main_app.h"
+#include "logging.h"
+#include "bms.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -111,21 +111,22 @@ int main(void)
   MX_I2C1_Init();
   MX_CRC_Init();
   /* USER CODE BEGIN 2 */
-//  test_log_init();
+
+  logging_init();
   event_init();
-  //Buzzer or led use
-//  led_init();
-//  buzzer_init();
-  //Init i2c periph for DS1307
-  DS1307_Init(&hi2c2);
   //RTD temperature sensor
   rtd_init();
-  //Board test
-//  board_test_init();
-  //Lcd tft 320x240
+  //Buzzer
+  buzzer_init();
+  //Init i2c periph for DS1307
+  DS1307_Init(&hi2c2);
+
   //Battery managerment
   ext_pwr_enable(); // On power for BQ25731
   HAL_Delay(10);
+  bms_init();
+
+  //Main app process
   main_app_init();
 
   /* USER CODE END 2 */
@@ -158,10 +159,16 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 
+  /** Configure LSE Drive Capability
+  */
+  HAL_PWR_EnableBkUpAccess();
+  __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
+
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE|RCC_OSCILLATORTYPE_MSI;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
   RCC_OscInitStruct.MSICalibrationValue = 0;
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
@@ -190,6 +197,10 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
+  /** Enable MSI Auto calibration
+  */
+  HAL_RCCEx_EnableMSIPLLMode();
 }
 
 /* USER CODE BEGIN 4 */

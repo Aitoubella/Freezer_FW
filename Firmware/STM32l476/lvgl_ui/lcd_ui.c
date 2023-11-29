@@ -148,7 +148,10 @@ void lcd_main_screen_screen(speaker_mode_t sp_mode, int16_t temperature, power_m
 		lcd_label_set_param(operation_mode.obj, "Fridge", -2, -18, operation_mode.font, WHITE_COLOR);
 	}
 
-	if(pwr_mode)
+	if(pwr_mode == POWER_MODE_DC)
+	{
+		lcd_label_set_param(power_mode.obj, "DC", -104, 63,power_mode.font, WHITE_COLOR);
+	}else if(pwr_mode == POWER_MODE_AC)
 	{
 		lcd_label_set_param(power_mode.obj, "AC", -104, 63,power_mode.font, WHITE_COLOR);
 	}else
@@ -937,9 +940,6 @@ void lcd_service_alarms_warning(operation_mode_t mode, warning_type_t type)
 	}else if(type == WARNING_TYPE_LID_OPEN)
 	{
 		lcd_label_set_param(type_obj.obj, "Lid Open", 40, 45, type_obj.font, WHITE_COLOR);
-	}else
-	{
-		lcd_label_set_param(type_obj.obj, "Lid Close", 40, 45, type_obj.font, WHITE_COLOR);
 	}
 
 	lcd_label_set_param(warning_symbol.obj, LV_SYMBOL_WARNING, -108, 32, warning_symbol.font, WHITE_COLOR);

@@ -10,5 +10,6 @@
 #include "led.h"
 extern led_t buzzer;
 void buzzer_init(void);
-void buzzer_togle(led_t* buzzer, uint16_t on_ms, uint16_t off_ms, uint16_t count);
+void buzzer_togle(uint16_t on_ms, uint16_t off_ms, uint16_t count);
+void buzzer_stop(void);
 #endif /* SRC_BUZZER_H_ */

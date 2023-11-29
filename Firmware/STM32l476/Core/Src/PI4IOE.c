@@ -1,13 +1,12 @@
 /*
  * PI4IOE.c
- *
  */
 
 
 #include "PI4IOE.h"
 #include "i2c.h"
 #include "main.h"
-#define PI4IOE_I2C_ADDR   0x02
+#define PI4IOE_I2C_ADDR   0x21
 
 #define PI4IOE_I2C        hi2c1
 
@@ -56,12 +55,17 @@ PI4IO_GPIO_Typedef_t PI4IO_GPIO1 = PI4IO_PORT_1;
 
 HAL_StatusTypeDef PI4IOE_Write_Reg(uint8_t reg, uint8_t data)
 {
-	return HAL_I2C_Mem_Write(&PI4IOE_I2C, PI4IOE_I2C_ADDR, reg, 1, &data, 1, 100);
+	uint8_t data_temp[2] = {reg,data};
+	return HAL_I2C_Master_Transmit(&PI4IOE_I2C, (PI4IOE_I2C_ADDR << 1),data_temp, 2, 100);
 }
 
 HAL_StatusTypeDef PI4IOE_Read_Reg(uint8_t reg, uint8_t* data)
 {
-	return HAL_I2C_Mem_Read(&PI4IOE_I2C, PI4IOE_I2C_ADDR, reg, 1, data, 1, 100);
+	HAL_StatusTypeDef status = HAL_OK;
+	status = HAL_I2C_Master_Transmit(&PI4IOE_I2C, (PI4IOE_I2C_ADDR << 1) | 0x01, &reg, 1, 100); //Send write operation to move to reg
+	if(status != HAL_OK) return status;
+
+	return HAL_I2C_Master_Receive(&PI4IOE_I2C, (PI4IOE_I2C_ADDR << 1), data, 1, 100); //Read 1 data from current reg
 }
 
 HAL_StatusTypeDef PI4IOE_GPIO_Mode_Input(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin)
@@ -151,11 +155,10 @@ HAL_StatusTypeDef PI4IOE_GPIO_Set_Input_Invert(PI4IO_GPIO_Typedef_t* gpio, uint8
 
 HAL_StatusTypeDef PI4IOE_GPIO_Read_Input(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin, PI4IO_State_t* state)
 {
-	HAL_StatusTypeDef status = HAL_OK;
 	uint8_t value = 0;
-	status = PI4IOE_Read_Reg(gpio->input,&value);
-	if(status != HAL_OK) return status;
-	*state = (PI4IO_State_t) (value & pin);
+	HAL_StatusTypeDef status = PI4IOE_Read_Reg(gpio->input,&value);
+	if(value & pin) return *state = PI4IO_PIN_SET;
+	else *state = PI4IO_PIN_RESET;
 	return status;
 }
 

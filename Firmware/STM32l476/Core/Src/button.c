@@ -1,4 +1,3 @@
-
 #include "button.h"
 #include "event.h"
 #include <stdint.h>

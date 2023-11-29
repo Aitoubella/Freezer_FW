@@ -23,15 +23,24 @@
 #define EX_PWR_ON_GPIO         EXT_PWR_ON_Z_GPIO_Port
 #define EX_PWR_ON_PIN          EXT_PWR_ON_Z_Pin
 
+
+
+
 void power_board_init(void);
 void cmprsr_fan_on(void);
 void cmprsr_fan_off(void);
 void cmprsr_power_on(void);
-void cmprsr_pwer_off(void);
+void cmprsr_power_off(void);
 void ext_pwr_enable(void);
 void ext_pwr_disable(void);
 HAL_StatusTypeDef cmprsr_get_fault(PI4IO_State_t* state);
 
+void fan1_on(void);
+void fan1_off(void);
+void fan2_on(void);
+void fan2_off(void);
+void htr_on(void);
+void htr_off(void);
 
 
 #endif /* SRC_POWER_BOARD_H_ */

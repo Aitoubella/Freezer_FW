@@ -1,6 +1,5 @@
 /*
  * lcd_interface.c
- *
  */
 
 
@@ -12,7 +11,7 @@
 #include "ili9341.h"
 extern lcd_inter_t setting;
 
-static uint8_t lcd_state = LCD_MAIN_STATE;
+uint8_t lcd_state = LCD_MAIN_STATE;
 
 lcd_inter_t lcd =
 {
@@ -36,12 +35,16 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_state = LCD_MAIN_STATE;
 				break;
 			case LCD_TURN_OFF_UNIT_YES_STATE:
+				lcd_get_set_cb(LCD_POWER_OFF_EVT, NULL);
 				LED_L(); //Turn off Back Light led
 				lcd_state = LCD_OFF_DISPLAY_WATING;
 				break;
-			case LCD_OFF_DISPLAY_WATING:
-				lcd_state = LCD_MAIN_STATE;
-				LED_H(); //On Back light when press button.
+//On Back light when press button.
+				break;
+			case LCD_WARNING_TYPE_UNDER_MIN_TEMP_STATE:
+			case LCD_WARNING_TYPE_OVER_MAX_TEMP_STATE:
+			case LCD_WARNING_TYPE_LID_OPEN_STATE:
+				lcd_state = LCD_OPERATION_MODE_STATE; //if in state warning -> press enter to go to next setting
 				break;
 			//level 1
 			case LCD_MAIN_STATE:
@@ -70,13 +73,13 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			//level 2 enter to level 3
 			//Operation mode
 			case LCD_OPERATION_MODE_FREEZER_STATE:
-				lcd.op_mode = OPERATION_MODE_FREEZER;
-				lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &lcd.op_mode);
+				operation_mode_t op_mode = OPERATION_MODE_FREEZER;
+				lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &op_mode);
 				lcd_state = LCD_SETTING_STATE;
 				break;
 			case LCD_OPERATION_MODE_FRIDEGE_STATE:
-				lcd.op_mode = OPERATION_MODE_FRIDEGE;
-				lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &lcd.op_mode);
+				operation_mode_t op_mode_1 = OPERATION_MODE_FRIDEGE;
+				lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &op_mode_1);
 				lcd_state = LCD_SETTING_STATE;
 				break;
 			case LCD_OPERATION_MODE_BACK_STATE:
@@ -85,8 +88,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 
 			//setting date time
 			case LCD_SETTING_DATETIME_STATE:
-				DS1307_GetDate(&lcd.datetime.day,&lcd.datetime.month,&lcd.datetime.year);
-				DS1307_GetTime(&lcd.datetime.hour,&lcd.datetime.minute,&lcd.datetime.second);
+				memcpy((uint8_t *)&lcd.datetime, (uint8_t *)&setting.datetime, sizeof(lcd.datetime));
 				lcd_state = LCD_SETTING_DATETIME_YEAR_STATE;
 				break;
 			//setting download data
@@ -299,6 +301,11 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				has_event  = 1;
 				lcd_turn_off_unit(DISPLAY_UINIT_NO);
 				lcd_state = LCD_TURN_OFF_UNIT_NO_STATE;
+			}else if(lcd_state == LCD_OFF_DISPLAY_WATING)
+			{
+				lcd_state = LCD_MAIN_STATE;
+				LED_H();
+				lcd_get_set_cb(LCD_PWER_ON_EVT, NULL);
 			}
 		}
 		break;
@@ -771,10 +778,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 	}
 	if(has_event)
 	{
-
-		lcd_ui_clear();
 		lcd_interface_show(lcd_state);
-		lcd_ui_refresh();
 		has_event  = 0;
 	}
 }
@@ -782,6 +786,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 
 void lcd_interface_show(lcd_state_t state)
 {
+	lcd_ui_clear();
 	switch((uint8_t)state)
 	{
 	case LCD_TURN_OFF_UNIT_NO_STATE:
@@ -1024,28 +1029,7 @@ void lcd_interface_show(lcd_state_t state)
 		lcd_service_alarms_warning(lcd.op_mode, WARNING_TYPE_LID_OPEN);
 		break;
 	}
-}
-
-void button_cb(uint8_t btn_num, btn_evt_t evt)
-{
-	switch(btn_num)
-	{
-	case BTN_UP:
-		if(evt == BUTTON_HOLD_3_SEC)
-		{
-			operation_mode_t op_mode = OPERATION_MODE_FREEZER;
-			lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &op_mode);
-		}
-	break;
-	case BTN_DOWN:
-		if(evt == BUTTON_HOLD_3_SEC)
-		{
-			operation_mode_t op_mode = OPERATION_MODE_FRIDEGE;
-			lcd_get_set_cb(LCD_SET_OPERATION_MODE_EVT, &op_mode);
-		}
-	break;
-	}
-
+	lcd_ui_refresh();
 }
 
 lcd_state_t lcd_interface_get_state(void)

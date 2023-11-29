@@ -1,10 +1,10 @@
-
 #include "led.h"
 #include "main.h"
 #include "event.h"
-
+#define LED_TASK_INTERRUPT      1
+#if(LED_TASK_INTERRUPT != 1)
 static event_id led_id;
-
+#endif
 #define LED_LOGIC_ON        GPIO_PIN_SET
 #define LED_LOGIC_OFF       GPIO_PIN_RESET
 
@@ -111,10 +111,29 @@ void led_init(void)
 {
 	if(led_initialize) return; //Check if led library is init before
 	led_initialize = 1;
+#if(LED_TASK_INTERRUPT != 1)
 	event_add(led_task, &led_id, LED_TICK);
 	event_active(&led_id);
+#endif
 }
 
+#if(LED_TASK_INTERRUPT == 1)
+/*
+ * @bref This function run on interrupt, in case event task is delay use for sound to generate buzzer timing exactly
+ *       This function must be place in 1ms interrupt handler
+ * @param ms :task timing running.
+ * */
+void led_task_interrupt(uint8_t ms)
+{
+	static uint8_t ms_tick = 0;
+	ms_tick ++;
+	if(ms_tick >= ms)
+	{
+		ms_tick = 0;
+		led_task();
+	}
+}
+#endif
 void led_add(led_t* l)
 {
 	if(led_count >= MAX_LED)

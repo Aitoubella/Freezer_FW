@@ -26,6 +26,8 @@ typedef struct
 	uint8_t logging_interval;
 	int8_t temp_offset;
 	uint8_t alarm_mute_duration;
+	lid_state_t lid_state;
+	warning_type_t warning_type;
 }lcd_inter_t;
 
 typedef enum
@@ -177,6 +179,9 @@ typedef enum
 	LCD_USB_INSERT_DOWNLOAD_EVT,
 
 	LCD_MAIN_FRAME_EVT,
+
+	LCD_POWER_OFF_EVT,
+	LCD_PWER_ON_EVT,
 }lcd_get_set_evt_t;
 
 void lcd_interface_init(void);

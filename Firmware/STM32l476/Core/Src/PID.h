@@ -1,22 +1,21 @@
-
 #ifndef _PID_
 #define _PID_
 #include <stdbool.h>
 
 
-
+void PID_init(void);
 // Methods - double
-double compute(double input);
+double PID_compute(double input);
 
 // Methods - void
-void begin();
-void tune(double _Kp, double _Ki, double _Kd);
-void limit(double min, double max);
-void setpoint(double newSetpoint);
-void minimize(double newMinimize);
+
+void PID_tune(double _Kp, double _Ki, double _Kd);
+void PID_limit(double min, double max);
+void PID_set_point(double newSetpoint);
+void PID_set_divisor(double newMinimize);
 
 // Methods - double, getters
-double getOutput();
+double PID_getOutput();
 
 
 

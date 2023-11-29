@@ -1,8 +1,17 @@
-
 #include "logging.h"
 #include "fatfs.h"
 #include <string.h>
 #include <stdio.h>
+
+const char* op_mode_str[] = { [OPERATION_MODE_FRIDEGE] = "FRIDGE", [OPERATION_MODE_FREEZER] = "FREEZER" };
+const char* power_mode_str[] = {[POWER_MODE_DC] = "DC", [POWER_MODE_AC] = "AC"};
+const char* speaker_mode_str[] = {[SPEAKER_MODE_OFF] = "MUTE", [POWER_MODE_AC] = "ON"};
+const char* bat_state_str[] = {[BATTERY_STATE_CHARGING] = "CHARGING", [POWER_MODE_AC] = "NOT CHARGE"};
+const char* warning_type_str[] = {[WARNING_TYPE_NONE] = "NO WARNING",[WARNING_TYPE_UNDER_MIN_TEMP] = "WARNING UNDER MIN TEMP", [WARNING_TYPE_OVER_MAX_TEMP] = "WARNING OVER MAX TEMP", [WARNING_TYPE_LID_OPEN] = "WARNING LID OPEN"};
+const char* lid_state_str[] = {[LID_CLOSE] = "LID CLOSE", [LID_OPEN] = "LID OPEN"};
+
+
+
 //some variables for FatFs
 FATFS FatFs; 	//Fatfs handle
 FIL fil; 		//File handle
@@ -40,36 +49,36 @@ FRESULT logging_init(void)
 	return fres;
 }
 
-//FRESULT logging_write(char* file, lcd_inter_t* dat)
-//{
-//	FRESULT fres = FR_OK; //Result after operations
-//	//Now let's try and write a file "write.txt"
-//	fres = f_open(&fil, file, FA_WRITE | FA_OPEN_APPEND);
-//	if(fres == FR_OK)
-//	{
-//		printf("\r\nOpen %s for writing",file);
-//	} else
-//	{
-//		printf("\r\nf_open error (%i)", fres);
-//		return fres;
-//	}
-//	uint8_t len;
-//	//Copy in a string
-//	len = sprintf((char*)readBuf, "%s,%s,%s,%d/%d/%d,%d:%d:%d,Target: %d Freq: %d Hz,Target: %d Fre: %d Hz, Target: %d Patrol: %d Fre: %d Hz/%d Hz\r\n",
-//			dat->device_serial_id,dat->old_radar_id,dat->old_user_id,dat->date.Month,
-//			dat->date.Date,dat->date.Year,dat->time.Hours,dat->time.Minutes,dat->time.Seconds,
-//			dat->tar_1.target,dat->tar_1.fre,dat->tar_2.target,dat->tar_2.fre,dat->target,dat->patrol,dat->fre1,dat->fre2);
-//	UINT bytesWrote;
-//	fres = f_write(&fil, readBuf, len, &bytesWrote);
-//	if(fres == FR_OK)
-//	{
-//		printf("\r\nWrote %i bytes to %s!", bytesWrote, file);
-//	} else
-//	{
-//		printf("\r\nf_write error (%i)", fres);
-//	}
-//
-//	//Be a tidy kiwi - don't forget to close your file!
-//	f_close(&fil);
-//	return fres;
-//}
+FRESULT logging_write(char* file, lcd_inter_t* dat)
+{
+	FRESULT fres = FR_OK; //Result after operations
+	fres = f_open(&fil, file, FA_WRITE | FA_OPEN_APPEND);
+	if(fres == FR_OK)
+	{
+		printf("\r\nOpen %s for writing",file);
+	} else
+	{
+		printf("\r\nf_open error (%i)", fres);
+		return fres;
+	}
+	uint8_t len;
+
+	//Date and timeOperation mode, temperature, bat value , bat state, power mode, lid state, warning,
+	//Copy in a string
+	len = sprintf((char*)readBuf, ",%d/%d/%d %d:%d:%d, %d,%d,%s,%s,%s,%s\r\n",
+			                        dat->datetime.year, dat->datetime.month, dat->datetime.day, dat->datetime.hour, dat->datetime.minute, dat->datetime.second,
+									dat->temperature, dat->bat_value, bat_state_str[dat->bat_state], power_mode_str[dat->pwr_mode], lid_state_str[dat->lid_state], warning_type_str[dat->warning_type]);
+	UINT bytesWrote;
+	fres = f_write(&fil, readBuf, len, &bytesWrote);
+	if(fres == FR_OK)
+	{
+		printf("\r\nWrote %i bytes to %s!", bytesWrote, file);
+	} else
+	{
+		printf("\r\nf_write error (%i)", fres);
+	}
+
+	//Be a tidy kiwi - don't forget to close your file!
+	f_close(&fil);
+	return fres;
+}

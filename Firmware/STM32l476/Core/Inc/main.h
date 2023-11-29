@@ -97,6 +97,8 @@ void Error_Handler(void);
 #define SD_CS_GPIO_Port GPIOB
 #define SD_SPI2_SCK_Pin GPIO_PIN_13
 #define SD_SPI2_SCK_GPIO_Port GPIOB
+#define EXT_PWR_ON_Z_Pin GPIO_PIN_14
+#define EXT_PWR_ON_Z_GPIO_Port GPIOB
 #define SD_SPI2_MOSI_Pin GPIO_PIN_15
 #define SD_SPI2_MOSI_GPIO_Port GPIOB
 #define CMPRSR_SPD_Pin GPIO_PIN_9
@@ -127,6 +129,14 @@ void Error_Handler(void);
 #define TFT_SPI3_MISO_GPIO_Port GPIOC
 #define TFT_SPI3_MOSI_Pin GPIO_PIN_12
 #define TFT_SPI3_MOSI_GPIO_Port GPIOC
+#define VMAIN_VS_3V3_Pin GPIO_PIN_0
+#define VMAIN_VS_3V3_GPIO_Port GPIOD
+#define VBAT_VS_3V3_Pin GPIO_PIN_1
+#define VBAT_VS_3V3_GPIO_Port GPIOD
+#define DCDC_VS_3V3_Pin GPIO_PIN_2
+#define DCDC_VS_3V3_GPIO_Port GPIOD
+#define ACDC_VS_3V3_Pin GPIO_PIN_3
+#define ACDC_VS_3V3_GPIO_Port GPIOD
 #define HTR_CTL_Pin GPIO_PIN_5
 #define HTR_CTL_GPIO_Port GPIOD
 #define FAN_CTL1_Pin GPIO_PIN_6

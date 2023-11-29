@@ -1,11 +1,12 @@
 /*
  * PI4IOE.h
+ *
  */
 
 #ifndef SRC_PI4IOE_H_
 #define SRC_PI4IOE_H_
 #include <stdint.h>
-
+#include "main.h"
 
 #define PI4IO_GPIO_PIN_0                 ((uint8_t)0x01)  /* Pin 0 selected    */
 #define PI4IO_GPIO_PIN_1                 ((uint8_t)0x02)  /* Pin 1 selected    */
@@ -50,4 +51,15 @@ typedef enum
 
 extern PI4IO_GPIO_Typedef_t PI4IO_GPIO0;
 extern PI4IO_GPIO_Typedef_t PI4IO_GPIO1;
+
+HAL_StatusTypeDef PI4IOE_GPIO_Mode_Input(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin);
+HAL_StatusTypeDef PI4IOE_GPIO_Mode_Ouput(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin);
+HAL_StatusTypeDef PI4IOE_GPIO_Write(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin, PI4IO_State_t state);
+HAL_StatusTypeDef PI4IOE_GPIO_Gpio_Ouput_Mode(PI4IO_GPIO_Typedef_t* gpio, PI4IO_Gpio_Ouput_Mode_t mode);
+HAL_StatusTypeDef PI4IOE_GPIO_Togle(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin);
+HAL_StatusTypeDef PI4IOE_GPIO_Set_Input_Invert(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin);
+HAL_StatusTypeDef PI4IOE_GPIO_Read_Input(PI4IO_GPIO_Typedef_t* gpio, uint8_t pin, PI4IO_State_t* state);
+
+
+
 #endif /* SRC_PI4IOE_H_ */

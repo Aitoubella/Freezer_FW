@@ -1,4 +1,3 @@
-
 #include "buzzer.h"
 #include "led.h"
 #include "main.h"
@@ -16,7 +15,12 @@ void buzzer_init(void)
 	led_add(&buzzer);
 }
 
-void buzzer_togle(led_t* buzzer, uint16_t on_ms, uint16_t off_ms, uint16_t count)
+void buzzer_togle(uint16_t on_ms, uint16_t off_ms, uint16_t count)
 {
-	led_start_togle(buzzer, on_ms, off_ms, count);
+	led_start_togle(&buzzer, on_ms, off_ms, count);
+}
+
+void buzzer_stop(void)
+{
+	led_off(&buzzer);
 }

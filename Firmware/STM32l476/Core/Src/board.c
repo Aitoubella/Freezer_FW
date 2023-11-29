@@ -1,7 +1,6 @@
 /*
  * board.c
  *
-
  */
 
 
@@ -11,32 +10,43 @@
 #include "lcd_ui.h"
 #include "button.h"
 #include "buzzer.h"
-event_id test_id;
-uint8_t arr_wr[] = {0,1,2,3,1,4,5,6,7,89};
-uint8_t arr_rd[20] = {1};
-datetime_t datetime;
-void test_task(void)
+
+
+/*
+ * Get input from CHRG_OK
+ * Open drain active high indicator to inform the system good power source is connected to
+the charger input. Connect to the pullup rail via 10-kΩ resistor. When VBUS rises above 3.5
+V and falls below 25.8 V, CHRG_OK is HIGH after 50-ms deglitch time. When VBUS falls
+below 3.2 V or rises above 26.8 V, CHRG_OK is LOW. When one of SYSOVP, SYSUVP,
+ACOC, TSHUT, BATOVP, BATOC or force converter off faults occurs, CHRG_OK is asserted
+LOW.
+*/
+
+charge_status_t get_charge_status(void)
 {
-	DS1307_GetDate(&datetime.day, &datetime.month, &datetime.year);
-	DS1307_GetTime(&datetime.hour, &datetime.minute, &datetime.second);
+	if(HAL_GPIO_ReadPin(CHRG_OK_GPIO_Port,CHRG_OK_Pin) == GPIO_PIN_SET)
+	{
+		return CHARGE_STATUS_NORMAL;
+	}
+	return CHARGE_STATUS_FALT;
 }
 
 
-void board_test_init(void)
+/*
+ * LED (Fault ID Light) .
+A 10mA light emitting diode (LED) (6) can be connected between the terminals
++ and D. In case the compressor driver detects an operational error, the diode
+will flash a number of times. The number of flashes depends on what kind of
+operational error was recorded. Each flash will last 1/5 second. After the actual
+number of flashes, there will be a delay with no flashes, so that the sequence
+for each error recording is repeated every 1 minute.
+*/
+
+cmprsr_status_t get_cmprsr_status(void)
 {
-	//Test DS1307
-//	DS1307_SetDate(23, 10, 2023);
-//	DS1307_SetTime(20, 39, 0);
-	event_add(test_task, &test_id, 1000);
-	event_active(&test_id);
-
-
-//	Flash_Write_Array(0, arr_wr, sizeof(arr_wr));
-//	Flash_Read_Array(0, arr_rd, sizeof(arr_wr));
-//
-//	if(memcmp(arr_wr, arr_rd,sizeof(arr_wr)) == 0)
-//		led_start_togle(&buzzer, 50, 300, 3);
+	if(HAL_GPIO_ReadPin(CMPRSR_D_GPIO_Port,CMPRSR_D_Pin) == GPIO_PIN_SET)
+	{
+		return CMPRSR_STATUS_NORMAL;
+	}
+		return CMPRSR_STATUS_FAILT;
 }
-
-
-

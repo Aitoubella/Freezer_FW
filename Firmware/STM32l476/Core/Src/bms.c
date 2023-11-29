@@ -1,8 +1,5 @@
- /*
- bms.c
- *
- *  Created on: Nov 23, 2023
- *     
+/*
+ * bms.c
  */
 #include "BQ25731.h"
 #include "main.h"
@@ -10,62 +7,50 @@
 #include "bms.h"
 #include "lcd_ui.h"
 event_id bms_id;
-//#define BATTERY_CELL         1
-#define USE_TEST               1
 #define BMS_TASK_DUTY_MS               500
-#define USE_TEST                      1
+#define USE_TEST                       1
 #ifdef USE_TEST
-//#define BATTERY_CELL                  1
-#define POWER_SUPPLY_VOLTAGE_MIN      11000 //mV
 #define BATTERY_CELL                  4
 #define POWER_SUPPLY_VOLTAGE_MIN      22000 //mV
 #define BAT_FULL_CAP                  2000 //mAH
+#define MAX_CHARGE_CURRENT            2000//mA
 #else
-//#define BATTERY_CELL                  4
+//4 cells, 3.7vdc each, 56amphr. Total battery 14.4v 56ahr
+#define BATTERY_CELL                  4
 #define POWER_SUPPLY_VOLTAGE_MIN      22000 //mV
 #define BAT_FULL_CAP                  56000 //mAH
+#define MAX_CHARGE_CURRENT            8000//mA
 #endif
 
 
-#define VOLTAGE_BATTERY     (CHARGE_VOLTAGE_4200MV*BATTERY_CELL)
-#define MIN_VOLTATE         (3700*BATTERY_CELL)
-#define MIN_VOLTATE         (2700*BATTERY_CELL)
-#define BATTERRY_VOLTAGE_MV       (4200*BATTERY_CELL)
-#define START_CHARGING_VOLTAGE    (BATTERRY_VOLTAGE_MV - BATTERY_CELL * 200)
-#define MAX_CHARGE_CURRENT        2000//mA
 #define CHARGE_CURRENT_RESOLUTION    128 //mA Need to check datasheet. BQ25731:128mA
+#define BAT_CEL_MIN_VOLTAGE          3000
 
 #define BAT_FULCHARGE_VOLTAGE      (4200*BATTERY_CELL)
-#define BAT_MIN_VOLTATE            (3000*BATTERY_CELL)
+#define BAT_MIN_VOLTATE            (BAT_CEL_MIN_VOLTAGE*BATTERY_CELL)
 #define BAT_PROTECT_VOTAGE         (2500*BATTERY_CELL)
 #define BAT_RECHARGING_VOLTAGE     (BAT_FULCHARGE_VOLTAGE - BATTERY_CELL * 200)
-
+#define CHARGE_PRODUCTIVITY        80//Percent
 
 #define TIME_COUNT_FULL_CHARGE     (15 * 1000/ BMS_TASK_DUTY_MS)
+
+#define DISCHARGE_CURRENT_BOARD_SLEEP   50 //mA
 
 static bq25731_t bq25731;
 
 static charge_info_t charge =
 {
 	.status = &bq25731.ChargerStatus,
-	.max_charge_voltage = BATTERRY_VOLTAGE_MV,
-	.bat_min_voltage = MIN_VOLTATE,
 	.max_charge_voltage = BAT_FULCHARGE_VOLTAGE,
 	.bat_min_voltage = BAT_MIN_VOLTATE,
-	.is_charging = 1,
+	.is_charging = 0,
 };
 
-typedef enum
-{
-	CHARGE_STAGE_1 = 0,
-	CHARGE_STAGE_2,
-	CHARGE_STATE_3,
-}charge_stage_t;
+
 
 typedef enum
 {
-	BMS_CHARGING_STATE = 0,
-    BMS_START_STATE = 0,
+	BMS_START_STATE = 0,
 	BMS_CHARGING_STATE,
 	BMS_CHARGING_WAITING_STATE,
 	BMS_CHARGE_FULL_STATE,
@@ -75,20 +60,9 @@ typedef enum
 	BMS_BAT_SHUTDOWN_STATE,
 }bms_state_t;
 
-//bms_state_t bms_state = BMS_CHARGING_STATE;
 bms_state_t bms_state = BMS_START_STATE;
 
-charge_stage_t charge_state = CHARGE_STAGE_1;
 
-uint8_t full_charge_count = 0;
-// Constants for battery characteristics
-const uint32_t fullCapacity = 2000; // Full capacity in mAh
-const uint32_t ocvAtFullCharge = 4200; // OCV at full charge in volts
-const uint32_t fullCapacity = BAT_FULL_CAP; // Full capacity in mAh
-const uint32_t ocvAtFullCharge = BAT_FULCHARGE_VOLTAGE; // OCV at full charge in volts
-uint32_t q_lost_charge = 0;
-uint32_t q_lost_discharge = 0;
-uint32_t current_cap_mA = 0;
 typedef struct
 {
 	uint32_t a;
@@ -96,84 +70,120 @@ typedef struct
 }bat_state_voltage_t;
 //Value get from this document: https://arxiv.org/ftp/arxiv/papers/1803/1803.10654.pdf
 #define MAX_BAT_STATE            8
-bat_state_voltage_t bat_state_table[MAX_BAT_STATE] = {{27,81000},{125,431100},{149, 516100}, {344,1255000},
-		                                             {230,800900},{112,359900},{105, 332000},{91, 274700}};
-uint16_t bat_voltage_state[MAX_BAT_STATE] = {3450, 3508, 3595, 3676, 3739, 3967, 4039, 4200};
-
+bat_state_voltage_t bat_state_table[MAX_BAT_STATE] = {{9,26667},{75,254750},{147, 510210}, {411,1468647},
+		                                             {181,619337},{120,392892},{101, 316465},{93, 28259}};
+uint16_t bat_voltage_state[MAX_BAT_STATE] = {3450, 3530, 3625, 3676, 3759, 3925, 4024, 4132};
 // Function to calculate SOC based on Coulomb counting
 uint32_t SOC_charge_calculate(uint32_t current_mA, uint32_t time_ms)
 {
-
     // Calculate charge consumed (Coulombs)
-	//current_cap_mA = current_cap_mA + current_A * time_ms + q_lost_charge;
-    //return current_cap_mA;
-	current_cap_mA = current_cap_mA + current_mA * time_ms/1000 - q_lost_charge;
-
-    return current_cap_mA * 100/BAT_FULL_CAP;
+	charge.count_discharge = 0;
+	charge.current_cap_mA = charge.current_cap_mA + current_mA * time_ms*CHARGE_PRODUCTIVITY/100000 - charge.q_lost_charge;
+	if(charge.current_cap_mA > BAT_FULL_CAP*3600) charge.current_cap_mA = BAT_FULL_CAP*3600;
+    return charge.current_cap_mA * 100/(BAT_FULL_CAP*3600);
 }
 
 uint32_t SOC_discharge_calculate(uint32_t current_mA, uint32_t time_ms)
 {
-
+	if(current_mA == 0) current_mA = DISCHARGE_CURRENT_BOARD_SLEEP;
+	charge.count_charge = 0;
     // Calculate SOC as a percentage
-	//current_cap_mA = current_cap_mA - current_A * time_ms - q_lost_discharge;
-    current_cap_mA = current_cap_mA - current_mA * time_ms/1000 + q_lost_discharge;
-    return current_cap_mA;
+	if(charge.current_cap_mA > (current_mA * time_ms/1000 + charge.q_lost_discharge))
+	{
+		charge.current_cap_mA = charge.current_cap_mA - current_mA * time_ms/1000 + charge.q_lost_discharge;
+	}else
+	{
+		charge.current_cap_mA = 0;
+	}
+    return charge.current_cap_mA * 100/(BAT_FULL_CAP*3600);
 }
+
 void SOC_charge_full_recalibrate(void)
 {
-	q_lost_charge = (BAT_FULL_CAP - current_cap_mA)/charge.count_charge;
+	charge.q_lost_charge = (BAT_FULL_CAP*3600 - charge.current_cap_mA)/charge.count_charge;
 	charge.count_charge = 0;
-	current_cap_mA = BAT_FULL_CAP;
+	charge.count_discharge = 0;
+	charge.current_cap_mA = BAT_FULL_CAP;
 }
 
 void SOC_charge_exhaust_recalibrate(void)
 {
-	q_lost_discharge = current_cap_mA/charge.count_discharge;
+	charge.q_lost_discharge = charge.current_cap_mA/charge.count_discharge;
+	charge.count_charge = 0;
 	charge.count_discharge = 0;
-	current_cap_mA = 0;
+	charge.current_cap_mA = 0;
 }
+
+
+
+//uint8_t count_delay;
+//uint32_t bms_voltage_to_percent(uint32_t vol)
+//{
+//	if(charge.is_charging)
+//	{
+//		charge.discharge_delay = 0;
+//		return charge.bat_percent;
+//	}else
+//	{
+//		if(charge.discharge_delay < 1000*10/BMS_TASK_DUTY_MS) //use current bat percent in 10s when discharge
+//		{
+//			return charge.bat_percent;
+//		}
+//		uint8_t bat_state = 0;
+//		vol /= BATTERY_CELL;
+//		if(vol < BAT_CEL_MIN_VOLTAGE) return 0;
+//		for(uint8_t i = 0; i < MAX_BAT_STATE; i++)
+//		{
+//			if(vol < bat_voltage_state[i])
+//			{
+//				bat_state = i;
+//				break;
+//			}
+//		}
+//
+//		charge.bat_percent = (vol * bat_state_table[bat_state].a - bat_state_table[bat_state].b)/1000;
+//		charge.current_cap_mA = charge.bat_percent * BAT_FULL_CAP *3600/ 100;
+//		return charge.bat_percent;
+//	}
+//}
+
+void bms_charge_update_cap(void)
+{
+	charge.current_cap_mA = charge.bat_percent * BAT_FULL_CAP *3600/ 100;
+}
+
+
 
 uint32_t bms_voltage_to_percent(uint32_t vol)
 {
-//	uint8_t bat_state = 0;
-//	vol /= BATTERY_CELL;
-//	for(uint8_t i = 0; i < MAX_BAT_STATE; i++)
-//	{
-//		if(vol < bat_voltage_state[i])
-//		{
-//			bat_state = i;
-//			break;
-//		}
-//	}
-//	return (vol * bat_state_table[bat_state].a - bat_state_table[bat_state].b)/1000;
-	charge.bat_percent;
+	uint8_t bat_state = 0;
+	vol /= BATTERY_CELL;
+	if(vol < BAT_CEL_MIN_VOLTAGE) return 0;
+	for(uint8_t i = 0; i < MAX_BAT_STATE; i++)
+	{
+		if(vol < bat_voltage_state[i])
+		{
+			bat_state = i;
+			break;
+		}
+	}
+
+	return (vol * bat_state_table[bat_state].a - bat_state_table[bat_state].b)/1000;
 }
+
 void bms_task(void)
 {
 	bq25731_get_charge_status(&bq25731);
-	bq25731_get_charge_discharge_current(&bq25731, &charge.charge_current,&charge.discharge_curret);;
 	bq25731_get_charge_discharge_current(&bq25731, &charge.charge_current,&charge.discharge_current);
 	bq25731_get_sys_and_bat_voltage(&bq25731, &charge.bat_voltage, &charge.sys_voltage);
 	bq25731_get_vbus_psys(&bq25731,&charge.bus_voltage, &charge.power_sys);
 
-	if(charge.charge_current <= 128)
 	switch((uint8_t)bms_state)
 	{
-		full_charge_count++;
-		if(full_charge_count > 15)
-		{
-			bq25731_disable_charge(&bq25731);
-		}
-	}else
-	{
-		full_charge_count = 0;
 		case BMS_START_STATE:
 			bq25731_set_charge_current(0); //Change voltage and current to 0 for detect bat
-			//if(charge.bus_voltage > 12000) //Check bat voltage and sys voltage ok -> charge
 			if(charge.bus_voltage > POWER_SUPPLY_VOLTAGE_MIN) //Check bat voltage and sys voltage ok -> charge
 			{
-				//if(charge.bat_voltage > 2300)
 				if(charge.bat_voltage > BAT_PROTECT_VOTAGE)
 				{
 					bms_state = BMS_CHARGING_STATE;
@@ -187,81 +197,79 @@ void bms_task(void)
 			}
 			break;
 		case BMS_CHARGING_STATE:
-			bq25731_set_charge_current(2000); //Turn on charge
 			bq25731_set_charge_current(MAX_CHARGE_CURRENT); //Turn on charge
 			charge.is_charging = 1;
-			full_charge_count = 0;
+			charge.full_charge_count = 0;
 			bms_state = BMS_CHARGING_WAITING_STATE;
 			break;
 		case BMS_CHARGING_WAITING_STATE:
-			if(charge.charge_current <= 128)
 			charge.count_charge ++;
 			charge.bat_percent = SOC_charge_calculate(charge.charge_current, BMS_TASK_DUTY_MS);
 			if(charge.charge_current <= CHARGE_CURRENT_RESOLUTION)
 			{
-				full_charge_count++;
-				//if(full_charge_count > 30)    //Charge in 15s to charge 95% and not stress to protect battery
-				if(full_charge_count > TIME_COUNT_FULL_CHARGE)    //Charge in 15s to charge 95% and not stress to protect battery	
-				{
-					bms_state = BMS_CHARGE_FULL_STATE;
-				}
-				if(charge.charge_current == 0)
+				charge.full_charge_count++;
+				if(charge.full_charge_count > TIME_COUNT_FULL_CHARGE)    //Charge in 15s to charge 95% and not stress to protect battery
 				{
 					bms_state = BMS_CHARGE_FULL_STATE;
 				}
 			}
-			//if(charge.discharge_current > 128 && charge.charge_current == 0) //Power for charging is off
 			if(charge.bus_voltage < POWER_SUPPLY_VOLTAGE_MIN) //If power off
 			{
 				bms_state = BMS_DISCHARGE_STATE;
 			}
 			break;
 		case BMS_CHARGE_FULL_STATE:
-			bq25731_set_charge_current(0);
+			SOC_charge_full_recalibrate();
 			charge.is_charging = 0;
 			bms_state = BMS_CHARGE_FULL_WATING_STATE;
 			break;
 		case BMS_CHARGE_FULL_WATING_STATE:
-			//if(charge.discharge_current > 128 && charge.charge_current == 0) //Power for charging is off
-			//if(charge.bat_voltage <= START_CHARGING_VOLTAGE) //If bat voltage is go down minimum -> need to charge again
-			current_cap_mA = BAT_FULL_CAP; //Recalibrate
-
 			if(charge.bat_voltage <= BAT_RECHARGING_VOLTAGE) //If bat voltage is go down minimum -> need to charge again
 			{
-				//bms_state = BMS_DISCHARGE_STATE;
 				bms_state = BMS_START_STATE;
 			}
-			//if(charge.bat_voltage <= START_CHARGING_VOLTAGE && charge.bat_voltage > 0) //If bat voltage is go down minimum -> need to charge again
 			if(charge.bus_voltage < POWER_SUPPLY_VOLTAGE_MIN) //If power off
 			{
-			//	bms_state = BMS_CHARGING_STATE;
 				bms_state = BMS_DISCHARGE_STATE;
 			}
 			break;
 		case BMS_DISCHARGE_STATE:
-			//if(charge.discharge_current == 0) //Power on
+			bq25731_set_charge_current(0);
+			charge.is_charging = 0;
+			bms_state = BMS_DISCHARGE_WAITING_STATE;
+			break;
+		case BMS_DISCHARGE_WAITING_STATE:
+			charge.discharge_delay ++;
+//			charge.bat_percent = SOC_discharge_calculate(charge.charge_current, BMS_TASK_DUTY_MS);
 			if(charge.bus_voltage > POWER_SUPPLY_VOLTAGE_MIN) //Check power back on
 			{
 				bms_state = BMS_START_STATE;
 			}
 			if(charge.bat_voltage < charge.bat_min_voltage) //Shut down power to protect bat
 			{
-				bq25731_set_charge_current(0);
+//				SOC_charge_exhaust_recalibrate();
 				bms_state = BMS_BAT_SHUTDOWN_STATE;
 			}
 			break;
-		case BMS_DISCHARGE_WAITING_STATE:
-			charge.count_discharge ++;
-			charge.bat_percent = SOC_discharge_calculate(charge.charge_current, BMS_TASK_DUTY_MS);
-			if(charge.discharge_current == 0) //Power on
+		case BMS_BAT_SHUTDOWN_STATE:
+			if(charge.bus_voltage > POWER_SUPPLY_VOLTAGE_MIN) //Check power back on
 			{
-				//bms_state = BMS_CHARGING_STATE;
-				bms_state = BMS_START_STATE;
+				if(charge.bat_voltage > BAT_PROTECT_VOTAGE)
+				{
+					bms_state = BMS_START_STATE;
+				}
 			}
 			break;
-
 	}
+	if(charge.is_charging == 0)
+	{
+		charge.bat_percent = bms_voltage_to_percent(charge.bat_voltage);
+		bms_charge_update_cap();
+	}
+
+
 }
+
 HAL_StatusTypeDef bms_init(void)
 {
 	//Config battery param
@@ -272,7 +280,7 @@ HAL_StatusTypeDef bms_init(void)
 	if(status != HAL_OK) return status;
 	status = bq25731_charge_option_3(0,EN_ICO_MODE_BIT); //Enable Auto mode
 	if(status != HAL_OK) return status;
-	status = bq25731_set_charge_voltage(VOLTAGE_BATTERY); //Set charge voltage
+	status = bq25731_set_charge_voltage(BAT_FULCHARGE_VOLTAGE); //Set charge voltage
 	if(status != HAL_OK) return status;
 	status = bq25731_set_bit_reg(INPUT_CURRENT_LIMIT_USE_REG, 0,INPUT_CURRENT_3200_MA_BIT); //Set max current input of power source
 	if(status != HAL_OK) return status;
@@ -300,12 +308,12 @@ HAL_StatusTypeDef bms_init(void)
 	if(status != HAL_OK) return status;
 	status = bq25731_read_reg(ADC_OPTION_REG, (uint8_t *)&bq25731.ADCOption, 2); //Read back ADC option
 	if(status != HAL_OK) return status;
-	status = bq25731_set_charge_current();
-	if(status != HAL_OK) return status;
+//	status = bq25731_set_charge_current(500);
+//	if(status != HAL_OK) return status;
 
 
-	//Add task run 1 second duty
-	event_add(bms_task, &bms_id, 1000);
+//	Add task run 1 second duty
+	event_add(bms_task, &bms_id, BMS_TASK_DUTY_MS);
 	event_active(&bms_id);
 
 	return status;
@@ -315,3 +323,5 @@ charge_info_t* bms_get_charge_info(void)
 {
 	return &charge;
 }
+
+

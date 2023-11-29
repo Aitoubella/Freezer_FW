@@ -1,4 +1,3 @@
-
 #include "PID.h"
 #include "stm32l4xx_hal.h"
 #define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
@@ -41,7 +40,7 @@ bool init;
 
 
 
-void PID_init()
+void PID_init(void)
 {
   Kp = 1;
   Ki = 1;
@@ -51,7 +50,7 @@ void PID_init()
   init = true;
 }
 
-void PID_setpoint (double newSetpoint)
+void PID_set_point (double newSetpoint)
 {
   setPoint = newSetpoint;
 }
@@ -73,7 +72,7 @@ void PID_limit(double min, double max)
 
 
 
-void PID_minimize (double newMinimize)
+void PID_set_divisor (double newMinimize)
 {
   divisor = newMinimize;
 }
