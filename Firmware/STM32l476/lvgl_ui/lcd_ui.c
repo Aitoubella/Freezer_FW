@@ -1,8 +1,6 @@
 /*
  * lcd_ui.c
  *
- *  Created on: Oct 18, 2023
- *      Author: Loc
  */
 
 

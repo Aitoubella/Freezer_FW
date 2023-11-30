@@ -1,5 +1,7 @@
 /*
  * bms.c
+ *
+
  */
 #include "BQ25731.h"
 #include "main.h"
@@ -116,37 +118,6 @@ void SOC_charge_exhaust_recalibrate(void)
 
 
 
-//uint8_t count_delay;
-//uint32_t bms_voltage_to_percent(uint32_t vol)
-//{
-//	if(charge.is_charging)
-//	{
-//		charge.discharge_delay = 0;
-//		return charge.bat_percent;
-//	}else
-//	{
-//		if(charge.discharge_delay < 1000*10/BMS_TASK_DUTY_MS) //use current bat percent in 10s when discharge
-//		{
-//			return charge.bat_percent;
-//		}
-//		uint8_t bat_state = 0;
-//		vol /= BATTERY_CELL;
-//		if(vol < BAT_CEL_MIN_VOLTAGE) return 0;
-//		for(uint8_t i = 0; i < MAX_BAT_STATE; i++)
-//		{
-//			if(vol < bat_voltage_state[i])
-//			{
-//				bat_state = i;
-//				break;
-//			}
-//		}
-//
-//		charge.bat_percent = (vol * bat_state_table[bat_state].a - bat_state_table[bat_state].b)/1000;
-//		charge.current_cap_mA = charge.bat_percent * BAT_FULL_CAP *3600/ 100;
-//		return charge.bat_percent;
-//	}
-//}
-
 void bms_charge_update_cap(void)
 {
 	charge.current_cap_mA = charge.bat_percent * BAT_FULL_CAP *3600/ 100;
@@ -187,6 +158,7 @@ void bms_task(void)
 				if(charge.bat_voltage > BAT_PROTECT_VOTAGE)
 				{
 					bms_state = BMS_CHARGING_STATE;
+					charge.is_charging = 1;
 				}else
 				{
 					bms_state = BMS_BAT_SHUTDOWN_STATE;
@@ -198,7 +170,6 @@ void bms_task(void)
 			break;
 		case BMS_CHARGING_STATE:
 			bq25731_set_charge_current(MAX_CHARGE_CURRENT); //Turn on charge
-			charge.is_charging = 1;
 			charge.full_charge_count = 0;
 			bms_state = BMS_CHARGING_WAITING_STATE;
 			break;
@@ -234,12 +205,12 @@ void bms_task(void)
 			}
 			break;
 		case BMS_DISCHARGE_STATE:
+			bms_state = BMS_DISCHARGE_WAITING_STATE;
 			bq25731_set_charge_current(0);
 			charge.is_charging = 0;
-			bms_state = BMS_DISCHARGE_WAITING_STATE;
 			break;
 		case BMS_DISCHARGE_WAITING_STATE:
-			charge.discharge_delay ++;
+
 //			charge.bat_percent = SOC_discharge_calculate(charge.charge_current, BMS_TASK_DUTY_MS);
 			if(charge.bus_voltage > POWER_SUPPLY_VOLTAGE_MIN) //Check power back on
 			{

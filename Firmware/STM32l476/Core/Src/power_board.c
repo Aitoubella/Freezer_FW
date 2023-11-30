@@ -1,7 +1,6 @@
 /*
  * power_board.c
  *
-
  */
 
 

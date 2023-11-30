@@ -32,6 +32,7 @@ ADC_ChannelConfTypeDef RTD_ADC_LIST[] = {RTD5_ADC,RTD6_ADC, RTD1_ADC, RTD2_ADC, 
 #endif
 uint32_t adc_buff[RTD_MAX_CHANNEL];
 uint32_t adc_total[RTD_MAX_CHANNEL] = {0};
+uint32_t adc_voltage[RTD_MAX_CHANNEL] = {0};
 uint32_t adc_average[RTD_MAX_CHANNEL] = {0};
 //double temperature_result[RTD_MAX_CHANNEL];
 double temperature_result[RTD_MAX_CHANNEL];
@@ -141,8 +142,8 @@ void rtd_task(void)
 	for(uint8_t i = 0; i < RTD_MAX_CHANNEL; i ++)
 	{
 		adc_average[i] /= SAMPLE_MAX_COUNT;
-		adc_average[i] = adc_to_mV(adc_average[i]);
-		adc_average[i] = mV_to_ohm(adc_average[i]) + RES_OFFSET_CALIB;
+		adc_voltage[i] = adc_to_mV(adc_average[i]);
+		adc_average[i] = mV_to_ohm(adc_voltage[i]) + RES_OFFSET_CALIB;
 
 		d =  (adc_average[i]/R0 - 1)*1000000000000/6;
 		DComplex *result = solve_quartic(a,b,c,d);
@@ -159,6 +160,11 @@ double rtd_get_temperature(rtd_t rtd)
 	return temperature_result[rtd];
 }
 
+
+uint32_t rtd_get_adc_voltage(rtd_t rtd)
+{
+	return adc_voltage[rtd];
+}
 
 bool is_rtd_started(void)
 {

@@ -1,8 +1,6 @@
 /*
  * lcd_ui.h
  *
- *  Created on: Oct 18, 2023
- *      Author: Loc
  */
 
 #ifndef SRC_LCD_UI_H_

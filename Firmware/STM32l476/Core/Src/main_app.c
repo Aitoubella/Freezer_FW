@@ -35,6 +35,7 @@ double limit_max = 0;
 double limit_min = 0;
 
 #define CHAMBER_TEMPERATURES_SENSOR           RTD6
+#define LID_SWITCH_SENSOR                     RTD4
 
 typedef enum
 {
@@ -286,7 +287,11 @@ power_mode_t get_power_mode(void)
 
 lid_state_t get_lid_state(void)
 {
-	return LID_CLOSE;
+	if(rtd_get_adc_voltage(LID_SWITCH_SENSOR) < 2000)
+	{
+		return LID_CLOSE;
+	}
+	return LID_OPEN;
 }
 
 
@@ -369,7 +374,7 @@ void main_task(void)
 		ctl.fan2 = TURN_ON;
 	}
 
-	if(pid_output > 2)
+	if(pid_output > 0)
 	{
 		ctl.cmprsr = TURN_OFF;
 		ctl.cmprsr_fan = TURN_OFF;
@@ -378,7 +383,7 @@ void main_task(void)
 	}
 
 	//Lid check open
-	if(lcd.lid_state == LID_OPEN)
+	if(setting.lid_state == LID_OPEN)
 	{
 		//Increase count for delay check later
 		alarm_count.lid_open += 1;
@@ -394,7 +399,7 @@ void main_task(void)
 		lid_delay_count ++;
 	}
    //All turns back on when lid is closed although we require a compressor on delay of 1-2 mins(settable in service mode)
-	if(MINUTE_TO_COUNT(lid_delay_count) < 2)
+	if(lid_delay_count > MINUTE_TO_COUNT(2))
 	{
 		ctl.cmprsr = TURN_OFF;
 		ctl.cmprsr_fan = TURN_OFF;
