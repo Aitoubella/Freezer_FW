@@ -1,7 +1,6 @@
 /*
  * bms.c
  *
-
  */
 #include "BQ25731.h"
 #include "main.h"
@@ -152,6 +151,8 @@ void bms_task(void)
 	switch((uint8_t)bms_state)
 	{
 		case BMS_START_STATE:
+			charge.bat_percent = bms_voltage_to_percent(charge.bat_voltage);
+			bms_charge_update_cap();
 			bq25731_set_charge_current(0); //Change voltage and current to 0 for detect bat
 			if(charge.bus_voltage > POWER_SUPPLY_VOLTAGE_MIN) //Check bat voltage and sys voltage ok -> charge
 			{

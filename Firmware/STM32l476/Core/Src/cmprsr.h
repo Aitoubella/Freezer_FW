@@ -1,6 +1,5 @@
 /*
  * cmprsr.h
- *
  */
 
 #ifndef SRC_CMPRSR_H_
