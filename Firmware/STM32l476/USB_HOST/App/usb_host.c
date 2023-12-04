@@ -58,7 +58,11 @@ static void USBH_UserProcess(USBH_HandleTypeDef *phost, uint8_t id);
  * -- Insert your external function declaration here --
  */
 /* USER CODE BEGIN 1 */
-
+void MX_USB_HOST_Process(void)
+{
+  /* USB Host Background task */
+  USBH_Process(&hUsbHostFS);
+}
 /* USER CODE END 1 */
 
 /**
@@ -89,14 +93,6 @@ void MX_USB_HOST_Init(void)
   /* USER CODE END USB_HOST_Init_PostTreatment */
 }
 
-/*
- * Background task
- */
-void MX_USB_HOST_Process(void)
-{
-  /* USB Host Background task */
-  USBH_Process(&hUsbHostFS);
-}
 /*
  * user callback definition
  */

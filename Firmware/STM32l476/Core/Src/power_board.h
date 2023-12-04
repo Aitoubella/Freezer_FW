@@ -1,6 +1,5 @@
 /*
  * power_board.h
- *
  */
 
 #ifndef SRC_POWER_BOARD_H_

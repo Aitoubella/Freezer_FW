@@ -8,10 +8,6 @@
 #include "File_Handling.h"
 
 
-
-
-
-
 /* =============================>>>>>>>> NO CHANGES AFTER THIS LINE =====================================>>>>>>> */
 
 
@@ -29,7 +25,8 @@ FATFS *pUSBHFatFS;
 DWORD fre_clust;
 uint32_t total, free_space;
 
-
+static char path[257];
+//static char buf[255];
 void Send_Uart (char *string)
 {
 
@@ -56,7 +53,6 @@ FRESULT Scan_USB (char* pat)
 {
     DIR dir;
     UINT i;
-    char *path = malloc(20*sizeof (char));
     sprintf (path, "%s",pat);
 
     fresult = f_opendir(&dir, path);                       /* Open the directory */
@@ -70,10 +66,8 @@ FRESULT Scan_USB (char* pat)
             {
             	if (!(strcmp ("SYSTEM~1", USBHfno.fname))) continue;
             	if (!(strcmp("System Volume Information", USBHfno.fname))) continue;
-            	char *buf = malloc(30*sizeof(char));
-            	sprintf (buf, "Dir: %s\r\n", USBHfno.fname);
-            	Send_Uart(buf);
-            	free(buf);
+//            	sprintf (buf, "Dir: %s\r\n", USBHfno.fname);
+//            	Send_Uart(buf);
                 i = strlen(path);
                 sprintf(&path[i], "/%s", USBHfno.fname);
                 fresult = Scan_USB(path);                     /* Enter the directory */
@@ -83,14 +77,13 @@ FRESULT Scan_USB (char* pat)
             else
             {   /* It is a file. */
            	   char *buf = malloc(30*sizeof(char));
-               sprintf(buf,"File: %s/%s\n", path, USBHfno.fname);
-               Send_Uart(buf);
+//               sprintf(buf,"File: %s/%s\n", path, USBHfno.fname);
+//               Send_Uart(buf);
                free(buf);
             }
         }
         f_closedir(&dir);
     }
-    free(path);
     return fresult;
 }
 

@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
 #include "adc.h"
 #include "crc.h"
 #include "dma.h"
@@ -40,6 +41,7 @@
 #include "main_app.h"
 #include "logging.h"
 #include "bms.h"
+#include "power_board.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,8 +68,7 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
-void MX_USB_HOST_Process(void);
-
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -117,7 +118,6 @@ int main(void)
   MX_SPI3_Init();
   MX_I2C1_Init();
   MX_CRC_Init();
-  MX_USB_HOST_Init();
   /* USER CODE BEGIN 2 */
 
   logging_init();
@@ -131,21 +131,27 @@ int main(void)
 
   //Battery managerment
   ext_pwr_enable(); // On power for BQ25731
-  HAL_Delay(10);
-  bms_init();
-
-  //Main app process
-  main_app_init();
+//  osDelay(10);
+//  bms_init();
+//
+//  //Main app process
+//  main_app_init();
 
   /* USER CODE END 2 */
 
+  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	 event_run_task();
+//	 event_run_task();
     /* USER CODE END WHILE */
-    MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
   }

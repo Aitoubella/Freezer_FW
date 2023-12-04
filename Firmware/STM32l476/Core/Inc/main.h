@@ -79,6 +79,8 @@ void Error_Handler(void);
 #define RTD3_IN13_GPIO_Port GPIOC
 #define RTD4_IN14_Pin GPIO_PIN_5
 #define RTD4_IN14_GPIO_Port GPIOC
+#define USB_PWR_Pin GPIO_PIN_2
+#define USB_PWR_GPIO_Port GPIOB
 #define BTN_ENTER_Pin GPIO_PIN_9
 #define BTN_ENTER_GPIO_Port GPIOE
 #define BTN_DOWN_Pin GPIO_PIN_10
