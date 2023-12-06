@@ -33,6 +33,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 #include "lcd_ui.h"
 #include "event.h"
 #include "DS1307.h"
@@ -249,7 +250,17 @@ void PeriphCommonClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void __io_putchar(uint8_t ch)
+{
+	HAL_UART_Transmit(&huart4, &ch, 1, 10);
+}
+int _write(int file, char *ptr, int len)
+{
+	(void)file;
+	HAL_UART_Transmit(&huart4, (uint8_t *)ptr, len, 10);
+	 setbuf(stdout, NULL);
+	 return len;
+}
 /* USER CODE END 4 */
 
 /**

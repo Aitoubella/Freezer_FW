@@ -17,6 +17,7 @@
 #include "power_board.h"
 #include "bms.h"
 #include "PID.h"
+#include "File_Handling.h"
 
 #define MAIN_TASK_TICK_MS    100 //ms
 #define RTC_TASK_TICK_MS          1000
@@ -218,6 +219,7 @@ uint8_t lcd_get_set_cb(lcd_get_set_evt_t evt, void* value)
 			break;
 
 		case LCD_USB_INSERT_DOWNLOAD_EVT:
+
 			return 1;
 			break;
 		case LCD_MAIN_FRAME_EVT:

@@ -1,6 +1,8 @@
 /*
  * File_Handling_RTOS.h
  *
+ *  Created on: 30-April-2020
+ *      Author: Controllerstech
  */
 
 #ifndef FILE_HANDLING_H_
@@ -52,7 +54,10 @@ void Check_USB_Details (void);
  */
 FRESULT Update_File (char *name, char *data);
 
-
+/**
+ * @brief copy file from src path to dest path
+ */
+FRESULT copy_file(char* dest,char* src);
 
 
 #endif /* FILE_HANDLING_RTOS_H_ */

@@ -1,6 +1,5 @@
 /*
  * bms.h
- *
  */
 
 #ifndef SRC_BMS_H_
