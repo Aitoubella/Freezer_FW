@@ -1,6 +1,8 @@
 /*
  * event.c
  *
+ *  Created on: Mar 25, 2021
+ *      Author: lochoang
  */
 
 #include "event.h"
@@ -148,4 +150,28 @@ void event_run_task(void)
         }
     }
 }
+
+/**
+ * @func   event_run_task
+ * @brief  Run task in while loop
+ * @param  none
+ * @retval None
+ */
+void event_run_task_rtos(void)
+{
+	static uint8_t event_index = 0;
+    for(event_index = 0; event_index <= total_event; event_index ++)
+    {
+        if(event[event_index].status == EVENT_STATUS_ACTIVE)
+        {
+        	event[event_index].elapsed_time = GetTimeElapse(event[event_index].old_time); //Get elapsed time
+            if(event[event_index].elapsed_time >= event[event_index].delay)               //Check if time is expired
+            {
+            	event[event_index].old_time = GetSystemTick();                        //Set time to current  stamp
+            	event[event_index].func();                                            //Call callback function
+            }
+        }
+    }
+}
+
 

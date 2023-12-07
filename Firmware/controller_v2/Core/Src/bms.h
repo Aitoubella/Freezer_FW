@@ -1,5 +1,8 @@
 /*
  * bms.h
+ *
+ *  Created on: Nov 17, 2023
+ *      Author: Loc
  */
 
 #ifndef SRC_BMS_H_

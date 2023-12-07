@@ -1,6 +1,8 @@
 /*
  * RTD.c
  *
+ *  Created on: Oct 26, 2023
+ *      Author: Loc
  */
 
 
@@ -13,7 +15,7 @@
 #include <string.h>
 
 #define ADC_VREF_mV           3359       //Voltage adc in mV
-#define RTD_MAX_CHANNEL   6
+#define RTD_MAX_CHANNEL       6
 
 bool rtd_init_done = false;
 

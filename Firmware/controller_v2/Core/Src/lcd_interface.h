@@ -1,6 +1,8 @@
 /*
  * lcd_interface.h
  *
+ *  Created on: Oct 30, 2023
+ *      Author: Loc
  */
 
 #ifndef SRC_LCD_INTERFACE_H_

@@ -1,10 +1,15 @@
 /*
  * app_event.h
+ *
+ *  Created on: Mar 25, 2021
+ *      Author: lochoang
  */
 
 #ifndef _APP_EVENT_
 #define _APP_EVENT_
 #include "stm32l4xx_hal.h"
+#include "FreeRTOS.h"
+#include "task.h"
 #define EVENT_ERR                  1
 #define EVENT_ERR_NONE             0
 
@@ -21,7 +26,7 @@ typedef struct
     uint32_t delay;
     uint8_t status;
 }event_t;
-#define GetSystemTick()                       HAL_GetTick()
+#define GetSystemTick()                       xTaskGetTickCount()
 #define GetTimeElapse(a)                      (((GetSystemTick() - a) & 0xFFFFFFFF))
 #define event_pause()                         {}
 #define event_resume()                        {}
@@ -34,4 +39,5 @@ void event_inactive(event_id *id);
 void event_remove(event_id *id);
 void event_active(event_id *id);
 void event_run_task(void);
+void event_run_task_rtos(void);
 #endif /* HARD_EVENT_H_ */

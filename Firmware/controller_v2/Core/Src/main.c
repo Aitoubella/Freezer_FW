@@ -133,11 +133,7 @@ int main(void)
   buzzer_init();
   //Init i2c periph for DS1307
   DS1307_Init(&hi2c1);
-
-  //Battery managerment
-//  ext_pwr_enable(); // On power for BQ25731
-//  HAL_Delay(10);
-//  bms_init();
+  pwr_ctrl_on(); //On power 5V
 
   /* USER CODE END 2 */
 

@@ -61,7 +61,10 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, Buzzer_Pin|USBPWREN_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, SD_CS_Pin|EXT_PWR_ON_Z_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(SD_CS_GPIO_Port, SD_CS_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(PWR_CTL_GPIO_Port, PWR_CTL_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOD, CMPRSR_SPD_Pin|CMPRSR_EN_Pin|CMPRSR_FAN_GND_Pin|CMPRSR_FAN_VCC_Pin
@@ -85,22 +88,22 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PEPin PEPin PEPin */
-  GPIO_InitStruct.Pin = BTN_ENTER_Pin|BTN_DOWN_Pin|BTN_UP_Pin;
+  GPIO_InitStruct.Pin = BTN_UP_Pin|BTN_ENTER_Pin|BTN_DOWN_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PBPin PBPin */
-  GPIO_InitStruct.Pin = SD_CS_Pin|EXT_PWR_ON_Z_Pin;
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = SD_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PDPin PDPin PDPin PDPin
-                           PDPin PDPin PDPin */
-  GPIO_InitStruct.Pin = CMPRSR_SPD_Pin|CMPRSR_EN_Pin|CMPRSR_FAN_GND_Pin|CMPRSR_FAN_VCC_Pin
-                          |LED_Pin|HTR_CTL_Pin|FAN_CTL1_Pin;
+                           PDPin PDPin PDPin PDPin */
+  GPIO_InitStruct.Pin = PWR_CTL_Pin|CMPRSR_SPD_Pin|CMPRSR_EN_Pin|CMPRSR_FAN_GND_Pin
+                          |CMPRSR_FAN_VCC_Pin|LED_Pin|HTR_CTL_Pin|FAN_CTL1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -132,6 +135,12 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(FAN_CTL2_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = EXT_PWR_ON_Z_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(EXT_PWR_ON_Z_GPIO_Port, &GPIO_InitStruct);
 
 }
 

@@ -1,6 +1,8 @@
 /*
  * main_app.c
  *
+ *  Created on: Nov 3, 2023
+ *      Author: Loc
  */
 
 
@@ -18,6 +20,7 @@
 #include "bms.h"
 #include "PID.h"
 #include "File_Handling.h"
+#include "ili9341.h"
 
 #define MAIN_TASK_TICK_MS    100 //ms
 #define RTC_TASK_TICK_MS          1000
@@ -229,7 +232,12 @@ uint8_t lcd_get_set_cb(lcd_get_set_evt_t evt, void* value)
 			}
 			break;
 		case LCD_POWER_OFF_EVT:
-
+//			LED_L(); //Turn off Back Light led
+			pwr_ctrl_off();
+			break;
+		case LCD_PWER_ON_EVT:
+//			LED_H(); //Turn on  Back Light led
+			pwr_ctrl_on();
 			break;
 	}
 	if(save_state == NEED_SAVE_STATE)// setting param change?

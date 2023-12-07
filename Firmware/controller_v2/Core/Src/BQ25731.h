@@ -1,6 +1,8 @@
 /*
  * BQ25731.h
  *
+ *  Created on: Nov 13, 2023
+ *      Author: Loc
  */
 
 #ifndef INC_BQ25731_H_

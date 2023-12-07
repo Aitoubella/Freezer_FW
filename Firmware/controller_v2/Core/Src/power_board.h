@@ -1,5 +1,8 @@
 /*
  * power_board.h
+ *
+ *  Created on: Nov 9, 2023
+ *      Author: Loc
  */
 
 #ifndef SRC_POWER_BOARD_H_
@@ -24,11 +27,11 @@
 
 
 
-void power_board_init(void);
-void cmprsr_fan_on(void);
-void cmprsr_fan_off(void);
-void cmprsr_power_on(void);
-void cmprsr_power_off(void);
+HAL_StatusTypeDef power_board_init(void);
+HAL_StatusTypeDef cmprsr_fan_on(void);
+HAL_StatusTypeDef cmprsr_fan_off(void);
+HAL_StatusTypeDef cmprsr_power_on(void);
+HAL_StatusTypeDef cmprsr_power_off(void);
 void ext_pwr_enable(void);
 void ext_pwr_disable(void);
 HAL_StatusTypeDef cmprsr_get_fault(PI4IO_State_t* state);

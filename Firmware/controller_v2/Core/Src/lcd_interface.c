@@ -1,6 +1,8 @@
 /*
  * lcd_interface.c
  *
+ *  Created on: Oct 30, 2023
+ *      Author: Loc
  */
 
 
@@ -37,7 +39,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			case LCD_TURN_OFF_UNIT_YES_STATE:
 				lcd_get_set_cb(LCD_POWER_OFF_EVT, NULL);
-				LED_L(); //Turn off Back Light led
+
 				lcd_state = LCD_OFF_DISPLAY_WATING;
 				break;
 //On Back light when press button.
@@ -305,7 +307,6 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 			}else if(lcd_state == LCD_OFF_DISPLAY_WATING)
 			{
 				lcd_state = LCD_MAIN_STATE;
-				LED_H();
 				lcd_get_set_cb(LCD_PWER_ON_EVT, NULL);
 			}
 		}

@@ -1,6 +1,8 @@
 /*
  * bms.c
  *
+ *  Created on: Nov 17, 2023
+ *      Author: Loc
  */
 #include "BQ25731.h"
 #include "main.h"
@@ -264,7 +266,7 @@ HAL_StatusTypeDef bms_init(void)
 	if(status != HAL_OK) return status;
 	status = bq25731_clear_bit_reg(CHARGE_OPTION_3_REG, OTG_VAP_MODE_BIT, 0); //Disable control OTG/VAP use by external pin
 	if(status != HAL_OK) return status;
-	status = bq25731_clear_bit_reg(CHARGE_OPTION_0_REG, 0, WDTMR_ADJ_ENABLE_175S_BIT);//Clear 2 bit  to disable watchdog
+//	status = bq25731_clear_bit_reg(CHARGE_OPTION_0_REG, 0, WDTMR_ADJ_ENABLE_175S_BIT);//Clear 2 bit  to disable watchdog
 	if(status != HAL_OK) return status;
 	//Enable ADC VSYS,VBUS, VBAT ,I charge,I discharge and start ADC with continuous mode
 	status = bq25731_set_adc_option(EN_ADC_IIN_BIT|EN_ADC_VBUS_BIT|EN_ADC_VSYS_BIT|EN_ADC_VBAT_BIT|EN_ADC_IDCHG_BIT|EN_ADC_ICHG_BIT, ADC_START_BIT|ADC_CONV_BIT);

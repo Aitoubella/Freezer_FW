@@ -347,7 +347,7 @@ void Check_USB_Details (void)
 
 FRESULT copy_file(char* dest,char* src)
 {
-	 FATFS fs0, fs1;      /* Work area (filesystem object) for logical drives */
+	 FATFS fsrc, fdst;      /* Work area (filesystem object) for logical drives */
 	 FRESULT fr;          /* FatFs function common result code */
 	 fr = f_open(&fsrc, src, FA_READ);
 	 if (fr) return (int)fr;
@@ -367,5 +367,6 @@ FRESULT copy_file(char* dest,char* src)
 	/* Close open files */
 	f_close(&fsrc);
 	f_close(&fdst);
+	return fr;
 }
 

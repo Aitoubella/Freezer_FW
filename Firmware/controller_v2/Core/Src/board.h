@@ -1,6 +1,8 @@
 /*
  * board.h
  *
+ *  Created on: Oct 23, 2023
+ *      Author: Loc
  */
 
 #ifndef SRC_BOARD_H_
@@ -48,5 +50,7 @@ typedef enum
 
 charge_status_t get_charge_status(void);
 
-void board_test_init(void);
+
+void pwr_ctrl_on(void);
+void pwr_ctrl_off(void);
 #endif /* SRC_BOARD_H_ */

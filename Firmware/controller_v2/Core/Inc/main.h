@@ -79,12 +79,12 @@ void Error_Handler(void);
 #define RTD3_IN13_GPIO_Port GPIOC
 #define RTD4_IN14_Pin GPIO_PIN_5
 #define RTD4_IN14_GPIO_Port GPIOC
-#define BTN_ENTER_Pin GPIO_PIN_8
-#define BTN_ENTER_GPIO_Port GPIOE
-#define BTN_DOWN_Pin GPIO_PIN_9
-#define BTN_DOWN_GPIO_Port GPIOE
-#define BTN_UP_Pin GPIO_PIN_10
+#define BTN_UP_Pin GPIO_PIN_8
 #define BTN_UP_GPIO_Port GPIOE
+#define BTN_ENTER_Pin GPIO_PIN_9
+#define BTN_ENTER_GPIO_Port GPIOE
+#define BTN_DOWN_Pin GPIO_PIN_10
+#define BTN_DOWN_GPIO_Port GPIOE
 #define FLASH_CS_Pin GPIO_PIN_11
 #define FLASH_CS_GPIO_Port GPIOE
 #define FLASH_RST_Pin GPIO_PIN_12
@@ -93,8 +93,8 @@ void Error_Handler(void);
 #define SD_CS_GPIO_Port GPIOB
 #define SD_SPI2_SCK_Pin GPIO_PIN_13
 #define SD_SPI2_SCK_GPIO_Port GPIOB
-#define EXT_PWR_ON_Z_Pin GPIO_PIN_14
-#define EXT_PWR_ON_Z_GPIO_Port GPIOB
+#define PWR_CTL_Pin GPIO_PIN_8
+#define PWR_CTL_GPIO_Port GPIOD
 #define CMPRSR_SPD_Pin GPIO_PIN_9
 #define CMPRSR_SPD_GPIO_Port GPIOD
 #define CMPRSR_EN_Pin GPIO_PIN_10
@@ -141,6 +141,8 @@ void Error_Handler(void);
 #define EXT_I2C1_SCL_GPIO_Port GPIOB
 #define EXT_I2C1_SDA_Pin GPIO_PIN_7
 #define EXT_I2C1_SDA_GPIO_Port GPIOB
+#define EXT_PWR_ON_Z_Pin GPIO_PIN_0
+#define EXT_PWR_ON_Z_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
 

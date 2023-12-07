@@ -1,7 +1,8 @@
 /*
  * BQ25731.c
  *
-
+ *  Created on: Nov 13, 2023
+ *      Author: Loc
  */
 
 
@@ -76,7 +77,6 @@ HAL_StatusTypeDef bq25731_set_charge_voltage(uint16_t mv)
 
 	return bq25731_write_reg(CHARGE_VOLTAGE_REG, data, 2);
 }
-
 
 
 HAL_StatusTypeDef bq25731_set_charge_current(uint16_t mA)

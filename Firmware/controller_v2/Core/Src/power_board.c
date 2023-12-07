@@ -1,40 +1,49 @@
 /*
  * power_board.c
  *
+ *  Created on: Nov 9, 2023
+ *      Author: Loc
  */
 
 
 #include "power_board.h"
 
-void power_board_init(void)
+HAL_StatusTypeDef power_board_init(void)
 {
-	PI4IOE_GPIO_Mode_Input(&CMPRSR_D_I_GPIO,PWR_EN_PIN);
-	PI4IOE_GPIO_Mode_Ouput(&PWR_EN_GPIO,PWR_EN_PIN);
-	PI4IOE_GPIO_Mode_Ouput(&CMPRSR_FAN_GPIO,CMPRSR_FAN_PIN);
-	PI4IOE_GPIO_Mode_Ouput(&CMPRSR_EN_GPIO,CMPRSR_EN_PIN);
-	cmprsr_fan_off();
-	cmprsr_power_off();
+	HAL_StatusTypeDef status;
+	status = PI4IOE_GPIO_Mode_Input(&CMPRSR_D_I_GPIO,PWR_EN_PIN);
+	if(status != HAL_OK) return status;
+	status = PI4IOE_GPIO_Mode_Ouput(&PWR_EN_GPIO,PWR_EN_PIN);
+	if(status != HAL_OK) return status;
+	status = PI4IOE_GPIO_Mode_Ouput(&CMPRSR_FAN_GPIO,CMPRSR_FAN_PIN);
+	if(status != HAL_OK) return status;
+	status = PI4IOE_GPIO_Mode_Ouput(&CMPRSR_EN_GPIO,CMPRSR_EN_PIN);
+	if(status != HAL_OK) return status;
+	status = cmprsr_fan_off();
+	if(status != HAL_OK) return status;
+	status = cmprsr_power_off();
+	return status;
 }
 
-void cmprsr_fan_on(void)
+HAL_StatusTypeDef cmprsr_fan_on(void)
 {
-	PI4IOE_GPIO_Write(&CMPRSR_FAN_GPIO,CMPRSR_FAN_PIN,PI4IO_PIN_SET);
+	return PI4IOE_GPIO_Write(&CMPRSR_FAN_GPIO,CMPRSR_FAN_PIN,PI4IO_PIN_SET);
 }
 
 
-void cmprsr_fan_off(void)
+HAL_StatusTypeDef cmprsr_fan_off(void)
 {
-	PI4IOE_GPIO_Write(&CMPRSR_FAN_GPIO,CMPRSR_FAN_PIN,PI4IO_PIN_RESET);
+	return PI4IOE_GPIO_Write(&CMPRSR_FAN_GPIO,CMPRSR_FAN_PIN,PI4IO_PIN_RESET);
 }
 
-void cmprsr_power_on(void)
+HAL_StatusTypeDef cmprsr_power_on(void)
 {
 	PI4IOE_GPIO_Write(&CMPRSR_EN_GPIO,CMPRSR_EN_PIN,PI4IO_PIN_SET);
 }
 
-void cmprsr_power_off(void)
+HAL_StatusTypeDef cmprsr_power_off(void)
 {
-	PI4IOE_GPIO_Write(&CMPRSR_EN_GPIO,CMPRSR_EN_PIN,PI4IO_PIN_RESET);
+	return PI4IOE_GPIO_Write(&CMPRSR_EN_GPIO,CMPRSR_EN_PIN,PI4IO_PIN_RESET);
 }
 
 HAL_StatusTypeDef cmprsr_get_fault(PI4IO_State_t* state)

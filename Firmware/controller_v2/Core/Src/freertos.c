@@ -29,6 +29,7 @@
 #include "led.h"
 #include "bms.h"
 #include "main_app.h"
+#include "power_board.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -185,8 +186,8 @@ void EventRunTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-   event_run_task();
-    osDelay(1);
+	  event_run_task_rtos();
+	  osDelay(1);
   }
   /* USER CODE END EventRunTask */
 }
