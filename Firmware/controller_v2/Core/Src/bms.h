@@ -1,3 +1,4 @@
+
 /*
  * bms.h
  *
@@ -11,6 +12,7 @@
 typedef struct
 {
 	uint8_t is_charging;
+	uint8_t is_charge;
 	uint16_t max_charge_voltage;
 	uint16_t bat_min_voltage;
 	uint16_t bat_max_discharg_voltage;

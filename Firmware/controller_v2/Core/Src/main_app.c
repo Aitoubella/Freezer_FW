@@ -1,3 +1,4 @@
+
 /*
  * main_app.c
  *
@@ -40,6 +41,8 @@ double limit_min = 0;
 
 #define CHAMBER_TEMPERATURES_SENSOR           RTD6
 #define LID_SWITCH_SENSOR                     RTD4
+
+#define LID_CLOSE_DELAY_MINS                   1
 
 typedef enum
 {
@@ -409,7 +412,7 @@ void main_task(void)
 		lid_delay_count ++;
 	}
    //All turns back on when lid is closed although we require a compressor on delay of 1-2 mins(settable in service mode)
-	if(lid_delay_count > MINUTE_TO_COUNT(2))
+	if(lid_delay_count < MINUTE_TO_COUNT(LID_CLOSE_DELAY_MINS))
 	{
 		ctl.cmprsr = TURN_OFF;
 		ctl.cmprsr_fan = TURN_OFF;
@@ -614,6 +617,8 @@ void main_app_init(void)
 {
 	//Init extend board
 	power_board_init();
+	//On 12V for fan1,fan2,htr
+	pwr_12v_on(); //On power 12V
 	//Read setting from storage
 	flash_mgt_read((uint32_t *)&setting, sizeof(lcd_inter_t));
 	//Load all current param to lcd param

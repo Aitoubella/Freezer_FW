@@ -1,3 +1,4 @@
+
 /*
  * power_board.c
  *
@@ -38,7 +39,7 @@ HAL_StatusTypeDef cmprsr_fan_off(void)
 
 HAL_StatusTypeDef cmprsr_power_on(void)
 {
-	PI4IOE_GPIO_Write(&CMPRSR_EN_GPIO,CMPRSR_EN_PIN,PI4IO_PIN_SET);
+	return PI4IOE_GPIO_Write(&CMPRSR_EN_GPIO,CMPRSR_EN_PIN,PI4IO_PIN_SET);
 }
 
 HAL_StatusTypeDef cmprsr_power_off(void)
@@ -93,3 +94,12 @@ void htr_off(void)
 	HAL_GPIO_WritePin(HTR_CTL_GPIO_Port, HTR_CTL_Pin, GPIO_PIN_RESET);
 }
 
+HAL_StatusTypeDef pwr_12v_on(void)
+{
+	return PI4IOE_GPIO_Write(&PWR_EN_GPIO,PWR_EN_PIN, PI4IO_PIN_RESET);
+}
+
+HAL_StatusTypeDef pwr_12v_off(void)
+{
+	return PI4IOE_GPIO_Write(&PWR_EN_GPIO,PWR_EN_PIN, PI4IO_PIN_SET);
+}

@@ -1,3 +1,4 @@
+
 /*
  * power_board.h
  *
@@ -43,5 +44,6 @@ void fan2_off(void);
 void htr_on(void);
 void htr_off(void);
 
-
+HAL_StatusTypeDef pwr_12v_on(void);
+HAL_StatusTypeDef pwr_12v_off(void);
 #endif /* SRC_POWER_BOARD_H_ */

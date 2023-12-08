@@ -1,3 +1,4 @@
+
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -99,8 +100,8 @@ void Error_Handler(void);
 #define CMPRSR_SPD_GPIO_Port GPIOD
 #define CMPRSR_EN_Pin GPIO_PIN_10
 #define CMPRSR_EN_GPIO_Port GPIOD
-#define CMPRSR_FAN_GND_Pin GPIO_PIN_11
-#define CMPRSR_FAN_GND_GPIO_Port GPIOD
+#define PWR_EN_IN_Pin GPIO_PIN_11
+#define PWR_EN_IN_GPIO_Port GPIOD
 #define CMPRSR_FAN_VCC_Pin GPIO_PIN_12
 #define CMPRSR_FAN_VCC_GPIO_Port GPIOD
 #define CMPRSR_D_Pin GPIO_PIN_13
