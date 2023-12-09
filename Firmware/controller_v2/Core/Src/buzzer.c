@@ -1,4 +1,3 @@
-
 #include "buzzer.h"
 #include "led.h"
 #include "main.h"
@@ -12,7 +11,6 @@ led_t buzzer = BUZZER;
 
 void buzzer_init(void)
 {
-	led_init();
 	led_add(&buzzer);
 }
 

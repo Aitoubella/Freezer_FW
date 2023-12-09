@@ -1,4 +1,3 @@
-
 /*
  * PI4IOE.c
  *
@@ -10,7 +9,8 @@
 #include "PI4IOE.h"
 #include "i2c.h"
 #include "main.h"
-#define PI4IOE_I2C_ADDR   0x21
+//#define PI4IOE_I2C_ADDR   0x21 //ADDR PIN logic 1
+#define PI4IOE_I2C_ADDR     0x20 //ADDR PIN logic 0
 
 #define PI4IOE_I2C        hi2c1
 

@@ -25,7 +25,8 @@
 #include "usbh_msc.h"
 
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include "File_Handling.h"
 /* USER CODE END Includes */
 
 /* USER CODE BEGIN PV */
@@ -107,14 +108,18 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
   case HOST_USER_DISCONNECTION:
   Appli_state = APPLICATION_DISCONNECT;
   Unmount_USB();
+  printf("\nUSB disconnect");
   break;
 
   case HOST_USER_CLASS_ACTIVE:
   Appli_state = APPLICATION_READY;
+  printf("\nUSB Ready");
   Mount_USB();
-  break;
+
 
   case HOST_USER_CONNECTION:
+  printf("\nUSB connection");
+//  Mount_USB();
   Appli_state = APPLICATION_START;
   break;
 

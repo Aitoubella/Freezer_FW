@@ -1,4 +1,3 @@
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -113,7 +112,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of usbHostTask */
-  osThreadDef(usbHostTask, UsbRunTask, osPriorityNormal, 0, 128);
+  osThreadDef(usbHostTask, UsbRunTask, osPriorityNormal, 0, 1024);
   usbHostTaskHandle = osThreadCreate(osThread(usbHostTask), NULL);
 
   /* definition and creation of ledTask */

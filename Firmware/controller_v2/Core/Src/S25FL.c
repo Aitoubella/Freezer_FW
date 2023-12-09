@@ -1,4 +1,3 @@
-
 /********************(C)COPYRIGHT 2023 lochoangvan@gmail.com********************/
 
 #include "stm32l4xx.h"

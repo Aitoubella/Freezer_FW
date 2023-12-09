@@ -1,4 +1,3 @@
-
 /*
  * lcd_interface.c
  *
@@ -42,8 +41,6 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				lcd_get_set_cb(LCD_POWER_OFF_EVT, NULL);
 
 				lcd_state = LCD_OFF_DISPLAY_WATING;
-				break;
-//On Back light when press button.
 				break;
 			case LCD_WARNING_TYPE_UNDER_MIN_TEMP_STATE:
 			case LCD_WARNING_TYPE_OVER_MAX_TEMP_STATE:

@@ -1,4 +1,3 @@
-
 /*
  * LCDController.c
  *

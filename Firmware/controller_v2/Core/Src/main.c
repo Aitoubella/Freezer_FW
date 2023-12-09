@@ -1,4 +1,3 @@
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -47,6 +46,7 @@
 #include "logging.h"
 #include "bms.h"
 #include "power_board.h"
+#include "led_signal.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -125,13 +125,16 @@ int main(void)
   MX_SAI1_Init();
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
-
+  printf("\nApplication started!");
   logging_init();
   event_init();
   //RTD temperature sensor
   rtd_init();
+  //led library
+  led_init();
   //Buzzer
   buzzer_init();
+
   //Init i2c periph for DS1307
   DS1307_Init(&hi2c1);
   pwr_ctrl_on(); //On power 5V

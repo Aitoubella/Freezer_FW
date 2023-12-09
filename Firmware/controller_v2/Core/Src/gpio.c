@@ -1,4 +1,3 @@
-
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
@@ -101,11 +100,9 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(SD_CS_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PDPin PDPin PDPin PDPin
-                           PDPin PDPin PDPin PDPin
-                           PDPin */
+                           PDPin PDPin PDPin PDPin */
   GPIO_InitStruct.Pin = PWR_CTL_Pin|CMPRSR_SPD_Pin|CMPRSR_EN_Pin|PWR_EN_IN_Pin
-                          |CMPRSR_FAN_VCC_Pin|LED_Pin|HTR_CTL_Pin|FAN_CTL1_Pin
-                          |FAN_CTL2_Pin;
+                          |CMPRSR_FAN_VCC_Pin|HTR_CTL_Pin|FAN_CTL1_Pin|FAN_CTL2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -124,6 +121,13 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(CHRG_OK_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PtPin */
+  GPIO_InitStruct.Pin = LED_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(LED_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PCPin PCPin PCPin */
   GPIO_InitStruct.Pin = TFT_RST_Pin|TFT_BKLIGHT_Pin|TFT_DC_Pin;

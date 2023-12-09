@@ -1,4 +1,3 @@
-
 /* C:\Milan\STM8\Projects\Audio\Audio Data\file translated to s19\cuckoo.ima (7.10.2009 15:46:52)
    StartOffset: 00000000, EndOffset: 00001E4A, Length: 00001E4B */
 

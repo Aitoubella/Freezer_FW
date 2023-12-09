@@ -1,4 +1,3 @@
-
 /*
  * power_board.h
  *
