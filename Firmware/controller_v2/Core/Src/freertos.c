@@ -54,7 +54,6 @@ osThreadId ledTaskHandle;
 /* USER CODE END Variables */
 osThreadId usbHostTaskHandle;
 osThreadId ledTaskHandle;
-osThreadId eventTaskHandle;
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -63,7 +62,6 @@ extern void MX_USB_HOST_Process(void);
 
 void UsbRunTask(void const * argument);
 void LedRunTask(void const * argument);
-void EventRunTask(void const * argument);
 
 extern void MX_USB_HOST_Init(void);
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
@@ -112,16 +110,12 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of usbHostTask */
-  osThreadDef(usbHostTask, UsbRunTask, osPriorityNormal, 0, 1024);
+  osThreadDef(usbHostTask, UsbRunTask, osPriorityNormal, 0, 1500);
   usbHostTaskHandle = osThreadCreate(osThread(usbHostTask), NULL);
 
   /* definition and creation of ledTask */
   osThreadDef(ledTask, LedRunTask, osPriorityLow, 0, 128);
   ledTaskHandle = osThreadCreate(osThread(ledTask), NULL);
-
-  /* definition and creation of eventTask */
-  osThreadDef(eventTask, EventRunTask, osPriorityLow, 0, 1024);
-  eventTaskHandle = osThreadCreate(osThread(eventTask), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
 
@@ -141,10 +135,14 @@ void UsbRunTask(void const * argument)
   /* init code for USB_HOST */
   MX_USB_HOST_Init();
   /* USER CODE BEGIN UsbRunTask */
+  ext_pwr_enable(); // On power for BQ25731
+  HAL_Delay(10);
+  bms_init();
+  main_app_init();
   /* Infinite loop */
   for(;;)
   {
-	  MX_USB_HOST_Process();
+	  event_run_task_rtos();
 	  osDelay(1);
   }
   /* USER CODE END UsbRunTask */
@@ -167,29 +165,6 @@ void LedRunTask(void const * argument)
 	  osDelay(10);
   }
   /* USER CODE END LedRunTask */
-}
-
-/* USER CODE BEGIN Header_EventRunTask */
-/**
-* @brief Function implementing the eventTask thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_EventRunTask */
-void EventRunTask(void const * argument)
-{
-  /* USER CODE BEGIN EventRunTask */
-  ext_pwr_enable(); // On power for BQ25731
-  HAL_Delay(10);
-  bms_init();
-  main_app_init();
-  /* Infinite loop */
-  for(;;)
-  {
-	  event_run_task_rtos();
-	  osDelay(1);
-  }
-  /* USER CODE END EventRunTask */
 }
 
 /* Private application code --------------------------------------------------*/

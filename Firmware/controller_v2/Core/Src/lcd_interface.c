@@ -188,6 +188,7 @@ void button_cb(uint8_t btn_num, btn_evt_t evt)
 				break;
 			case LCD_SETTING_DOWNLOAD_DATA_CONTINUE_STATE:
 				//USB host init cb
+				lcd_get_set_cb(LCD_USB_INSERT_DOWNLOAD_EVT,NULL);
 				lcd_state = LCD_SETTING_DOWNLOAD_DATA_COMPLETE_STATE;
 				break;
 			case LCD_SETTING_DOWNLOAD_DATA_COMPLETE_STATE:

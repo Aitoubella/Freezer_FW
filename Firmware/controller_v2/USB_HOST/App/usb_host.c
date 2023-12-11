@@ -113,13 +113,12 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id)
 
   case HOST_USER_CLASS_ACTIVE:
   Appli_state = APPLICATION_READY;
-  printf("\nUSB Ready");
+  printf("\nHOST_USER_CLASS_ACTIVE");
   Mount_USB();
 
 
   case HOST_USER_CONNECTION:
-  printf("\nUSB connection");
-//  Mount_USB();
+  printf("\nHOST_USER_CONNECTION");
   Appli_state = APPLICATION_START;
   break;
 

@@ -1,6 +1,7 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
+  
+******************************************************************************
   * @file    spi.h
   * @brief   This file contains all the function prototypes for
   *          the spi.c file

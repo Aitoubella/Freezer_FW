@@ -95,7 +95,10 @@ save_state_t save_state = NONE_SAVE_STATE;
 double pid_output;
 static event_id main_app_id;
 static event_id rtc_time_id;
-
+extern char USERPath[4];
+extern char USBHPath[4];
+char file_name_src[20];
+char file_name_dst[20];
 lcd_inter_t setting = {
 	.op_mode = OPERATION_MODE_FREEZER,
 	.pwr_mode = POWER_MODE_AC,
@@ -108,7 +111,7 @@ lcd_inter_t setting = {
 	.alarm_temperature_delay = 1, //mins
 	.alarm_temperature_deviation = 5, // Celcius
 	.temperature = 31,//Celcius
-	.logging_interval = 5,//Mins
+	.logging_interval = 1,//Mins
 	.temperature_fridge = 31,//Celcius
 	.temperature_freezer = 31,//Celcius
 	.temp_offset = 0, //Celcius
@@ -203,7 +206,6 @@ uint8_t lcd_get_set_cb(lcd_get_set_evt_t evt, void* value)
 				 save_state = CHANGE_DATA_STATE;
 				setting.logging_interval = *((uint8_t *)value);
 			}
-
 			break;
 
 		case LCD_SET_TEMP_OFFSET_EVT:
@@ -224,7 +226,8 @@ uint8_t lcd_get_set_cb(lcd_get_set_evt_t evt, void* value)
 			break;
 
 		case LCD_USB_INSERT_DOWNLOAD_EVT:
-
+			printf("\nStart download!");
+//			if(copy_file("0:"))
 			return 1;
 			break;
 		case LCD_MAIN_FRAME_EVT:

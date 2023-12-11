@@ -2,7 +2,7 @@
 #include "fatfs.h"
 #include <string.h>
 #include <stdio.h>
-
+#include "freeRTOS.h"
 const char* op_mode_str[] = { [OPERATION_MODE_FRIDEGE] = "FRIDGE", [OPERATION_MODE_FREEZER] = "FREEZER" };
 const char* power_mode_str[] = {[POWER_MODE_DC] = "DC", [POWER_MODE_AC] = "AC"};
 const char* speaker_mode_str[] = {[SPEAKER_MODE_OFF] = "MUTE", [POWER_MODE_AC] = "ON"};
@@ -13,11 +13,11 @@ const char* lid_state_str[] = {[LID_CLOSE] = "LID CLOSE", [LID_OPEN] = "LID OPEN
 
 
 //some variables for FatFs
+extern osMutexId fileMutexHandle;
 extern FATFS USERFatFS;    /* File system object for USER logical drive */
 extern char USERPath[4];
 FIL fil; 		//File handle
-//Read 30 bytes from "test.txt" on the SD card
-BYTE readBuf[200];
+extern uint8_t usb_buffer[MAX_USB_BUFFER];
 FRESULT logging_init(void)
 {
 	FRESULT fres = FR_OK; //Result after operations
@@ -52,33 +52,34 @@ FRESULT logging_init(void)
 FRESULT logging_write(char* file, lcd_inter_t* dat)
 {
 	FRESULT fres = FR_OK; //Result after operations
-//	fres = f_open(&fil, file, FA_WRITE | FA_OPEN_APPEND);
-//	if(fres == FR_OK)
-//	{
-//		printf("\r\nOpen %s for writing",file);
-//	} else
-//	{
-//		printf("\r\nf_open error (%i)", fres);
-//		return fres;
-//	}
-//	uint8_t len;
-//
-//	//Date and timeOperation mode, temperature, bat value , bat state, power mode, lid state, warning,
-//	//Copy in a string
-//	len = sprintf((char*)readBuf, ",%d/%d/%d %d:%d:%d, %d,%d,%s,%s,%s,%s\r\n",
-//			                        dat->datetime.year, dat->datetime.month, dat->datetime.day, dat->datetime.hour, dat->datetime.minute, dat->datetime.second,
-//									dat->temperature, dat->bat_value, bat_state_str[dat->bat_state], power_mode_str[dat->pwr_mode], lid_state_str[dat->lid_state], warning_type_str[dat->warning_type]);
-//	UINT bytesWrote;
-//	fres = f_write(&fil, readBuf, len, &bytesWrote);
-//	if(fres == FR_OK)
-//	{
-//		printf("\r\nWrote %i bytes to %s!", bytesWrote, file);
-//	} else
-//	{
-//		printf("\r\nf_write error (%i)", fres);
-//	}
-//
-//	//Be a tidy kiwi - don't forget to close your file!
-//	f_close(&fil);
+
+	fres = f_open(&fil, file, FA_WRITE | FA_OPEN_APPEND);
+	if(fres == FR_OK)
+	{
+		printf("\r\nOpen %s for writing",file);
+	} else
+	{
+		printf("\r\nf_open error (%i)", fres);
+		return fres;
+	}
+	uint8_t len;
+
+	//Date and timeOperation mode, temperature, bat value , bat state, power mode, lid state, warning,
+	//Copy in a string
+	len = sprintf((char*)usb_buffer, ",%d/%d/%d %d:%d:%d, %d,%d,%s,%s,%s,%s\r\n",
+			                        dat->datetime.year, dat->datetime.month, dat->datetime.day, dat->datetime.hour, dat->datetime.minute, dat->datetime.second,
+									dat->temperature, dat->bat_value, bat_state_str[dat->bat_state], power_mode_str[dat->pwr_mode], lid_state_str[dat->lid_state], warning_type_str[dat->warning_type]);
+	UINT bytesWrote;
+	fres = f_write(&fil, usb_buffer, len, &bytesWrote);
+	if(fres == FR_OK)
+	{
+		printf("\r\nWrote %i bytes to %s!", bytesWrote, file);
+	} else
+	{
+		printf("\r\nf_write error (%i)", fres);
+	}
+
+	//Be a tidy kiwi - don't forget to close your file!
+	f_close(&fil);
 	return fres;
 }

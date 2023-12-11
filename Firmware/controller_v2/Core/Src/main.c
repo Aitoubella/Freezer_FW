@@ -80,7 +80,8 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+#include "lcd_interface.h"
+extern lcd_inter_t setting;
 /* USER CODE END 0 */
 
 /**
@@ -126,7 +127,9 @@ int main(void)
   MX_UART4_Init();
   /* USER CODE BEGIN 2 */
   printf("\nApplication started!");
+  pwr_ctrl_on(); //On power 5V
   logging_init();
+  logging_write("1:log.csv", &setting);
   event_init();
   //RTD temperature sensor
   rtd_init();
@@ -137,7 +140,7 @@ int main(void)
 
   //Init i2c periph for DS1307
   DS1307_Init(&hi2c1);
-  pwr_ctrl_on(); //On power 5V
+
 
   /* USER CODE END 2 */
 
@@ -245,7 +248,12 @@ void __io_putchar(uint8_t ch)
 int _write(int file, char *ptr, int len)
 {
 	(void)file;
-	HAL_UART_Transmit(&huart4, (uint8_t *)ptr, len, 10);
+	 int DataIdx;
+
+	  for (DataIdx = 0; DataIdx < len; DataIdx++)
+	  {
+	    __io_putchar(*ptr++);
+	  }
 	 setbuf(stdout, NULL);
 	 return len;
 }

@@ -1,3 +1,4 @@
+
 #MicroXplorer Configuration settings - do not modify
 ADC1.Channel-0\#ChannelRegularConversion=ADC_CHANNEL_1
 ADC1.Channel-1\#ChannelRegularConversion=ADC_CHANNEL_2
@@ -60,10 +61,10 @@ Dma.SPI3_TX.0.RequestParameters=Instance,Direction,PeriphInc,MemInc,PeriphDataAl
 FATFS.IPParameters=_USE_LFN,_USE_MUTEX
 FATFS._USE_LFN=3
 FATFS._USE_MUTEX=0
-FREERTOS.FootprintOK=false
+FREERTOS.FootprintOK=true
 FREERTOS.IPParameters=Tasks01,configUSE_NEWLIB_REENTRANT,configTOTAL_HEAP_SIZE,configUSE_PREEMPTION,FootprintOK
-FREERTOS.Tasks01=usbHostTask,0,1024,UsbRunTask,Default,NULL,Dynamic,NULL,NULL;ledTask,-2,128,LedRunTask,Default,NULL,Dynamic,NULL,NULL;eventTask,-2,1024,EventRunTask,Default,NULL,Dynamic,NULL,NULL
-FREERTOS.configTOTAL_HEAP_SIZE=9040
+FREERTOS.Tasks01=usbHostTask,0,1500,UsbRunTask,Default,NULL,Dynamic,NULL,NULL;ledTask,-2,128,LedRunTask,Default,NULL,Dynamic,NULL,NULL
+FREERTOS.configTOTAL_HEAP_SIZE=10240
 FREERTOS.configUSE_NEWLIB_REENTRANT=1
 FREERTOS.configUSE_PREEMPTION=0
 File.Version=6

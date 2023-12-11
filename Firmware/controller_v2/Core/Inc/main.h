@@ -1,6 +1,7 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
+  
+******************************************************************************
   * @file           : main.h
   * @brief          : Header for main.c file.
   *                   This file contains the common defines of the application.
@@ -36,7 +37,7 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
-
+#define MAX_USB_BUFFER         4096
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

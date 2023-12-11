@@ -69,7 +69,7 @@ void sendSPI (uint8_t *data, int size)
 
 void Delay (uint16_t ms)
 {
-	osDelay(ms);
+	HAL_Delay(ms);
 }
 
 static void RESET_L(void)
