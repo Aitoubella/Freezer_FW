@@ -1,6 +1,5 @@
 /**
- 
-******************************************************************************
+ ******************************************************************************
   * @file    user_diskio_spi.h
   * @brief   This file contains the common defines and functions prototypes for
   *          the user_diskio_spi driver implementation

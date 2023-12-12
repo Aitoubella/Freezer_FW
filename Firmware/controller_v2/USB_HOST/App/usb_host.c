@@ -25,7 +25,7 @@
 #include "usbh_msc.h"
 
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
+#include "printf.h"
 #include "File_Handling.h"
 /* USER CODE END Includes */
 

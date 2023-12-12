@@ -1,7 +1,6 @@
 /* USER CODE BEGIN Header */
 /**
-  
-******************************************************************************
+  ******************************************************************************
   * @file    quadspi.h
   * @brief   This file contains all the function prototypes for
   *          the quadspi.c file

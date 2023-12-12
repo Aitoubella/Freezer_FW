@@ -5,7 +5,6 @@
  *      Author: Kotetsu Yamamoto
  *      Copyright [Kotetsu Yamamoto]
 
-
 MIT License
 
 Copyright (c) 2020 Kotestu Yamamoto

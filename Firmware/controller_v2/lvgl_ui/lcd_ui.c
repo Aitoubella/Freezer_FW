@@ -7,7 +7,7 @@
 
 
 #include "lcd_ui.h"
-#include <stdio.h>
+#include "printf.h"
 #include "event.h"
 #include "lvgl.h"
 #include "LCDController.h"
