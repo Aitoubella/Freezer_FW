@@ -28,12 +28,12 @@
 #include "sai.h"
 #include "spi.h"
 #include "usart.h"
-#include "usb_host.h"
+//#include "usb_host.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include <stdio.h>
+#include "printf.h"
 #include "lcd_ui.h"
 #include "event.h"
 #include "DS1307.h"
@@ -43,7 +43,7 @@
 #include "board.h"
 #include "lcd_interface.h"
 #include "main_app.h"
-#include "logging.h"
+//#include "logging.h"
 #include "bms.h"
 #include "power_board.h"
 #include "led_signal.h"
@@ -80,8 +80,7 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-#include "lcd_interface.h"
-extern lcd_inter_t setting;
+
 /* USER CODE END 0 */
 
 /**
@@ -129,7 +128,6 @@ int main(void)
   printf("\nApplication started!");
   pwr_ctrl_on(); //On power 5V
   logging_init();
-  logging_write("1:log.csv", &setting);
   event_init();
   //RTD temperature sensor
   rtd_init();
@@ -241,10 +239,17 @@ void PeriphCommonClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void _putchar(char character)
+{
+	HAL_UART_Transmit(&huart4,(uint8_t *)&character, 1, 10);
+}
+
 void __io_putchar(uint8_t ch)
 {
 	HAL_UART_Transmit(&huart4, &ch, 1, 10);
 }
+
 int _write(int file, char *ptr, int len)
 {
 	(void)file;

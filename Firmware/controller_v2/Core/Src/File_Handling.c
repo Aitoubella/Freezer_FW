@@ -1,7 +1,7 @@
 
+
 #include "File_Handling.h"
-#include "usart.h"
-#include <stdio.h>
+#include "printf.h"
 /* =============================>>>>>>>> NO CHANGES AFTER THIS LINE =====================================>>>>>>> */
 
 
@@ -23,7 +23,7 @@ uint8_t usb_buffer[MAX_USB_BUFFER];
 static char path[257];
 void Send_Uart (char *string)
 {
-	HAL_UART_Transmit(&huart4, (uint8_t *)string, strlen(string), 10);
+	printf("%s");
 }
 
 
@@ -31,7 +31,7 @@ void Mount_USB (void)
 {
 	fresult = f_mount(&USBHFatFS, USBHPath, 1);
 	if (fresult != FR_OK) Send_Uart ("\nERROR!!! in mounting USB ...");
-	else Send_Uart("\nUSB mounted successfully...\n");
+	else Send_Uart("\nUSB mounted successfully...");
 }
 
 void Unmount_USB (void)

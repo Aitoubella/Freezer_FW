@@ -14,7 +14,7 @@
 #include "flash.h"
 #include "event.h"
 #include "buzzer.h"
-#include "logging.h"
+//#include "logging.h"
 #include "board.h"
 #include "power_board.h"
 #include "bms.h"
@@ -226,9 +226,19 @@ uint8_t lcd_get_set_cb(lcd_get_set_evt_t evt, void* value)
 			break;
 
 		case LCD_USB_INSERT_DOWNLOAD_EVT:
-			printf("\nStart download!");
-//			if(copy_file("0:"))
-			return 1;
+			printf("\nStart download ");
+			sprintf(file_name_src,"%s%s",USERPath,LOG_FILE_NAME);
+			sprintf(file_name_dst,"%s%s",USBHPath,LOG_FILE_NAME);
+			if(copy_file(file_name_dst,file_name_src) == FR_OK)
+			{
+				printf("success!");
+				return 1;
+			}
+			else
+			{
+				printf("failed!");
+				return 0;
+			}
 			break;
 		case LCD_MAIN_FRAME_EVT:
 			if(save_state == CHANGE_DATA_STATE)
@@ -528,17 +538,17 @@ void main_task(void)
 			if(setting.warning_type == WARNING_TYPE_LID_OPEN) //Warning lid higher priority
 			{
 				buzzer_lid_warning();
-				logging_write(LOG_FILE_NAME, &setting);//Log imediataly when warning
+				//logging_write(LOG_FILE_NAME, &setting);//Log imediataly when warning
 				main_state = MAIN_WARNING_WAITING_STATE;//Move to waiting state.
 			}else if(setting.warning_type == WARNING_TYPE_OVER_MAX_TEMP)
 			{
 				 buzzer_over_temp_warning();
-				logging_write(LOG_FILE_NAME, &setting);//Log immediately when warning
+				//logging_write(LOG_FILE_NAME, &setting);//Log immediately when warning
 				main_state = MAIN_WARNING_WAITING_STATE;//Move to waiting state.
 			}else if(setting.warning_type == WARNING_TYPE_UNDER_MIN_TEMP)
 			{
 				buzzer_under_temp_warning();
-				logging_write(LOG_FILE_NAME, &setting);//Log immediately when warning
+				//logging_write(LOG_FILE_NAME, &setting);//Log immediately when warning
 				main_state = MAIN_WARNING_WAITING_STATE;//Move to waiting state.
 			}
 			break;
@@ -611,7 +621,8 @@ void main_task(void)
 	if(logging_count >= MINUTE_TO_COUNT(setting.logging_interval))
 	{
 		logging_count = 0;
-		logging_write(LOG_FILE_NAME, &setting);//Log when reach logging interval in setting.
+		sprintf(file_name_src,"%s%s",USERPath,LOG_FILE_NAME);
+		logging_write(file_name_src, &setting);//Log when reach logging interval in setting.
 	}
 }
 

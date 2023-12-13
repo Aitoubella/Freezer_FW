@@ -1,7 +1,7 @@
 #include "logging.h"
 #include "fatfs.h"
 #include <string.h>
-#include <stdio.h>
+#include "printf.h"
 #include "freeRTOS.h"
 const char* op_mode_str[] = { [OPERATION_MODE_FRIDEGE] = "FRIDGE", [OPERATION_MODE_FREEZER] = "FREEZER" };
 const char* power_mode_str[] = {[POWER_MODE_DC] = "DC", [POWER_MODE_AC] = "AC"};

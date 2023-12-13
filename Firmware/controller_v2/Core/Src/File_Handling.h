@@ -9,8 +9,6 @@
 #define FILE_HANDLING_H_
 
 #include "fatfs.h"
-#include "string.h"
-#include "stdio.h"
 
 
 /* mounts the USB*/

@@ -16,9 +16,14 @@ I2C_HandleTypeDef *_ds1307_ui2c;
  * @brief Initializes the DS1307 module. Sets clock halt bit to 0 to start timing.
  * @param hi2c User I2C handle pointer.
  */
-void DS1307_Init(I2C_HandleTypeDef *hi2c) {
+void DS1307_Init(I2C_HandleTypeDef *hi2c)
+{
 	_ds1307_ui2c = hi2c;
 	DS1307_SetClockHalt(0);
+	if(DS1307_GetYear() < 2023 )
+	{
+		DS1307_SetYear(2023);
+	}
 }
 
 /**

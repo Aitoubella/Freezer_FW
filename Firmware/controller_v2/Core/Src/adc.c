@@ -1,6 +1,5 @@
 /* USER CODE BEGIN Header */
 /**
-
   ******************************************************************************
   * @file    adc.c
   * @brief   This file provides code for the configuration
